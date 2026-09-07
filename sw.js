@@ -1,4 +1,4 @@
-const CACHE_NAME = 'general-app-v4.3.0';
+const CACHE_NAME = 'general-app-v4.4.0';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
