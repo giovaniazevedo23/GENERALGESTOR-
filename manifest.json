@@ -1,0 +1,47 @@
+{
+  "id": "general-pwa",
+  "name": "GENERAL — Gestão Logística & IA",
+  "short_name": "GENERAL",
+  "description": "Central Estratégica de Previsão Logística, Resposta a Sinistros e Gestão de Cargas 24h",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#080c14",
+  "theme_color": "#080c14",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "logistics", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Golden Hour (Triagem)",
+      "short_name": "Golden Hour",
+      "url": "./index.html?tab=wizard",
+      "description": "Acesso rápido à triagem de emergência de 1h"
+    },
+    {
+      "name": "Consulta ONU HazMat",
+      "short_name": "HazMat ONU",
+      "url": "./index.html?tab=hazmat",
+      "description": "Fichas de Produtos Perigosos"
+    },
+    {
+      "name": "IA Preditiva",
+      "short_name": "Previsão IA",
+      "url": "./index.html?tab=predictive",
+      "description": "Previsão de tempo e riscos da rota"
+    }
+  ]
+}

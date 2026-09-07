@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="40 30 320 430" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0a1322"/>
+      <stop offset="100%" stop-color="#070c16"/>
+    </linearGradient>
+
+    <!-- Shield Border Gradient -->
+    <linearGradient id="shieldBorderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#b4cbe3"/>
+      <stop offset="50%" stop-color="#8ba8c7"/>
+      <stop offset="100%" stop-color="#5a799a"/>
+    </linearGradient>
+
+    <!-- Shield Fill Gradient -->
+    <linearGradient id="shieldFillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#102035"/>
+      <stop offset="50%" stop-color="#0b1728"/>
+      <stop offset="100%" stop-color="#070f1b"/>
+    </linearGradient>
+
+    <!-- Cap Crown Gradient -->
+    <linearGradient id="capCrownGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#9bb3cc"/>
+      <stop offset="40%" stop-color="#64809e"/>
+      <stop offset="100%" stop-color="#2d4863"/>
+    </linearGradient>
+
+    <!-- Visor Gradient -->
+    <linearGradient id="visorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4a637d"/>
+      <stop offset="30%" stop-color="#1e2f42"/>
+      <stop offset="100%" stop-color="#0d1724"/>
+    </linearGradient>
+
+    <!-- Metallic Highlight -->
+    <linearGradient id="metalHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.1"/>
+    </linearGradient>
+
+    <!-- Drop Shadow Filter for Text -->
+    <filter id="textShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="2" flood-color="#030712" flood-opacity="0.8"/>
+    </filter>
+    
+    <!-- Glow Filter for Stars -->
+    <filter id="starGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <g>
+    <!-- SHIELD OUTLINE & FILL -->
+    <!-- Outer Shield Frame -->
+    <path d="M 60 80 Q 200 40 340 80 L 330 220 C 320 320, 250 380, 200 440 C 150 380, 80 320, 70 220 Z" 
+          fill="url(#shieldFillGrad)" 
+          stroke="url(#shieldBorderGrad)" 
+          stroke-width="16" 
+          stroke-linejoin="round" 
+          stroke-linecap="round"/>
+
+    <!-- Inner Shield Accent Line -->
+    <path d="M 80 95 Q 200 60 320 95 L 312 215 C 304 300, 245 355, 200 410 C 155 355, 96 300, 88 215 Z" 
+          fill="none" 
+          stroke="#385678" 
+          stroke-width="3" 
+          opacity="0.7"/>
+
+    <!-- MILITARY PEAKED CAP (QUEPE GENERAL) -->
+    <g transform="translate(0, 40)">
+      <!-- Cap Crown (Top Rounded Dome) -->
+      <path d="M 125 140 
+               C 120 100, 150 72, 200 72 
+               C 250 72, 280 100, 275 140 
+               C 255 160, 145 160, 125 140 Z" 
+            fill="url(#capCrownGrad)" 
+            stroke="#21354a" 
+            stroke-width="3"/>
+      
+      <!-- Top Cap Seam Line -->
+      <path d="M 200 72 L 200 152" stroke="#1d2e40" stroke-width="2" opacity="0.6"/>
+      <path d="M 160 88 C 180 92, 220 92, 240 88" fill="none" stroke="#b8d1eb" stroke-width="2" opacity="0.4"/>
+
+      <!-- Cap Band / Trim -->
+      <path d="M 128 142 
+               Q 200 162 272 142 
+               L 270 156 
+               Q 200 178 130 156 Z" 
+            fill="#18293d" 
+            stroke="#3b5778" 
+            stroke-width="2"/>
+
+      <!-- Band Center Oval Badge -->
+      <ellipse cx="200" cy="150" rx="9" ry="6" fill="#8ba8c7" stroke="#0f1926" stroke-width="1.5"/>
+
+      <!-- Visor / Peak (Glossy Brim) -->
+      <path d="M 132 154 
+               Q 200 196 268 154 
+               Q 200 178 132 154 Z" 
+            fill="url(#visorGrad)" 
+            stroke="#6382a4" 
+            stroke-width="3"/>
+
+      <!-- Visor Specular Reflection -->
+      <path d="M 148 162 Q 200 184 252 162 Q 200 174 148 162 Z" fill="url(#metalHighlight)" opacity="0.6"/>
+    </g>
+
+    <!-- THREE STARS -->
+    <g transform="translate(0, 30)">
+      <!-- Star 1 (Top Left) -->
+      <polygon points="160,250 163,258 172,258 165,263 167,272 160,267 153,272 155,263 148,258 157,258" 
+               fill="#ffffff" filter="url(#starGlow)"/>
+      
+      <!-- Star 2 (Bottom Center) -->
+      <polygon points="200,270 203,278 212,278 205,283 207,292 200,287 193,292 195,283 188,278 197,278" 
+               fill="#ffffff" filter="url(#starGlow)"/>
+
+      <!-- Star 3 (Top Right) -->
+      <polygon points="240,250 243,258 252,258 245,263 247,272 240,267 233,272 235,263 228,258 237,258" 
+               fill="#ffffff" filter="url(#starGlow)"/>
+    </g>
+  </g>
+</svg>
