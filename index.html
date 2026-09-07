@@ -1533,6 +1533,21 @@
 
                 </div>
 
+                <div>
+                  <label class="block text-slate-400 font-semibold mb-1">Nome do Condutor / Motorista:</label>
+                  <input id="plan-driver-name" type="text" placeholder="Nome completo do motorista" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:border-blue-500 outline-none transition-all" />
+                </div>
+
+                <div>
+                  <label class="block text-slate-400 font-semibold mb-1">CPF do Condutor:</label>
+                  <input id="plan-driver-cpf" type="text" placeholder="000.000.000-00" oninput="let v = this.value.replace(/\D/g, ''); v = v.replace(/(\d{3})(\d)/, '$1.$2'); v = v.replace(/(\d{3})(\d)/, '$1.$2'); v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2'); this.value = v;" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white font-mono focus:border-blue-500 outline-none transition-all" />
+                </div>
+
+                <div>
+                  <label class="block text-slate-400 font-semibold mb-1">CNPJ da Transportadora:</label>
+                  <input id="plan-driver-cnpj" type="text" placeholder="Carregando..." readonly class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-slate-500 focus:border-blue-500 outline-none transition-all font-mono text-xs cursor-not-allowed" />
+                </div>
+
 
                 <div>
 
@@ -4228,7 +4243,7 @@
             </div>
 
 
-            <button onclick="if(window.App) App.showToast('Recompensa de +50 XP enviada com sucesso!')" class="bg-indigo-600 hover:bg-indigo-500 text-white p-2 rounded-xl transition-all" title="Enviar Recompensa XP">
+            <button onclick="if(window.App) App.sendRewardXP(\'Giovani\', this)" class="bg-indigo-600 hover:bg-indigo-500 text-white p-2 rounded-xl transition-all" title="Enviar Recompensa XP">
 
 
               <i data-lucide="gift" class="w-4 h-4"></i>
@@ -4273,7 +4288,7 @@
             </div>
 
 
-            <button onclick="if(window.App) App.showToast('Recompensa de +50 XP enviada com sucesso!')" class="bg-indigo-600 hover:bg-indigo-500 text-white p-2 rounded-xl transition-all" title="Enviar Recompensa XP">
+            <button onclick="if(window.App) App.sendRewardXP(\'Pedro H.\', this)" class="bg-indigo-600 hover:bg-indigo-500 text-white p-2 rounded-xl transition-all" title="Enviar Recompensa XP">
 
 
               <i data-lucide="gift" class="w-4 h-4"></i>
