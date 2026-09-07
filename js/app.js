@@ -113,6 +113,15 @@ const App = {
         /* Forcing Tailwind Overrides for Themes */
         .bg-slate-950 { background-color: var(--tw-slate-950) !important; }
         .bg-slate-900 { background-color: var(--tw-slate-900) !important; }
+        .bg-slate-900\/40 { background-color: color-mix(in srgb, var(--tw-slate-900) 40%, transparent) !important; }
+        .bg-slate-900\/50 { background-color: color-mix(in srgb, var(--tw-slate-900) 50%, transparent) !important; }
+        .bg-slate-900\/60 { background-color: color-mix(in srgb, var(--tw-slate-900) 60%, transparent) !important; }
+        .bg-slate-900\/80 { background-color: color-mix(in srgb, var(--tw-slate-900) 80%, transparent) !important; }
+        .bg-slate-900\/90 { background-color: color-mix(in srgb, var(--tw-slate-900) 90%, transparent) !important; }
+        .bg-slate-900\/95 { background-color: color-mix(in srgb, var(--tw-slate-900) 95%, transparent) !important; }
+        .bg-slate-800\/80 { background-color: color-mix(in srgb, var(--tw-slate-800) 80%, transparent) !important; }
+        .border-slate-800\/80 { border-color: color-mix(in srgb, var(--tw-slate-800) 80%, transparent) !important; }
+    
         .bg-slate-800 { background-color: var(--tw-slate-800) !important; }
         .bg-slate-700 { background-color: var(--tw-slate-700) !important; }
         .text-slate-100 { color: var(--tw-slate-100) !important; }
