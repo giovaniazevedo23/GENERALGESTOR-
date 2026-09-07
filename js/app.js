@@ -3870,15 +3870,16 @@ ${NotificationHub.getTemplate('WHATSAPP_EMERGENCIA', inc)}
     let lat = -23.5505; // Default (SP)
     let lng = -46.6333;
 
+    const state = formData.get('state') || '';
+    const city = formData.get('city') || '';
+    const cityStr = city ? `${city} / ${state}` : '';
+    const cep = formData.get('cep') || '';
+
     // Tentativa de Geocodificação AWS Location Service para a Cidade/Referência
     try {
       if (window.LocationService) {
         this.showToast('Buscando localização aproximada via satélite...');
         
-        const state = formData.get('state') || '';
-        const city = formData.get('city') || '';
-        const cityStr = city ? `${city} / ${state}` : '';
-        const cep = formData.get('cep') || '';
         const query = cep ? `${cep}, ${cityStr}, Brazil` : `${cityStr}, Brazil`;
         
         console.log('AWS Geocode Query:', query);
