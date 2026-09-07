@@ -6048,13 +6048,23 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     // Render Rapid Reports
     const reportsList = document.getElementById('risk-rapid-reports');
     if (reportsList) {
-      reportsList.innerHTML = rapidReports.length === 0 ? '<p class="text-xs text-slate-500">Nenhum reporte recente.</p>' : rapidReports.slice(-5).reverse().map(r => `
-        <div class="bg-slate-950 p-3 rounded-xl border border-rose-900/50 flex flex-col">
-          <span class="text-xs font-bold text-rose-400 mb-1">PERIGO: ${r.type}</span>
-          <span class="text-[10px] text-slate-400">Local: ${r.location}</span>
-          <span class="text-[9px] text-slate-500 mt-1">${new Date(r.timestamp).toLocaleString('pt-BR')}</span>
+      reportsList.innerHTML = rapidReports.length === 0 ? '<p class="text-xs text-slate-500">Nenhum reporte recente.</p>' : rapidReports.slice(-5).reverse().map(r => {
+        let colorClass = 'text-rose-400';
+        let borderClass = 'border-rose-900/50';
+        let icon = 'alert-triangle';
+        
+        if (r.originalType === 'Polícia') { colorClass = 'text-blue-400'; borderClass = 'border-blue-900/50'; icon = 'shield-alert'; }
+        else if (r.originalType === 'Obra' || r.originalType === 'Faixa interditada' || r.originalType === 'Objeto na via' || r.originalType === 'Lentidão') { colorClass = 'text-amber-400'; borderClass = 'border-amber-900/50'; icon = 'construction'; }
+        
+        return `
+        <div class="bg-slate-950 p-3 rounded-xl border ${borderClass} flex flex-col">
+            <span class="text-xs font-bold ${colorClass} mb-1 flex items-center gap-1"><i data-lucide="${icon}" class="w-3 h-3"></i> ${r.type}</span>
+            <span class="text-[10px] text-slate-400">Local: ${r.location}</span>
+            <span class="text-[9px] text-slate-500 mt-1">${new Date(r.timestamp).toLocaleString('pt-BR')}</span>
         </div>
-      `).join('');
+        `;
+    }).join('');
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
     }
 
     // Render Risk Score Baseado em feedbacks

@@ -1107,6 +1107,23 @@ login() {
       
       this.showToast(`🚨 Alerta de "${type}" enviado à central com sucesso!`, 'success');
       
+      // Gravar no Firebase
+      try {
+          if (window.db) {
+              const incidentData = {
+                  id: 'REP-' + Date.now().toString().slice(-6),
+                  type: type,
+                  status: 'ATIVO',
+                  date: new Date().toISOString(),
+                  location: 'GPS (Auto)',
+                  driverName: window.appState && window.appState.currentUser ? window.appState.currentUser.name : 'Motorista Desconhecido',
+                  companyCnpj: window.appState && window.appState.currentUser ? window.appState.currentUser.companyCnpj : ''
+              };
+              window.db.collection('incidents').add(incidentData);
+          }
+      } catch (e) { console.error("Error saving rapid report", e); }
+
+      
       // Criar reporte no UI de risco (Opcional, simulação de envio)
       const list = document.getElementById('risk-rapid-reports');
       if (list) {
