@@ -6030,6 +6030,48 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     return score;
   },
 
+  renderIncidentsSidebar() {
+    const activeContainer = document.getElementById('incidents-sidebar-list');
+    if (!activeContainer) return;
+    
+    const activeIncidents = (window.appState && window.appState.incidents) ? window.appState.incidents.filter(inc => inc.status !== 'CONCLUIDA') : [];
+    
+    if (activeIncidents.length === 0) {
+      activeContainer.innerHTML = `
+        <div class="text-center p-4 border border-dashed border-slate-800 rounded-xl mt-4">
+          <i data-lucide="check-circle" class="w-6 h-6 text-emerald-500 mx-auto mb-2"></i>
+          <p class="text-xs font-bold text-slate-400">Nenhuma ocorrência ativa.</p>
+        </div>`;
+    } else {
+      activeContainer.innerHTML = activeIncidents.map(inc => {
+        let badgeColor = 'bg-amber-900/30 text-amber-500 border-amber-800';
+        let icon = 'alert-triangle';
+        
+        if (inc.status === 'CRÍTICO' || inc.type === 'ALERTA_MOTORISTA' || inc.type === 'Acidente') {
+            badgeColor = 'bg-rose-900/30 text-rose-500 border-rose-800';
+            icon = 'siren';
+        }
+
+        return `
+        <div class="bg-slate-950 border border-slate-800 p-3 rounded-xl hover:border-slate-700 transition-colors cursor-pointer mb-3" onclick="if(window.App && window.App.viewIncident) window.App.viewIncident('${inc.id}')">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[10px] font-mono text-slate-500">${inc.id}</span>
+            <span class="text-[9px] px-1.5 py-0.5 rounded border ${badgeColor} uppercase font-bold flex items-center gap-1">
+              <i data-lucide="${icon}" class="w-3 h-3"></i> ${inc.status}
+            </span>
+          </div>
+          <p class="text-xs font-bold text-slate-200 mb-1 line-clamp-1">${inc.type || inc.cargoDescription || 'Ocorrência Geral'}</p>
+          <div class="flex items-center gap-2 text-[10px] text-slate-400">
+            <i data-lucide="user" class="w-3 h-3"></i> ${inc.driverName || 'Motorista'}
+          </div>
+        </div>
+        `;
+      }).join('');
+    }
+    
+    if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  }
+
   renderRiskDashboard() {
     const feedbacks = JSON.parse(localStorage.getItem('GENERAL_FEEDBACKS') || '[]');
     const rapidReports = JSON.parse(localStorage.getItem('GENERAL_RAPID_REPORTS') || '[]');
