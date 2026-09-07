@@ -9,6 +9,117 @@
  */
 
 const App = {
+  setTheme(themeId) {
+    localStorage.setItem('app-theme', themeId);
+    let styleEl = document.getElementById('dynamic-theme');
+    if (!styleEl) {
+      styleEl = document.createElement('style');
+      styleEl.id = 'dynamic-theme';
+      document.head.appendChild(styleEl);
+    }
+    
+    let css = '';
+    
+    if (themeId === 'superhero') {
+      css = `
+        :root {
+          --tw-slate-950: #1a2004; /* Darker */
+          --tw-slate-900: #1F2605; /* Main bg */
+          --tw-slate-800: #263205; /* Modals */
+          --tw-slate-700: #2d3d05; /* Borders */
+          --tw-slate-600: #53900F; /* Highlights */
+          --tw-slate-500: #7a9c33;
+          --tw-slate-400: #9cb85c;
+          --tw-slate-300: #e0e8c8;
+          --tw-slate-200: #eff5de;
+          
+          --tw-blue-600: #A4A71E; /* Primary Button */
+          --tw-blue-500: #D6CE15; /* Hover Button */
+          --tw-blue-400: #e8e34f;
+          --tw-blue-900: #3b3d07; /* Soft bg */
+          
+          --tw-rose-950: #38110b;
+          --tw-rose-900: #541d14;
+        }
+      `;
+    } else if (themeId === 'nurture') {
+      css = `
+        :root {
+          --tw-slate-950: #111a1b;
+          --tw-slate-900: #182628;
+          --tw-slate-800: #213538;
+          --tw-slate-700: #2b4447;
+          --tw-slate-600: #3B945E;
+          --tw-slate-500: #498c6d;
+          --tw-slate-400: #88baa2;
+          --tw-slate-300: #F2F2F2;
+          --tw-slate-200: #ffffff;
+          
+          --tw-blue-600: #57BA98;
+          --tw-blue-500: #65CCB8;
+          --tw-blue-400: #8ae3d1;
+          --tw-blue-900: #1a4237;
+        }
+      `;
+    } else if (themeId === 'fivehundred') {
+      css = `
+        :root {
+          --tw-slate-950: #1c0e29;
+          --tw-slate-900: #2D1A3C;
+          --tw-slate-800: #402456;
+          --tw-slate-700: #563172;
+          --tw-slate-600: #A64AC9;
+          --tw-slate-500: #b56cd2;
+          --tw-slate-400: #cca5df;
+          --tw-slate-300: #F5E6CC;
+          --tw-slate-200: #fff9f0;
+          
+          --tw-blue-600: #A64AC9;
+          --tw-blue-500: #17E9E0;
+          --tw-blue-400: #FFB48F;
+          --tw-blue-900: #402456;
+          
+          --tw-emerald-400: #FCCD04;
+          --tw-emerald-500: #e3b700;
+        }
+      `;
+    } else if (themeId === 'umwelt') {
+      css = `
+        :root {
+          --tw-slate-950: #0c1417;
+          --tw-slate-900: #17252A;
+          --tw-slate-800: #21353d;
+          --tw-slate-700: #28444f;
+          --tw-slate-600: #2B7A78;
+          --tw-slate-500: #328f8d;
+          --tw-slate-400: #6ebfb9;
+          --tw-slate-300: #DEF2F1;
+          --tw-slate-200: #FEFFFF;
+          
+          --tw-blue-600: #2B7A78;
+          --tw-blue-500: #3AAFA9;
+          --tw-blue-400: #5dcbc5;
+          --tw-blue-900: #163e3d;
+        }
+      `;
+    } else {
+      // Default / empty
+      css = '';
+    }
+    
+    styleEl.innerHTML = css;
+    
+    // Show toast only if manually clicked (detect by checking if called after init)
+    if (document.readyState === 'complete') {
+        if(window.App && App.showToast) App.showToast('Tema atualizado com sucesso!', 'success');
+    }
+  },
+  
+  loadTheme() {
+    const saved = localStorage.getItem('app-theme') || 'default';
+    this.setTheme(saved);
+  },
+
   currentTab: 'dashboard',
   currentOptimizedResult: null,
   simulationState: {
@@ -23,6 +134,7 @@ const App = {
   },
 
   init() {
+    this.loadTheme();
     this.initCargoCatalog();
     this.populateCargoDropdowns();
     this.loadCustomEventTypes();
@@ -6070,7 +6182,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     }
     
     if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
-  }
+  },
 
   renderRiskDashboard() {
     const feedbacks = JSON.parse(localStorage.getItem('GENERAL_FEEDBACKS') || '[]');

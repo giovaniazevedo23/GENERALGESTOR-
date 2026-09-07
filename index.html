@@ -9241,6 +9241,52 @@
         </div>
 
 
+        <div class="border-t border-slate-800 pt-4 mt-2">
+          <label class="block text-xs font-bold text-slate-400 mb-3">Tema da Interface</label>
+          <div class="flex items-center justify-between gap-1 overflow-x-auto pb-2 custom-scrollbar">
+            <!-- Padrão -->
+            <button onclick="if(window.App) App.setTheme('default')" class="flex flex-col items-center gap-1.5 group shrink-0">
+              <div class="w-10 h-10 rounded-full bg-[#0f172a] border-2 border-[#1e293b] group-hover:border-[#3b82f6] flex items-center justify-center overflow-hidden transition-all shadow-lg">
+                <div class="w-1/2 h-full bg-[#020617]"></div><div class="w-1/2 h-full bg-[#2563eb]"></div>
+              </div>
+              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Padrão</span>
+            </button>
+            
+            <!-- Superhero -->
+            <button onclick="if(window.App) App.setTheme('superhero')" class="flex flex-col items-center gap-1.5 group shrink-0">
+              <div class="w-10 h-10 rounded-full border-2 border-[#53900F] group-hover:border-[#D6CE15] flex items-center justify-center overflow-hidden transition-all shadow-lg" style="background-color: #1F2605;">
+                <div class="w-1/2 h-full" style="background-color: #1F6521;"></div><div class="w-1/2 h-full" style="background-color: #D6CE15;"></div>
+              </div>
+              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Cheesecake</span>
+            </button>
+
+            <!-- Nurture -->
+            <button onclick="if(window.App) App.setTheme('nurture')" class="flex flex-col items-center gap-1.5 group shrink-0">
+              <div class="w-10 h-10 rounded-full border-2 border-[#3B945E] group-hover:border-[#57BA98] flex items-center justify-center overflow-hidden transition-all shadow-lg" style="background-color: #182628;">
+                <div class="w-1/2 h-full" style="background-color: #2a4043;"></div><div class="w-1/2 h-full" style="background-color: #57BA98;"></div>
+              </div>
+              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Nurture</span>
+            </button>
+
+            <!-- Five Hundred -->
+            <button onclick="if(window.App) App.setTheme('fivehundred')" class="flex flex-col items-center gap-1.5 group shrink-0">
+              <div class="w-10 h-10 rounded-full border-2 border-[#6d3085] group-hover:border-[#17E9E0] flex items-center justify-center overflow-hidden transition-all shadow-lg" style="background-color: #2D1A3C;">
+                <div class="w-1/2 h-full" style="background-color: #4b2663;"></div><div class="w-1/2 h-full" style="background-color: #17E9E0;"></div>
+              </div>
+              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Five 500</span>
+            </button>
+
+            <!-- Umwelt -->
+            <button onclick="if(window.App) App.setTheme('umwelt')" class="flex flex-col items-center gap-1.5 group shrink-0">
+              <div class="w-10 h-10 rounded-full border-2 border-[#2B7A78] group-hover:border-[#3AAFA9] flex items-center justify-center overflow-hidden transition-all shadow-lg" style="background-color: #0d1619;">
+                <div class="w-1/2 h-full" style="background-color: #17252A;"></div><div class="w-1/2 h-full" style="background-color: #3AAFA9;"></div>
+              </div>
+              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Umwelt</span>
+            </button>
+          </div>
+        </div>
+
+
       </div>
 
 
