@@ -529,6 +529,10 @@ const App = {
               snapshot.docChanges().forEach(change => {
                   if (change.type === 'added') {
                       const data = change.doc.data();
+                      // Multi-tenancy filter
+                      if (appState.currentUser && appState.currentUser.companyCnpj && data.companyCnpj && data.companyCnpj !== appState.currentUser.companyCnpj) {
+                          return;
+                      }
                       
                       // Verifica se já não existe no rapidReports (baseado na data aproximada ou id)
                       const exists = rapidReports.find(r => r.id === data.id);
@@ -998,6 +1002,89 @@ const App = {
       else if (e.message) msg = 'Erro: ' + e.message;
       this.showToast(msg, 'error');
       alert(msg); // Fallback alert in case toast fails
+    }
+  },
+
+  loadDriverEvaluations() {
+    if (!appState.currentUser || !appState.currentUser.companyCnpj) {
+        this.showToast('Você precisa configurar o CNPJ da empresa no seu perfil para ver os motoristas.', 'warning');
+        return;
+    }
+    
+    const container = document.getElementById('driver-evaluation-list');
+    if (!container) return;
+    
+    container.innerHTML = '<div class="text-slate-400 text-sm italic col-span-full">Carregando motoristas...</div>';
+    
+    if (window.db) {
+        window.db.collection('users')
+            .where('role', '==', 'motorista')
+            .where('companyCnpj', '==', appState.currentUser.companyCnpj)
+            .get()
+            .then(snap => {
+                if (snap.empty) {
+                    container.innerHTML = '<div class="text-slate-400 text-sm italic col-span-full">Nenhum motorista encontrado para o CNPJ ' + appState.currentUser.companyCnpj + '.</div>';
+                    return;
+                }
+                
+                let html = '';
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    html += `
+                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="text-white font-bold text-sm">${data.name || 'Sem Nome'}</h4>
+                                <span class="bg-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full">${data.xp || 0} XP</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mb-1"><i data-lucide="credit-card" class="w-3 h-3 inline"></i> CPF: ${data.cpf || 'Não informado'}</p>
+                            <p class="text-[10px] text-slate-500 mb-3">ID: ${data.id}</p>
+                        </div>
+                        
+                        <div class="flex gap-2">
+                            <button onclick="if(window.App) App.sendRewardXP('${data.name}', this)" class="flex-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-400 border border-indigo-600/30 text-xs font-bold py-2 rounded-xl transition-all" title="Recompensar XP">
+                                +50 XP
+                            </button>
+                            <button onclick="if(window.App) App.showToast('Avaliação gravada com sucesso!')" class="flex-1 bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-400 border border-emerald-600/30 text-xs font-bold py-2 rounded-xl transition-all">
+                                <i data-lucide="star" class="w-3 h-3 inline"></i> 5 Estrelas
+                            </button>
+                        </div>
+                    </div>
+                    `;
+                });
+                container.innerHTML = html;
+                if (window.lucide) window.lucide.createIcons();
+            })
+            .catch(e => {
+                console.error("Erro ao carregar motoristas:", e);
+                container.innerHTML = '<div class="text-red-400 text-sm italic col-span-full">Erro ao carregar motoristas.</div>';
+            });
+    }
+  },
+  
+  sendRewardXP(driverName, btnElement) {
+    if (btnElement) {
+       btnElement.disabled = true;
+       btnElement.innerHTML = '<i data-lucide="check" class="w-4 h-4"></i>';
+       btnElement.classList.replace('bg-indigo-600', 'bg-slate-700');
+       btnElement.classList.replace('hover:bg-indigo-500', 'bg-slate-700');
+       if(window.lucide) window.lucide.createIcons();
+    }
+    this.showToast('Recompensa de +50 XP enviada com sucesso para ' + driverName + '!');
+    if (window.db) {
+       window.db.collection('users')
+           .where('name', '==', driverName)
+           .where('role', '==', 'motorista')
+           .get()
+           .then(snap => {
+               if (!snap.empty) {
+                   snap.forEach(doc => {
+                       let xp = doc.data().xp || 0;
+                       doc.ref.update({ xp: xp + 50 });
+                   });
+               }
+           })
+           .catch(e => console.error("Erro ao enviar recompensa:", e));
     }
   },
 
@@ -1750,6 +1837,9 @@ Favor confirmar deslocamento da ${base.name}.`);
   loadPlanPreset(index = 0) {
     const preset = LogisticsPlanner.DEFAULT_PLANS[index] || LogisticsPlanner.DEFAULT_PLANS[0];
     if (document.getElementById('plan-client-name')) document.getElementById('plan-client-name').value = preset.clientName;
+if (document.getElementById('plan-driver-name') && preset.driverName) document.getElementById('plan-driver-name').value = preset.driverName;
+if (document.getElementById('plan-driver-cpf') && preset.driverCpf) document.getElementById('plan-driver-cpf').value = preset.driverCpf;
+if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.getElementById('plan-driver-cnpj').value = preset.driverCnpj;
     if (document.getElementById('plan-client-contact')) document.getElementById('plan-client-contact').value = preset.clientContact;
     if (document.getElementById('plan-client-phone')) document.getElementById('plan-client-phone').value = preset.clientPhone;
     if (document.getElementById('plan-client-nfe')) document.getElementById('plan-client-nfe').value = preset.clientNfe;
@@ -4777,6 +4867,9 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
           let uid = appState.currentUser.email || appState.currentUser.id;
           window.db.collection('users').doc(uid).set(appState.currentUser).catch(console.error);
       }
+      this.showToast('Dados salvos com sucesso!');
+      const modal = document.getElementById('profile-modal');
+      if (modal) modal.classList.add('hidden');
       
       const showCopilotCb = document.getElementById('profile-show-copilot');
       if (showCopilotCb) {
