@@ -10,7 +10,7 @@
 
 const App = {
   setTheme(themeId) {
-    localStorage.setItem('app-theme', themeId);
+    try { localStorage.setItem('app-theme', themeId); } catch(e) { console.warn('localStorage denied'); }
     let styleEl = document.getElementById('dynamic-theme');
     if (!styleEl) {
       styleEl = document.createElement('style');
@@ -106,6 +106,7 @@ const App = {
     
     if (themeId !== 'default' && themeId !== '' && css !== '') {
       css += `
+        
         /* Forcing Tailwind Overrides for Themes */
         .bg-slate-950 { background-color: var(--tw-slate-950) !important; }
         .bg-slate-900 { background-color: var(--tw-slate-900) !important; }
@@ -139,15 +140,20 @@ const App = {
     
     // Update visual selection
     document.querySelectorAll('.theme-btn').forEach(btn => {
-      let ringDiv = btn.querySelector('.theme-ring');
-      if (ringDiv) {
-        if (btn.dataset.theme === themeId || (themeId === 'default' && btn.dataset.theme === 'default')) {
-          ringDiv.classList.add('ring-4', 'ring-blue-500', 'ring-offset-2', 'ring-offset-slate-900');
-        } else {
-          ringDiv.classList.remove('ring-4', 'ring-blue-500', 'ring-offset-2', 'ring-offset-slate-900');
-        }
+      if (btn.dataset.theme === themeId || (themeId === 'default' && btn.dataset.theme === 'default')) {
+        btn.classList.add('theme-selected');
+      } else {
+        btn.classList.remove('theme-selected');
       }
     });
+    
+    
+    // Always inject the ring selection CSS, regardless of theme
+    css += `
+      .theme-selected .theme-ring {
+        box-shadow: 0 0 0 4px #0f172a, 0 0 0 6px #3b82f6 !important;
+      }
+    `;
     
     styleEl.innerHTML = css;
 
@@ -160,7 +166,8 @@ const App = {
   },
   
   loadTheme() {
-    const saved = localStorage.getItem('app-theme') || 'default';
+    let saved = 'default';
+    try { saved = localStorage.getItem('app-theme') || 'default'; } catch(e) { console.warn('localStorage denied'); }
     this.setTheme(saved);
   },
 
