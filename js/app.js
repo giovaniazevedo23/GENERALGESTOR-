@@ -20,15 +20,6 @@ const App = {
     }
     
     let css = '';
- } catch(e) { console.warn('localStorage denied'); }
-    let styleEl = document.getElementById('dynamic-theme');
-    if (!styleEl) {
-      styleEl = document.createElement('style');
-      styleEl.id = 'dynamic-theme';
-      document.head.appendChild(styleEl);
-    }
-    
-    let css = '';
     
     if (themeId === 'superhero') {
       css = `
