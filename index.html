@@ -179,6 +179,18 @@
   <link rel="stylesheet" href="css/styles.css" />
 
 
+
+    <!-- Global Error Handler -->
+    <script>
+      window.onerror = function(msg, url, lineNo, columnNo, error) {
+        if (msg.includes('ResizeObserver')) return; // ignore benign errors
+        alert('ERRO JS: ' + msg + '\nLinha: ' + lineNo);
+        return false;
+      };
+      window.addEventListener('unhandledrejection', function(event) {
+        alert('ERRO ASYNC: ' + event.reason);
+      });
+    </script>
 </head>
 
 
@@ -10311,7 +10323,7 @@
   <script src="js/report-pdf.js"></script>
 
 
-  <script src="js/app.js?v=5.0.0"></script>
+  <script src="js/app.js?v=6.0.0"></script>
 
 
   <script src="js/pwa.js"></script>

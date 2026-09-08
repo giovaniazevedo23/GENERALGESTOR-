@@ -1070,7 +1070,7 @@ const App = {
     if (this.loginMode === 'login') {
         if (usersDb[id]) {
             appState.currentUser = usersDb[id];
-            localStorage.setItem('general_user', JSON.stringify(appState.currentUser));
+            try { localStorage.setItem('general_user', JSON.stringify(appState.currentUser)); } catch(e) { console.warn('localStorage denied'); }
             this.checkAuth();
         } else {
             const legacyUserJson = localStorage.getItem('general_user');
@@ -1101,7 +1101,7 @@ const App = {
           appState.currentUser = { id, name, company, role, companyCnpj: cnpj, provider: 'manual' };
           usersDb[id] = appState.currentUser;
           localStorage.setItem('general_users_db', JSON.stringify(usersDb));
-          localStorage.setItem('general_user', JSON.stringify(appState.currentUser));
+          try { localStorage.setItem('general_user', JSON.stringify(appState.currentUser)); } catch(e) { console.warn('localStorage denied'); }
           
           if (window.db) {
              window.db.collection('users').doc(id).set(appState.currentUser).catch(e => console.error(e));
@@ -5025,7 +5025,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
       appState.currentUser.email = newEmail;
       appState.currentUser.phone = newPhone;
       
-      localStorage.setItem('general_user', JSON.stringify(appState.currentUser));
+      try { localStorage.setItem('general_user', JSON.stringify(appState.currentUser)); } catch(e) { console.warn('localStorage denied'); }
       
       if (window.db) {
           let uid = appState.currentUser.email || appState.currentUser.id;

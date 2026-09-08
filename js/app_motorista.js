@@ -1215,7 +1215,7 @@ login() {
       
       const id = 'MOT-' + Math.floor(Math.random() * 90000 + 10000);
       appState.currentUser = { id, name, cpf, company, companyCnpj: cnpj, role: role, rank: rank, provider: 'manual' };
-      localStorage.setItem('general_user', JSON.stringify(appState.currentUser));
+      try { localStorage.setItem('general_user', JSON.stringify(appState.currentUser)); } catch(e) { console.warn('localStorage denied'); }
       document.getElementById('login-overlay').classList.add('hidden');
       document.getElementById('checklist-overlay').classList.remove('hidden');
       
@@ -5090,7 +5090,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
       appState.currentUser.email = newEmail;
       appState.currentUser.phone = newPhone;
       
-      localStorage.setItem('general_user', JSON.stringify(appState.currentUser));
+      try { localStorage.setItem('general_user', JSON.stringify(appState.currentUser)); } catch(e) { console.warn('localStorage denied'); }
       
       const showCopilotCb = document.getElementById('profile-show-copilot');
       if (showCopilotCb) {
