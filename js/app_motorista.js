@@ -23,20 +23,20 @@ const App = {
     if (themeId === 'superhero') {
       css = `
         :root {
-          --tw-slate-950: #041a04;
-          --tw-slate-900: #082b08;
-          --tw-slate-800: #0f400f;
-          --tw-slate-700: #1a591a;
-          --tw-slate-600: #2d822d;
-          --tw-slate-500: #40a840;
-          --tw-slate-400: #65c765;
-          --tw-slate-300: #93de93;
-          --tw-slate-200: #c2f0c2;
+          --tw-slate-950: #0a3314;
+          --tw-slate-900: #0f4a1f;
+          --tw-slate-800: #146329;
+          --tw-slate-700: #1a7a34;
+          --tw-slate-600: #229c43;
+          --tw-slate-500: #2cbd52;
+          --tw-slate-400: #4ade6e;
+          --tw-slate-300: #86f09f;
+          --tw-slate-200: #bbf7cb;
           
-          --tw-blue-600: #7a9c33;
+          --tw-blue-600: #9cb85c;
           --tw-blue-500: #D6CE15;
           --tw-blue-400: #e8e34f;
-          --tw-blue-900: #1f3b0f;
+          --tw-blue-900: #082910;
           
           --tw-rose-950: #38110b;
           --tw-rose-900: #541d14;
@@ -44,38 +44,38 @@ const App = {
     } else if (themeId === 'nurture') {
       css = `
         :root {
-          --tw-slate-950: #031c1d;
-          --tw-slate-900: #052c2e;
-          --tw-slate-800: #0b4548;
-          --tw-slate-700: #156366;
-          --tw-slate-600: #248a8e;
-          --tw-slate-500: #35b0b5;
-          --tw-slate-400: #5eced4;
-          --tw-slate-300: #93e6eb;
-          --tw-slate-200: #c9f5f7;
+          --tw-slate-950: #0a3133;
+          --tw-slate-900: #0e4a4d;
+          --tw-slate-800: #136366;
+          --tw-slate-700: #1a7a7e;
+          --tw-slate-600: #249ea3;
+          --tw-slate-500: #2dc4ca;
+          --tw-slate-400: #5ce1e6;
+          --tw-slate-300: #93f1f5;
+          --tw-slate-200: #c9fafc;
           
-          --tw-blue-600: #3B945E;
+          --tw-blue-600: #57BA98;
           --tw-blue-500: #65CCB8;
           --tw-blue-400: #8ae3d1;
-          --tw-blue-900: #0c3325;
+          --tw-blue-900: #082829;
         }      `;
     } else if (themeId === 'fivehundred') {
       css = `
         :root {
-          --tw-slate-950: #1c0630;
-          --tw-slate-900: #2b0b4a;
-          --tw-slate-800: #42136e;
-          --tw-slate-700: #5c1e96;
-          --tw-slate-600: #7e30c4;
-          --tw-slate-500: #9b46e8;
-          --tw-slate-400: #b97af5;
-          --tw-slate-300: #d6aefc;
-          --tw-slate-200: #efdbff;
+          --tw-slate-950: #1c0d2e;
+          --tw-slate-900: #2c144a;
+          --tw-slate-800: #3e1d66;
+          --tw-slate-700: #4f2680;
+          --tw-slate-600: #6b35ad;
+          --tw-slate-500: #8843d9;
+          --tw-slate-400: #aa71eb;
+          --tw-slate-300: #ccabf5;
+          --tw-slate-200: #ebd6ff;
           
           --tw-blue-600: #9b46e8;
           --tw-blue-500: #17E9E0;
           --tw-blue-400: #FFB48F;
-          --tw-blue-900: #2a1140;
+          --tw-blue-900: #150924;
           
           --tw-emerald-400: #FCCD04;
           --tw-emerald-500: #e3b700;
@@ -83,20 +83,20 @@ const App = {
     } else if (themeId === 'umwelt') {
       css = `
         :root {
-          --tw-slate-950: #061f26;
-          --tw-slate-900: #0a2d36;
-          --tw-slate-800: #124552;
-          --tw-slate-700: #1c6173;
-          --tw-slate-600: #2a8399;
-          --tw-slate-500: #3ba3bd;
-          --tw-slate-400: #60c5db;
-          --tw-slate-300: #96e0f2;
-          --tw-slate-200: #c9f2fc;
+          --tw-slate-950: #092a33;
+          --tw-slate-900: #0d404d;
+          --tw-slate-800: #125666;
+          --tw-slate-700: #176e82;
+          --tw-slate-600: #2190aa;
+          --tw-slate-500: #2bb4d4;
+          --tw-slate-400: #5eddfc;
+          --tw-slate-300: #9eeafd;
+          --tw-slate-200: #cff4fe;
           
-          --tw-blue-600: #2B7A78;
-          --tw-blue-500: #3AAFA9;
-          --tw-blue-400: #5dcbc5;
-          --tw-blue-900: #0f3030;
+          --tw-blue-600: #3AAFA9;
+          --tw-blue-500: #5dcbc5;
+          --tw-blue-400: #8fe1dd;
+          --tw-blue-900: #072026;
         }      `;
     } else {
       css = '';
@@ -135,7 +135,21 @@ const App = {
       `;
     }
     
+    
+    // Update visual selection
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      let ringDiv = btn.querySelector('.theme-ring');
+      if (ringDiv) {
+        if (btn.dataset.theme === themeId || (themeId === 'default' && btn.dataset.theme === 'default')) {
+          ringDiv.classList.add('ring-4', 'ring-blue-500', 'ring-offset-2', 'ring-offset-slate-900');
+        } else {
+          ringDiv.classList.remove('ring-4', 'ring-blue-500', 'ring-offset-2', 'ring-offset-slate-900');
+        }
+      }
+    });
+    
     styleEl.innerHTML = css;
+
 
     
     if (document.readyState === 'complete') {
