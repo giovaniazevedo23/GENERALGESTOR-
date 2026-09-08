@@ -10,7 +10,17 @@
 
 const App = {
   setTheme(themeId) {
+    alert('SETTING THEME: ' + themeId);
     try { localStorage.setItem('app-theme', themeId); } catch(e) { console.warn('localStorage denied'); }
+    let styleEl = document.getElementById('dynamic-theme');
+    if (!styleEl) {
+      styleEl = document.createElement('style');
+      styleEl.id = 'dynamic-theme';
+      document.head.appendChild(styleEl);
+    }
+    
+    let css = '';
+ } catch(e) { console.warn('localStorage denied'); }
     let styleEl = document.getElementById('dynamic-theme');
     if (!styleEl) {
       styleEl = document.createElement('style');
@@ -5075,7 +5085,12 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
   },
 
   saveProfile() {
-    if (!appState.currentUser) return;
+    alert('SAVE PROFILE CLICKED!');
+    if (!appState.currentUser) {
+        alert('NO CURRENT USER');
+        return;
+    }
+
     
     const newName = document.getElementById('profile-name').value;
     const newCompany = document.getElementById('profile-company').value;
