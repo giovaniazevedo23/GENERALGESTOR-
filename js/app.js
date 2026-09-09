@@ -1,11 +1,11 @@
-/**
- * GENERAL App - Controlador Principal da Aplicação
+﻿/**
+ * GENERAL App - Controlador Principal da AplicaÃ§Ã£o
  * Integrado com:
- * 1. Planejador Logístico com Auto-Otimização para 100% Seguro por IA (Antes vs. Depois)
- * 2. IA Preditiva Alimentada Dinamicamente pelo Plano Logístico
- * 3. Aviso Automático de Sinistro, Perícia e Atraso ao Cliente / Embarcador
- * 4. Encerramento de Ocorrência com Auditoria Pós-Mortem e Avaliação de Decisões
- * 5. Módulo Avançado de Transbordo & Salvamento (Métricas Financeiras, SLA Regressivo, Checklist EPIs e Base de Apoio)
+ * 1. Planejador LogÃ­stico com Auto-OtimizaÃ§Ã£o para 100% Seguro por IA (Antes vs. Depois)
+ * 2. IA Preditiva Alimentada Dinamicamente pelo Plano LogÃ­stico
+ * 3. Aviso AutomÃ¡tico de Sinistro, PerÃ­cia e Atraso ao Cliente / Embarcador
+ * 4. Encerramento de OcorrÃªncia com Auditoria PÃ³s-Mortem e AvaliaÃ§Ã£o de DecisÃµes
+ * 5. MÃ³dulo AvanÃ§ado de Transbordo & Salvamento (MÃ©tricas Financeiras, SLA Regressivo, Checklist EPIs e Base de Apoio)
  */
 
 const App = {
@@ -195,7 +195,7 @@ const App = {
     this.renderCurrentIncident();
     this.renderIncidentsList();
     this.renderHazmatCatalogue();
-    // A auditoria agora é feita apenas manualmente via botão
+    // A auditoria agora Ã© feita apenas manualmente via botÃ£o
     // this.runLogisticsPlanAudit();
     // this.syncPredictiveFromCurrentPlan(false);
     
@@ -241,7 +241,7 @@ const App = {
     // Setup listeners for live plan audit
     const planInputs = document.querySelectorAll('#plan-origin-state, #plan-origin-city, #plan-origin-ref, #plan-dest-state, #plan-dest-city, #plan-dest-ref, #plan-dist, #plan-roads, #plan-deptime, #plan-deadline, #plan-driver, #plan-tenure, #plan-fam, #plan-truck-fam, #plan-tank-fill');
     planInputs.forEach(input => {
-      // Retirado a pedido do usuário: auditoria só roda ao clicar no botão
+      // Retirado a pedido do usuÃ¡rio: auditoria sÃ³ roda ao clicar no botÃ£o
       // input.addEventListener('input', () => { this.runLogisticsPlanAudit(); this.syncPredictiveFromCurrentPlan(false); });
       // input.addEventListener('change', () => { this.runLogisticsPlanAudit(); this.syncPredictiveFromCurrentPlan(false); });
     });
@@ -282,7 +282,7 @@ const App = {
     if (!textarea) return;
     appState.updateCurrentIncident({ docsParecer: textarea.value });
     textarea.value = '';
-    this.showToast('Parecer Técnico salvo e enviado para o Dossiê!', 'success');
+    this.showToast('Parecer TÃ©cnico salvo e enviado para o DossiÃª!', 'success');
   },
 
   saveIshikawa() {
@@ -299,20 +299,20 @@ const App = {
     };
     
     appState.updateCurrentIncident({ vistoria });
-    this.showToast('Investigação de Causa Raiz e Vistoria salvas com sucesso!', 'success');
+    this.showToast('InvestigaÃ§Ã£o de Causa Raiz e Vistoria salvas com sucesso!', 'success');
   },
 
-  // CATÁLOGO DE CARGAS
+  // CATÃLOGO DE CARGAS
   initCargoCatalog() {
     const cnpj = (appState.currentUser && appState.currentUser.companyCnpj) ? appState.currentUser.companyCnpj : 'default';
     let catalog = JSON.parse(localStorage.getItem(`GENERAL_CARGO_CATALOG_${cnpj}`) || 'null');
     if (!catalog) {
       catalog = [
-        { id: 1, name: 'Caixas de Eletrônicos', category: 'Cargas Gerais', risk: 20 },
-        { id: 2, name: 'Carnes e Congelados', category: 'Carga Frigorífica', risk: 40 },
+        { id: 1, name: 'Caixas de EletrÃ´nicos', category: 'Cargas Gerais', risk: 20 },
+        { id: 2, name: 'Carnes e Congelados', category: 'Carga FrigorÃ­fica', risk: 40 },
         { id: 3, name: 'Gado de Corte', category: 'Cargas Vivas', risk: 50 },
-        { id: 4, name: 'Turbina Eólica', category: 'Carga Indivisível', risk: 60 },
-        { id: 5, name: 'Soja a Granel', category: 'Carga a Granéis', risk: 70 }
+        { id: 4, name: 'Turbina EÃ³lica', category: 'Carga IndivisÃ­vel', risk: 60 },
+        { id: 5, name: 'Soja a Granel', category: 'Carga a GranÃ©is', risk: 70 }
       ];
       localStorage.setItem(`GENERAL_CARGO_CATALOG_${(appState.currentUser && appState.currentUser.companyCnpj) ? appState.currentUser.companyCnpj : 'default'}`, JSON.stringify(catalog));
     }
@@ -359,10 +359,10 @@ const App = {
     const cat = document.getElementById('new-cargo-category').value;
     const riskInput = document.getElementById('new-cargo-risk');
     let risk = 20;
-    if (cat === 'Carga Frigorífica') risk = 40;
+    if (cat === 'Carga FrigorÃ­fica') risk = 40;
     if (cat === 'Cargas Vivas') risk = 50;
-    if (cat === 'Carga Indivisível') risk = 60;
-    if (cat === 'Carga a Granéis') risk = 70;
+    if (cat === 'Carga IndivisÃ­vel') risk = 60;
+    if (cat === 'Carga a GranÃ©is') risk = 70;
     riskInput.value = risk;
   },
 
@@ -382,7 +382,7 @@ const App = {
     localStorage.setItem(`GENERAL_CARGO_CATALOG_${cnpj}`, JSON.stringify(this.cargoCatalog));
     
     document.getElementById('add-cargo-modal').classList.add('hidden');
-    this.showToast('Carga adicionada ao catálogo!', 'success');
+    this.showToast('Carga adicionada ao catÃ¡logo!', 'success');
     this.renderCargoCatalog();
   },
 
@@ -412,7 +412,7 @@ const App = {
     const createOptions = (selectId) => {
       const sel = document.getElementById(selectId);
       if (!sel) return;
-      sel.innerHTML = '<option value="">Selecione uma ocorrência ativa...</option>';
+      sel.innerHTML = '<option value="">Selecione uma ocorrÃªncia ativa...</option>';
       incidents.forEach(inc => {
         sel.innerHTML += `<option value="${inc.id}">${inc.id} - ${inc.title}</option>`;
       });
@@ -468,7 +468,7 @@ const App = {
     };
     appState.updateCurrentIncident({ reverseLogistics: reverseData });
     
-    this.showToast('Logística reversa processada com sucesso! Histórico atualizado.', 'success');
+    this.showToast('LogÃ­stica reversa processada com sucesso! HistÃ³rico atualizado.', 'success');
   },
 
 
@@ -514,7 +514,7 @@ const App = {
 
     const drivers = [
       { name: 'Marcos Silva', rank: 'Elite', score: 99, trips: 142 },
-      { name: 'João Santos', rank: 'Veterano', score: 95, trips: 110 },
+      { name: 'JoÃ£o Santos', rank: 'Veterano', score: 95, trips: 110 },
       { name: 'Ana Costa', rank: 'Especialista', score: 89, trips: 75 }
     ];
 
@@ -531,7 +531,7 @@ const App = {
         </div>
         <div class="text-right flex flex-col">
           <span class="text-xs font-black text-emerald-400">${d.score} pts</span>
-          <span class="text-[9px] text-slate-500">${d.trips} missões</span>
+          <span class="text-[9px] text-slate-500">${d.trips} missÃµes</span>
         </div>
       </div>
     `).join('');
@@ -644,17 +644,17 @@ const App = {
         <div class="flex justify-between items-start">
           <div class="flex items-center gap-2">
             <i data-lucide="sparkles" class="w-6 h-6 text-blue-400"></i>
-            <h3 class="font-bold text-white text-lg">Nova Atualização (v2.5)</h3>
+            <h3 class="font-bold text-white text-lg">Nova AtualizaÃ§Ã£o (v2.5)</h3>
           </div>
           <button onclick="this.parentElement.parentElement.parentElement.remove(); localStorage.setItem('general_update_2_5_seen', 'true')" class="text-slate-400 hover:text-white transition-all"><i data-lucide="x" class="w-5 h-5"></i></button>
         </div>
-        <p class="text-sm text-slate-300">Confira o que mudou nesta versão:</p>
+        <p class="text-sm text-slate-300">Confira o que mudou nesta versÃ£o:</p>
         <div class="space-y-2 text-xs">
           <div class="p-2 rounded bg-slate-950 border border-slate-800 text-slate-400 line-through">Antes: Busca Restrita</div>
           <div class="p-2 rounded bg-blue-900/20 border border-blue-500/20 text-blue-300 font-medium flex items-center gap-2"><i data-lucide="check" class="w-3 h-3"></i> Agora: Lupa Global no Dashboard</div>
           <div class="p-2 rounded bg-slate-950 border border-slate-800 text-slate-400 line-through">Antes: Fornecedores Ocultos</div>
-          <div class="p-2 rounded bg-blue-900/20 border border-blue-500/20 text-blue-300 font-medium flex items-center gap-2"><i data-lucide="check" class="w-3 h-3"></i> Agora: Marketplace Dinâmico com Avaliações</div>
-          <div class="p-2 rounded bg-slate-950 border border-slate-800 text-slate-400 line-through">Antes: PDF Genérico</div>
+          <div class="p-2 rounded bg-blue-900/20 border border-blue-500/20 text-blue-300 font-medium flex items-center gap-2"><i data-lucide="check" class="w-3 h-3"></i> Agora: Marketplace DinÃ¢mico com AvaliaÃ§Ãµes</div>
+          <div class="p-2 rounded bg-slate-950 border border-slate-800 text-slate-400 line-through">Antes: PDF GenÃ©rico</div>
           <div class="p-2 rounded bg-blue-900/20 border border-blue-500/20 text-blue-300 font-medium flex items-center gap-2"><i data-lucide="check" class="w-3 h-3"></i> Agora: PDF com Logo Oficial do App</div>
         </div>
         <button onclick="this.parentElement.parentElement.remove(); localStorage.setItem('general_update_2_5_seen', 'true')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-xl mt-2 transition-all">
@@ -665,7 +665,7 @@ const App = {
     document.body.appendChild(div);
     if (typeof lucide !== 'undefined') lucide.createIcons();
     
-    // Mostra indicador de nova notificação
+    // Mostra indicador de nova notificaÃ§Ã£o
     const btn = document.getElementById('provider-notifications-btn');
     if (btn) btn.classList.remove('hidden');
   },
@@ -698,19 +698,19 @@ const App = {
                           return;
                       }
                       
-                      // Verifica se já não existe no rapidReports (baseado na data aproximada ou id)
+                      // Verifica se jÃ¡ nÃ£o existe no rapidReports (baseado na data aproximada ou id)
                       const exists = rapidReports.find(r => r.id === data.id);
                       if (!exists) {
                           const report = {
                               id: data.id,
-                              type: 'PÂNICO - ' + (data.driverName || 'Motorista'),
-                              location: data.location || 'GPS Indisponível',
+                              type: 'PÃ‚NICO - ' + (data.driverName || 'Motorista'),
+                              location: data.location || 'GPS IndisponÃ­vel',
                               timestamp: data.date || new Date().toISOString()
                           };
                           rapidReports.push(report);
                           changed = true;
                           
-                          App.showToast(`🚨 ALERTA PÂNICO: ${data.driverName} (GPS: ${data.location})`, 'error');
+                          App.showToast(`ðŸš¨ ALERTA PÃ‚NICO: ${data.driverName} (GPS: ${data.location})`, 'error');
                       }
                   }
               });
@@ -763,7 +763,7 @@ const App = {
       
       await this.syncToFirebase();
     } catch(e) {
-      console.error("Erro na sincronização Firebase:", e);
+      console.error("Erro na sincronizaÃ§Ã£o Firebase:", e);
     }
   },
 
@@ -801,11 +801,11 @@ const App = {
     const container = document.getElementById('golden-hour-cards');
     if(!container) return;
     
-    // Lista padrão se não houver no estado
+    // Lista padrÃ£o se nÃ£o houver no estado
     if (!appState.goldenHourTasks || appState.goldenHourTasks.length === 0) {
       appState.goldenHourTasks = [
-        { id: 't2', action: 'NOTIFICAR', target: 'Seguradora', details: 'Gere protocolo de sinistro e preserve a cobertura securitária.', completed: false },
-        { id: 't3', action: 'LIGAR', target: 'Cliente / Remetente', details: 'Aviso de atraso/sinistro. Possível acionamento de perícia.', completed: false }
+        { id: 't2', action: 'NOTIFICAR', target: 'Seguradora', details: 'Gere protocolo de sinistro e preserve a cobertura securitÃ¡ria.', completed: false },
+        { id: 't3', action: 'LIGAR', target: 'Cliente / Remetente', details: 'Aviso de atraso/sinistro. PossÃ­vel acionamento de perÃ­cia.', completed: false }
       ];
     }
 
@@ -851,7 +851,7 @@ const App = {
         ${task.details ? `<p class="text-[11px] text-slate-400 leading-relaxed">${task.details}</p>` : ''}
         
         <button onclick="App.toggleGoldenTask('${task.id}')" class="mt-auto w-full py-2 rounded-xl text-xs font-bold transition-all border ${isDone ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-slate-950 border-slate-600 text-slate-300 hover:border-blue-500 hover:text-white'}">
-          ${isDone ? '<i data-lucide="check-circle" class="w-4 h-4 inline mr-1"></i> Concluído' : 'Marcar como Concluído'}
+          ${isDone ? '<i data-lucide="check-circle" class="w-4 h-4 inline mr-1"></i> ConcluÃ­do' : 'Marcar como ConcluÃ­do'}
         </button>
       `;
       container.appendChild(card);
@@ -918,7 +918,7 @@ const App = {
     const modality = document.getElementById('comm-modality').value;
 
     if(!target) {
-      this.showToast('Informe o destinatário!');
+      this.showToast('Informe o destinatÃ¡rio!');
       return;
     }
 
@@ -926,19 +926,19 @@ const App = {
       const inc = appState.getCurrentIncident();
       if (inc && inc.checklists) {
         let doneActions = [];
-        if (inc.checklists.driverSafe) doneActions.push("motorista em segurança");
+        if (inc.checklists.driverSafe) doneActions.push("motorista em seguranÃ§a");
         if (inc.checklists.signalized) doneActions.push("via sinalizada");
-        if (inc.checklists.isolated) doneActions.push("área isolada");
+        if (inc.checklists.isolated) doneActions.push("Ã¡rea isolada");
         if (inc.checklists.cargoInspected) doneActions.push("carga inspecionada");
         if (inc.checklists.samuDispatched) doneActions.push("SAMU acionado");
         if (inc.checklists.bombeirosDispatched) doneActions.push("Bombeiros acionados");
         if (inc.checklists.prfNotified) doneActions.push("PRF notificada");
-        if (inc.checklists.evidencePreserved) doneActions.push("evidências preservadas");
+        if (inc.checklists.evidencePreserved) doneActions.push("evidÃªncias preservadas");
         
         if (doneActions.length > 0) {
-          details = `Status atual da ocorrência: As seguintes ações já foram concluídas: ${doneActions.join(', ')}.`;
+          details = `Status atual da ocorrÃªncia: As seguintes aÃ§Ãµes jÃ¡ foram concluÃ­das: ${doneActions.join(', ')}.`;
         } else {
-          details = `Notificação sobre a ocorrência ${inc.id}. Aguardando mais atualizações de campo.`;
+          details = `NotificaÃ§Ã£o sobre a ocorrÃªncia ${inc.id}. Aguardando mais atualizaÃ§Ãµes de campo.`;
         }
       }
     }
@@ -962,15 +962,15 @@ const App = {
   async loadStates() {
     try {
       const states = [
-        { sigla: "AC", nome: "Acre" }, { sigla: "AL", nome: "Alagoas" }, { sigla: "AP", nome: "Amapá" },
-        { sigla: "AM", nome: "Amazonas" }, { sigla: "BA", nome: "Bahia" }, { sigla: "CE", nome: "Ceará" },
-        { sigla: "DF", nome: "Distrito Federal" }, { sigla: "ES", nome: "Espírito Santo" }, { sigla: "GO", nome: "Goiás" },
-        { sigla: "MA", nome: "Maranhão" }, { sigla: "MT", nome: "Mato Grosso" }, { sigla: "MS", nome: "Mato Grosso do Sul" },
-        { sigla: "MG", nome: "Minas Gerais" }, { sigla: "PA", nome: "Pará" }, { sigla: "PB", nome: "Paraíba" },
-        { sigla: "PR", nome: "Paraná" }, { sigla: "PE", nome: "Pernambuco" }, { sigla: "PI", nome: "Piauí" },
+        { sigla: "AC", nome: "Acre" }, { sigla: "AL", nome: "Alagoas" }, { sigla: "AP", nome: "AmapÃ¡" },
+        { sigla: "AM", nome: "Amazonas" }, { sigla: "BA", nome: "Bahia" }, { sigla: "CE", nome: "CearÃ¡" },
+        { sigla: "DF", nome: "Distrito Federal" }, { sigla: "ES", nome: "EspÃ­rito Santo" }, { sigla: "GO", nome: "GoiÃ¡s" },
+        { sigla: "MA", nome: "MaranhÃ£o" }, { sigla: "MT", nome: "Mato Grosso" }, { sigla: "MS", nome: "Mato Grosso do Sul" },
+        { sigla: "MG", nome: "Minas Gerais" }, { sigla: "PA", nome: "ParÃ¡" }, { sigla: "PB", nome: "ParaÃ­ba" },
+        { sigla: "PR", nome: "ParanÃ¡" }, { sigla: "PE", nome: "Pernambuco" }, { sigla: "PI", nome: "PiauÃ­" },
         { sigla: "RJ", nome: "Rio de Janeiro" }, { sigla: "RN", nome: "Rio Grande do Norte" }, { sigla: "RS", nome: "Rio Grande do Sul" },
-        { sigla: "RO", nome: "Rondônia" }, { sigla: "RR", nome: "Roraima" }, { sigla: "SC", nome: "Santa Catarina" },
-        { sigla: "SP", nome: "São Paulo" }, { sigla: "SE", nome: "Sergipe" }, { sigla: "TO", nome: "Tocantins" }
+        { sigla: "RO", nome: "RondÃ´nia" }, { sigla: "RR", nome: "Roraima" }, { sigla: "SC", nome: "Santa Catarina" },
+        { sigla: "SP", nome: "SÃ£o Paulo" }, { sigla: "SE", nome: "Sergipe" }, { sigla: "TO", nome: "Tocantins" }
       ];
       
       const populateSelect = (id) => {
@@ -1061,11 +1061,11 @@ const App = {
   login() {
     const id = document.getElementById('login-id').value;
     if (!id) {
-        this.showToast('Preencha o ID do Usuário!');
+        this.showToast('Preencha o ID do UsuÃ¡rio!');
         return;
     }
     
-    // Obter banco de usuários ou criar
+    // Obter banco de usuÃ¡rios ou criar
     let usersDb = JSON.parse(localStorage.getItem('general_users_db') || '{}');
 
     if (this.loginMode === 'login') {
@@ -1082,13 +1082,13 @@ const App = {
                 localStorage.setItem('general_users_db', JSON.stringify(usersDb));
                 this.checkAuth();
             } else {
-                // Auto-cadastro rápido para evitar bloqueio durante os testes
-                const defaultUser = { id: id, name: 'Usuário Teste (' + id + ')', company: 'Empresa Teste', role: 'Gestor', provider: 'manual' };
+                // Auto-cadastro rÃ¡pido para evitar bloqueio durante os testes
+                const defaultUser = { id: id, name: 'UsuÃ¡rio Teste (' + id + ')', company: 'Empresa Teste', role: 'Gestor', provider: 'manual' };
                 usersDb[id] = defaultUser;
                 appState.currentUser = defaultUser;
                 localStorage.setItem('general_users_db', JSON.stringify(usersDb));
                 localStorage.setItem('general_user', JSON.stringify(defaultUser));
-                this.showToast('Usuário não encontrado. Autocadastro rápido realizado para testes.');
+                this.showToast('UsuÃ¡rio nÃ£o encontrado. Autocadastro rÃ¡pido realizado para testes.');
                 this.checkAuth();
             }
         }
@@ -1142,7 +1142,7 @@ const App = {
               appState.currentUser = googleUser;
               localStorage.setItem('general_user', JSON.stringify(googleUser));
               this.checkAuth();
-              this.showToast(`🔑 Bem-vindo(a) de volta, ${googleUser.name}!`);
+              this.showToast(`ðŸ”‘ Bem-vindo(a) de volta, ${googleUser.name}!`);
               return;
           }
       }
@@ -1162,7 +1162,7 @@ const App = {
       console.error(e);
       let msg = 'Erro ao logar com Google.';
       if (e.code === 'auth/popup-blocked') msg = 'Pop-up bloqueado pelo navegador. Por favor, permita pop-ups e tente novamente.';
-      else if (e.code === 'auth/unauthorized-domain') msg = 'Este domínio não está autorizado no Firebase. Configure no Firebase Console.';
+      else if (e.code === 'auth/unauthorized-domain') msg = 'Este domÃ­nio nÃ£o estÃ¡ autorizado no Firebase. Configure no Firebase Console.';
       else if (e.message) msg = 'Erro: ' + e.message;
       this.showToast(msg, 'error');
       alert(msg); // Fallback alert in case toast fails
@@ -1171,7 +1171,7 @@ const App = {
 
   loadDriverEvaluations() {
     if (!appState.currentUser || !appState.currentUser.companyCnpj) {
-        this.showToast('Você precisa configurar o CNPJ da empresa no seu perfil para ver os motoristas.', 'warning');
+        this.showToast('VocÃª precisa configurar o CNPJ da empresa no seu perfil para ver os motoristas.', 'warning');
         return;
     }
     
@@ -1201,7 +1201,7 @@ const App = {
                                 <h4 class="text-white font-bold text-sm">${data.name || 'Sem Nome'}</h4>
                                 <span class="bg-blue-500/20 text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-full">${data.xp || 0} XP</span>
                             </div>
-                            <p class="text-xs text-slate-400 mb-1"><i data-lucide="credit-card" class="w-3 h-3 inline"></i> CPF: ${data.cpf || 'Não informado'}</p>
+                            <p class="text-xs text-slate-400 mb-1"><i data-lucide="credit-card" class="w-3 h-3 inline"></i> CPF: ${data.cpf || 'NÃ£o informado'}</p>
                             <p class="text-[10px] text-slate-500 mb-3">ID: ${data.id}</p>
                         </div>
                         
@@ -1209,7 +1209,7 @@ const App = {
                             <button onclick="if(window.App) App.sendRewardXP('${data.name}', this)" class="flex-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-400 border border-indigo-600/30 text-xs font-bold py-2 rounded-xl transition-all" title="Recompensar XP">
                                 +50 XP
                             </button>
-                            <button onclick="if(window.App) App.showToast('Avaliação gravada com sucesso!')" class="flex-1 bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-400 border border-emerald-600/30 text-xs font-bold py-2 rounded-xl transition-all">
+                            <button onclick="if(window.App) App.showToast('AvaliaÃ§Ã£o gravada com sucesso!')" class="flex-1 bg-emerald-600/20 hover:bg-emerald-600/40 text-emerald-400 border border-emerald-600/30 text-xs font-bold py-2 rounded-xl transition-all">
                                 <i data-lucide="star" class="w-3 h-3 inline"></i> 5 Estrelas
                             </button>
                         </div>
@@ -1257,7 +1257,7 @@ const App = {
       localStorage.removeItem('general_user');
       appState.currentUser = null;
       document.getElementById('login-overlay').classList.remove('hidden');
-      this.showToast('ðŸšª Você saiu da sua conta com sucesso.');
+      this.showToast('Ã°Å¸Å¡Âª VocÃª saiu da sua conta com sucesso.');
     }
   },
 
@@ -1321,12 +1321,12 @@ const App = {
     } else if (tabId === 'hazmat') {
       const select = document.getElementById('hazmat-incident-select');
       if (select) {
-        const activeIncidents = appState.incidents.filter(inc => inc.status !== 'Concluída');
-        select.innerHTML = '<option value="">Nenhuma ocorrência selecionada...</option>' + 
+        const activeIncidents = appState.incidents.filter(inc => inc.status !== 'ConcluÃ­da');
+        select.innerHTML = '<option value="">Nenhuma ocorrÃªncia selecionada...</option>' + 
           activeIncidents.map(inc => `<option value="${inc.id}">${inc.id} - ${inc.cargo} (R$ ${inc.value})</option>`).join('');
         
         const current = appState.getCurrentIncident();
-        if (current && current.status !== 'Concluída') {
+        if (current && current.status !== 'ConcluÃ­da') {
           select.value = current.id;
         }
       }
@@ -1363,13 +1363,13 @@ const App = {
     
     if (!helper || !textEl) return;
     
-    // Verifica se o usuário desativou manualmente o balão
+    // Verifica se o usuÃ¡rio desativou manualmente o balÃ£o
     if (localStorage.getItem('disable_copilot_helper') === 'true') {
       helper.classList.add('hidden');
       return;
     }
     
-    // Verifica se a tela de login está aberta
+    // Verifica se a tela de login estÃ¡ aberta
     const loginOverlay = document.getElementById('login-overlay');
     if (loginOverlay && !loginOverlay.classList.contains('hidden')) {
       helper.classList.add('hidden');
@@ -1387,17 +1387,17 @@ const App = {
 
     switch (tabId) {
       case 'dashboard':
-        msg = '<strong class="text-white">Olá! Sou o GENERAL Copilot</strong>, seu assistente inteligente.<br>Vamos começar gerenciando as ocorrências ativas ou criando um novo registro.';
+        msg = '<strong class="text-white">OlÃ¡! Sou o GENERAL Copilot</strong>, seu assistente inteligente.<br>Vamos comeÃ§ar gerenciando as ocorrÃªncias ativas ou criando um novo registro.';
         highlightTab = 'dashboard';
-        nextStepText = 'Ver Ocorrências';
+        nextStepText = 'Ver OcorrÃªncias';
         break;
       case 'wizard':
-        msg = '<strong class="text-white">Passo 2:</strong> Preencha o Checklist da Golden Hour. Em seguida, avance para estruturar um Plano de Ação.';
+        msg = '<strong class="text-white">Passo 2:</strong> Preencha o Checklist da Golden Hour. Em seguida, avance para estruturar um Plano de AÃ§Ã£o.';
         highlightTab = 'ai-plan';
         nextStepText = 'Criar Plano';
         break;
       case 'ai-plan':
-        msg = '<strong class="text-white">Passo 3:</strong> Defina o Plano de Ação (Livre ou IA). Após aprovar o plano, vá para a aba de Transbordo se necessário.';
+        msg = '<strong class="text-white">Passo 3:</strong> Defina o Plano de AÃ§Ã£o (Livre ou IA). ApÃ³s aprovar o plano, vÃ¡ para a aba de Transbordo se necessÃ¡rio.';
         highlightTab = 'transshipment';
         nextStepText = 'Abrir Transbordo';
         break;
@@ -1407,9 +1407,9 @@ const App = {
         nextStepText = 'Investigar Causa Raiz';
         break;
       case 'investigation':
-        msg = '<strong class="text-white">Passo 5:</strong> Preencha os 5 porquês e Ishikawa. Ao finalizar a investigação, você pode gerar o Dossiê final.';
+        msg = '<strong class="text-white">Passo 5:</strong> Preencha os 5 porquÃªs e Ishikawa. Ao finalizar a investigaÃ§Ã£o, vocÃª pode gerar o DossiÃª final.';
         highlightTab = 'dossier';
-        nextStepText = 'Gerar Dossiê PDF';
+        nextStepText = 'Gerar DossiÃª PDF';
         break;
       default:
         helper.classList.add('hidden');
@@ -1427,7 +1427,7 @@ const App = {
       nextStepDiv.classList.add('flex');
     }
     
-    // Destaca a PRÓXIMA aba recomendada
+    // Destaca a PRÃ“XIMA aba recomendada
     if (highlightTab) {
       const btn = document.querySelector(`.nav-button[data-tab="${highlightTab}"]`);
       if (btn) {
@@ -1440,7 +1440,7 @@ const App = {
    * TRANSBORDO & SALVAMENTO
    * ======================================================= */
   handleTransshipmentIncidentSelection(selectEl) {
-    // Apenas mantém o valor selecionado, o botão Iniciar fará o resto
+    // Apenas mantÃ©m o valor selecionado, o botÃ£o Iniciar farÃ¡ o resto
     const incId = selectEl?.value;
     if (incId) {
        appState.setCurrentIncident(incId);
@@ -1455,7 +1455,7 @@ const App = {
     const content = document.getElementById('transshipment-action-plan-content');
 
     if (!incId) {
-      this.showToast('Por favor, selecione uma ocorrência antes de iniciar.', 'warning');
+      this.showToast('Por favor, selecione uma ocorrÃªncia antes de iniciar.', 'warning');
       if (body) body.classList.add('hidden');
       return;
     }
@@ -1470,7 +1470,7 @@ const App = {
       if (container) container.classList.remove('hidden');
       if (content) {
         content.innerHTML = inc.actionPlan.split('\n').map(l => {
-          if (l.trim().startsWith('-')) return `<div class="ml-4 flex items-start gap-2 mb-1"><span class="text-emerald-400 mt-1">â€¢</span><span>${l.substring(1)}</span></div>`;
+          if (l.trim().startsWith('-')) return `<div class="ml-4 flex items-start gap-2 mb-1"><span class="text-emerald-400 mt-1">Ã¢â‚¬Â¢</span><span>${l.substring(1)}</span></div>`;
           if (l.match(/^[0-9]+\./)) return `<h4 class="font-bold text-white mt-4 mb-2 text-sm">${l}</h4>`;
           if (l.trim() === '') return '<br>';
           return `<p class="mb-1">${l}</p>`;
@@ -1488,7 +1488,7 @@ const App = {
     const select = document.getElementById('transshipment-incident-select');
     if (select) {
       const activeIncidents = appState.incidents.filter(inc => inc.status !== 'CONCLUIDA');
-      select.innerHTML = '<option value="">Nenhuma ocorrência selecionada...</option>' + 
+      select.innerHTML = '<option value="">Nenhuma ocorrÃªncia selecionada...</option>' + 
         activeIncidents.map(inc => `<option value="${inc.id}">${inc.id} - ${inc.cargoDescription || inc.cargoType} (R$ ${inc.cargoValue || 0})</option>`).join('');
       
       const current = appState.getCurrentIncident();
@@ -1518,21 +1518,21 @@ const App = {
       });
     }
 
-    // Exibe o Plano de Ação do PAAC
+    // Exibe o Plano de AÃ§Ã£o do PAAC
     const actionContentDiv = document.getElementById('transshipment-action-plan-content');
     const actionContainerDiv = document.getElementById('transshipment-action-plan-container');
     if (actionContentDiv && inc.logisticsPlan) {
       if (actionContainerDiv) actionContainerDiv.classList.remove('hidden');
       if (inc.logisticsPlan.actionPlanType === 'ia') {
-        actionContentDiv.innerHTML = '<span class="text-cyan-400 font-bold"><i data-lucide="sparkles" class="w-4 h-4 inline"></i> IA Estratégica:</span> Baseado nos dados logísticos e tipo de carga, a IA recomenda:\n- Isolamento imediato do perímetro\n- Remoção com guindaste a partir do eixo traseiro\n- Retirada de óleo do tanque para prevenir ignição.';
+        actionContentDiv.innerHTML = '<span class="text-cyan-400 font-bold"><i data-lucide="sparkles" class="w-4 h-4 inline"></i> IA EstratÃ©gica:</span> Baseado nos dados logÃ­sticos e tipo de carga, a IA recomenda:\n- Isolamento imediato do perÃ­metro\n- RemoÃ§Ã£o com guindaste a partir do eixo traseiro\n- Retirada de Ã³leo do tanque para prevenir igniÃ§Ã£o.';
       } else if (inc.logisticsPlan.actionPlanText) {
         actionContentDiv.textContent = inc.logisticsPlan.actionPlanText;
       } else {
-        actionContentDiv.textContent = 'Plano de ação livre vazio.';
+        actionContentDiv.textContent = 'Plano de aÃ§Ã£o livre vazio.';
       }
     }
 
-    // 4. Renderiza Checklist Dinâmico do Plano de Ação
+    // 4. Renderiza Checklist DinÃ¢mico do Plano de AÃ§Ã£o
     this.renderTransshipmentChecklistUI(inc);
     this.updateTransshipmentSLATimer();
 
@@ -1561,7 +1561,7 @@ const App = {
         return {
           key: `free_act_${idx}`,
           label: label,
-          detail: 'Ação Manual do Plano Livre'
+          detail: 'AÃ§Ã£o Manual do Plano Livre'
         };
       });
     }
@@ -1577,7 +1577,7 @@ const App = {
     if (items.length === 0) {
       items = [{
         key: 'empty_plan',
-        label: 'Nenhum plano de ação definido',
+        label: 'Nenhum plano de aÃ§Ã£o definido',
         detail: 'Volte na aba "Causa Raiz" (5W2H) e defina um Plano (IA ou Livre) para gerar o checklist operacional.'
       }];
     }
@@ -1606,7 +1606,7 @@ const App = {
       itemsContainer.innerHTML = items.map(it => `
         <div onclick="App.toggleTransshipmentChecklist('${it.key}')" class="p-2.5 rounded-xl border ${checklist[it.key] ? 'bg-emerald-950/40 border-emerald-500/50 text-emerald-200' : 'bg-slate-950 border-slate-800 text-slate-300 hover:border-slate-700'} cursor-pointer transition-all flex items-start gap-2.5 select-none">
           <div class="w-5 h-5 rounded-md flex items-center justify-center border mt-0.5 ${checklist[it.key] ? 'bg-emerald-600 border-emerald-500 text-white' : 'border-slate-700 bg-slate-900'}">
-            ${checklist[it.key] ? 'âœ“' : ''}
+            ${checklist[it.key] ? 'Ã¢Å“â€œ' : ''}
           </div>
           <div class="flex-1">
             <div class="font-bold text-xs ${checklist[it.key] ? 'text-emerald-300' : 'text-white'}">${it.label}</div>
@@ -1621,7 +1621,7 @@ const App = {
     if (authBtn) {
       if (!isPlaceHolder && completed === items.length && items.length > 0) {
         authBtn.className = "w-full py-3 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-white shadow-lg shadow-emerald-600/30 cursor-pointer animate-pulse";
-        authBtn.innerHTML = '<i data-lucide="check-check" class="w-4 h-4"></i> AUTORIZAR INÍCIO DA OPERAÇÃƒO';
+        authBtn.innerHTML = '<i data-lucide="check-check" class="w-4 h-4"></i> AUTORIZAR INÃCIO DA OPERAÃ‡ÃƒÆ’O';
       } else {
         authBtn.className = "w-full py-3 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-2 bg-slate-900 border border-slate-700 text-slate-500 cursor-not-allowed";
         authBtn.innerHTML = '<i data-lucide="lock" class="w-4 h-4"></i> COMPLETE O PLANO PARA LIBERAR';
@@ -1649,7 +1649,7 @@ const App = {
     const items = this.getTransshipmentChecklistItems(inc);
     
     if (items.length === 0 || (items.length === 1 && items[0].key === 'empty_plan')) {
-      this.showToast("Defina um Plano de Ação primeiro.");
+      this.showToast("Defina um Plano de AÃ§Ã£o primeiro.");
       return;
     }
 
@@ -1660,9 +1660,9 @@ const App = {
       return;
     }
 
-    appState.addDispatchLog("Transbordo Seguro", "OPERAÇÃƒO AUTORIZADA", `TRB-${Date.now().toString().slice(-4)}`, inc.responsible);
+    appState.addDispatchLog("Transbordo Seguro", "OPERAÃ‡ÃƒÆ’O AUTORIZADA", `TRB-${Date.now().toString().slice(-4)}`, inc.responsible);
     appState.toggleChecklist('transshipmentReady');
-    this.showToast("Operação formalmente liberada com conformidade total do Plano de Ação!");
+    this.showToast("OperaÃ§Ã£o formalmente liberada com conformidade total do Plano de AÃ§Ã£o!");
     this.renderTransshipmentTab();
   },
 
@@ -1699,11 +1699,11 @@ const App = {
         badgeEl.className = "px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-500/20 text-rose-400 border border-rose-500/40 animate-pulse";
         countdownEl.className = "text-4xl sm:text-5xl font-black text-rose-500 font-mono tracking-tight";
       } else if (remaining < 3600) {
-        badgeEl.textContent = "SLA CRÍTICO (< 1 HORA)";
+        badgeEl.textContent = "SLA CRÃTICO (< 1 HORA)";
         badgeEl.className = "px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/40";
         countdownEl.className = "text-4xl sm:text-5xl font-black text-amber-400 font-mono tracking-tight";
       } else {
-        badgeEl.textContent = "NO PRAZO REGULATÓRIO";
+        badgeEl.textContent = "NO PRAZO REGULATÃ“RIO";
         badgeEl.className = "px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30";
         countdownEl.className = "text-4xl sm:text-5xl font-black text-emerald-400 font-mono tracking-tight";
       }
@@ -1738,11 +1738,11 @@ const App = {
     const cargoPercent = document.getElementById('ts-cargo-percent')?.value || '0';
     const cargoValue = document.getElementById('ts-cargo-value')?.value || '0';
     
-    const msg = `*Atualização de Resgate - Ocorrência ${inc.id}*\n\n` +
-                `O processo de salvamento da carga foi concluído.\n` +
+    const msg = `*AtualizaÃ§Ã£o de Resgate - OcorrÃªncia ${inc.id}*\n\n` +
+                `O processo de salvamento da carga foi concluÃ­do.\n` +
                 `*Carga Salva:* ${cargoPercent}%\n` +
                 `*Valor Salvo:* R$ ${cargoValue}\n\n` +
-                `O valor salvo já está sendo levado para o destino com o transporte especializado.`;
+                `O valor salvo jÃ¡ estÃ¡ sendo levado para o destino com o transporte especializado.`;
                 
     const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
@@ -1772,14 +1772,14 @@ const App = {
       lossMsg = `*Perda Estimada:* R$ ${loss.toLocaleString('pt-BR', {minimumFractionDigits: 2})}\n`;
     }
 
-    const msg = `*Resumo Logístico - Continuamento do Transporte*\n` +
-                `*Ocorrência:* ${inc.id}\n\n` +
+    const msg = `*Resumo LogÃ­stico - Continuamento do Transporte*\n` +
+                `*OcorrÃªncia:* ${inc.id}\n\n` +
                 `Todo o processo de resgate foi finalizado com sucesso.\n` +
                 `*Carga Salva:* ${cargoPercent}%\n` +
                 `*Valor Salvo:* R$ ${cargoValue}\n` +
-                `*Custo da Operação:* R$ ${operationCost}\n` +
+                `*Custo da OperaÃ§Ã£o:* R$ ${operationCost}\n` +
                 lossMsg + `\n` +
-                `O produto continuará a viagem com o planejamento reajustado (pequena alteração de prazo).\n` +
+                `O produto continuarÃ¡ a viagem com o planejamento reajustado (pequena alteraÃ§Ã£o de prazo).\n` +
                 `*Novo Prazo de Entrega (ETA):* ${formattedDeadline}\n\n` +
                 `Segue abaixo o link de rastreio para acompanhar o seu produto em tempo real:\n` +
                 `${trackingLink}`;
@@ -1843,7 +1843,7 @@ const App = {
     const inputs = container ? container.querySelectorAll('input[type="text"]') : [];
     
     let html = '<div class="space-y-4 text-slate-800">';
-    const phases = ['Fase 1: Ações Imediatas', 'Fase 2: Ações Estruturais de Prevenção', 'Fase 3: Conclusão e Avaliação'];
+    const phases = ['Fase 1: AÃ§Ãµes Imediatas', 'Fase 2: AÃ§Ãµes Estruturais de PrevenÃ§Ã£o', 'Fase 3: ConclusÃ£o e AvaliaÃ§Ã£o'];
     let idx = 0;
     
     for (let i = 0; i < 3; i++) {
@@ -1898,17 +1898,17 @@ const App = {
   msgSubstituteDriver() {
     const inc = appState.getCurrentIncident();
     const base = TransshipmentModule.SUPPORT_BASES[0];
-    const text = encodeURIComponent(`ðŸš¨ *[ORDEM DE TRANSBORDO - GENERAL]* ðŸš¨
+    const text = encodeURIComponent(`Ã°Å¸Å¡Â¨ *[ORDEM DE TRANSBORDO - GENERAL]* Ã°Å¸Å¡Â¨
 Prezado ${base.substituteDriver},
-Veículo ${base.plate} acionado para transbordo urgente da ocorrência *${inc ? inc.id : 'PAAC'}*.
+VeÃ­culo ${base.plate} acionado para transbordo urgente da ocorrÃªncia *${inc ? inc.id : 'PAAC'}*.
 *Local:* ${inc ? inc.road : 'BR-116'} - ${inc ? inc.city : 'Serra'}
-*Carga:* ${inc ? inc.cargoDescription : 'Combustível'}
+*Carga:* ${inc ? inc.cargoDescription : 'CombustÃ­vel'}
 Favor confirmar deslocamento da ${base.name}.`);
     window.open(`https://wa.me/55${base.driverPhone.replace(/\D/g, '')}?text=${text}`, '_blank');
   },
 
   /* =======================================================
-   * SUBPLANO DE REDIRECIONAMENTO ESTRATÉGICO
+   * SUBPLANO DE REDIRECIONAMENTO ESTRATÃ‰GICO
    * ======================================================= */
   generateTrackingLink() {
     const linkDisplay = document.getElementById('tracking-link-display');
@@ -1945,7 +1945,7 @@ Favor confirmar deslocamento da ${base.name}.`);
   },
 
   /* =======================================================
-   * PLANEJADOR LOGÍSTICO, AUDITORIA & AUTO-OTIMIZADOR POR IA
+   * PLANEJADOR LOGÃSTICO, AUDITORIA & AUTO-OTIMIZADOR POR IA
    * ======================================================= */
   getPlanFromInputs() {
     const isActionPlanIA = document.querySelector('input[name="plan-action-type"]:checked')?.value === 'ia';
@@ -2022,14 +2022,14 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     if (document.getElementById('plan-truck-fam')) document.getElementById('plan-truck-fam').value = String(preset.isAssignedRegularTruck);
     if (document.getElementById('plan-tank-fill')) document.getElementById('plan-tank-fill').value = String(preset.tankFillPercent);
 
-    // this.runLogisticsPlanAudit(); // A auditoria agora é apenas manual
+    // this.runLogisticsPlanAudit(); // A auditoria agora Ã© apenas manual
     this.showToast(`Plano carregado.`);
   },
 
   async triggerPlanAnalysis() {
     const plan = this.getPlanFromInputs();
     if (!plan.origin || !plan.destination || !plan.vehicleType) {
-      this.showToast('Preencha ao menos a Origem, Destino e Veículo antes de analisar.', 'warning');
+      this.showToast('Preencha ao menos a Origem, Destino e VeÃ­culo antes de analisar.', 'warning');
       return;
     }
     
@@ -2042,14 +2042,14 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     // AWS Location Service Integration
     try {
       if (window.LocationService) {
-        // Geocodificação Origem
+        // GeocodificaÃ§Ã£o Origem
         const originRef = document.getElementById('plan-origin-ref').value;
         const originNeighb = document.getElementById('plan-origin-neighborhood')?.value;
         const originStr = originNeighb ? (originRef ? `${originRef}, ${originNeighb}` : originNeighb) : originRef;
         const originQuery = originStr ? `${originStr}, ${plan.origin}` : plan.origin;
         const originCoords = await window.LocationService.geocode(originQuery);
         
-        // Geocodificação Destino
+        // GeocodificaÃ§Ã£o Destino
         const destRef = document.getElementById('plan-dest-ref').value;
         const destNeighb = document.getElementById('plan-dest-neighborhood')?.value;
         const destStr = destNeighb ? (destRef ? `${destRef}, ${destNeighb}` : destNeighb) : destRef;
@@ -2068,14 +2068,14 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
         }
 
         if (originCoords && destCoords) {
-          this.showToast('Geocodificação concluída. Calculando rota...', 'info');
+          this.showToast('GeocodificaÃ§Ã£o concluÃ­da. Calculando rota...', 'info');
           let routeData = await window.LocationService.calculateRoute(originCoords, destCoords);
           if (Array.isArray(routeData) && routeData.length > 0) routeData = routeData[0];
           
           if (routeData) {
             document.getElementById('plan-dist').value = Math.round(routeData.distanceKm);
             
-            // Regra de Negócio (Previsão de Dias)
+            // Regra de NegÃ³cio (PrevisÃ£o de Dias)
             const totalHours = routeData.durationSeconds / 3600;
             const predictedDays = Math.ceil(totalHours / 8);
             const formattedTime = `${Math.floor(totalHours)}h ${Math.round((totalHours % 1) * 60)}m`;
@@ -2090,10 +2090,10 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
             if (roadsInput && (!roadsInput.value || roadsInput.value.trim() === '')) {
               if (routeData.roads) {
                 roadsInput.value = routeData.roads;
-                this.showToast('Rodovias extraídas diretamente do traçado!', 'success');
+                this.showToast('Rodovias extraÃ­das diretamente do traÃ§ado!', 'success');
               } else {
                 roadsInput.value = "Identificando rodovias com IA...";
-                const prompt = `Liste apenas os nomes/códigos das principais rodovias ou avenidas (ex: BR-116, SP-280, Av. Brasil) usadas na rota rodoviária mais comum entre ${originQuery} e ${destQuery}. Seja breve e retorne apenas as rodovias separadas por vírgula.`;
+                const prompt = `Liste apenas os nomes/cÃ³digos das principais rodovias ou avenidas (ex: BR-116, SP-280, Av. Brasil) usadas na rota rodoviÃ¡ria mais comum entre ${originQuery} e ${destQuery}. Seja breve e retorne apenas as rodovias separadas por vÃ­rgula.`;
                 GeminiService.callGemini(prompt).then(roads => {
                   roadsInput.value = roads.replace(/\*/g, '').trim();
                   this.showToast('Rodovias previstas identificadas pela IA.', 'info');
@@ -2118,29 +2118,29 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
               if (routeData.geometry && routeData.geometry.length > 0) {
                 window.plannerMapController.drawRoutes([routeData]);
               } else {
-                // Se a AWS v2 não retornou geometria da perna, ou só queremos centralizar
+                // Se a AWS v2 nÃ£o retornou geometria da perna, ou sÃ³ queremos centralizar
                 window.plannerMapController.updateMapLocation(originCoords[0], originCoords[1]);
               }
               window.plannerMapController.invalidateSize();
             }
 
-            this.showToast(`Rota traçada via AWS! Distância: ${routeData.distanceKm.toFixed(1)} km | Previsão: ${predictedDays} dia(s)`, 'success');
+            this.showToast(`Rota traÃ§ada via AWS! DistÃ¢ncia: ${routeData.distanceKm.toFixed(1)} km | PrevisÃ£o: ${predictedDays} dia(s)`, 'success');
           } else {
-            // Tratamento especial para cidades sem interligação rodoviária (ex: Ilha de Marajó)
-            this.showToast('AWS Location não encontrou uma rota rodoviária válida entre estes dois pontos.', 'warning');
-            document.getElementById('plan-duration').value = "Sem Rota Terrestre Disponível";
+            // Tratamento especial para cidades sem interligaÃ§Ã£o rodoviÃ¡ria (ex: Ilha de MarajÃ³)
+            this.showToast('AWS Location nÃ£o encontrou uma rota rodoviÃ¡ria vÃ¡lida entre estes dois pontos.', 'warning');
+            document.getElementById('plan-duration').value = "Sem Rota Terrestre DisponÃ­vel";
             document.getElementById('plan-dist').value = "";
           }
         }
       } else {
-        this.showToast('Módulo LocationService não carregado.', 'error');
+        this.showToast('MÃ³dulo LocationService nÃ£o carregado.', 'error');
       }
     } catch(err) {
       console.error('Erro AWS Location:', err);
       this.showToast('Erro ao processar rota na AWS Location.', 'error');
     }
     
-    // O usuário solicitou que a IA audite automaticamente o plano logo após identificar as rotas
+    // O usuÃ¡rio solicitou que a IA audite automaticamente o plano logo apÃ³s identificar as rotas
     this.runLogisticsPlanAudit();
     
     this.syncPredictiveFromCurrentPlan(false);
@@ -2151,13 +2151,13 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     try {
       const cityPart = cityString.split(',')[0];
       const cityName = cityPart.includes(' - ') ? cityPart.split(' - ').pop().replace(/\s*\(.*\)\s*/, '').trim() : cityPart.replace(/\s*\(.*\)\s*/, '').trim();
-      // 1. Geocodificação Open-Meteo
+      // 1. GeocodificaÃ§Ã£o Open-Meteo
       const geoResponse = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(cityName)}&count=1&language=pt`);
-      if (!geoResponse.ok) throw new Error('Falha na API de Geocodificação');
+      if (!geoResponse.ok) throw new Error('Falha na API de GeocodificaÃ§Ã£o');
       const geoData = await geoResponse.json();
       
       if (!geoData.results || geoData.results.length === 0) {
-        throw new Error('Cidade não encontrada no Geocoder');
+        throw new Error('Cidade nÃ£o encontrada no Geocoder');
       }
       
       const location = geoData.results[0];
@@ -2171,11 +2171,11 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
       const daily = weatherData.daily;
       
       const wmoCodes = {
-        0: 'Céu Limpo', 1: 'Maiormente Limpo', 2: 'Parcialmente Nublado', 3: 'Nublado',
-        45: 'Névoa', 48: 'Névoa Gélida', 51: 'Chuvisco Leve', 53: 'Chuvisco Moderado', 55: 'Chuvisco Forte',
+        0: 'CÃ©u Limpo', 1: 'Maiormente Limpo', 2: 'Parcialmente Nublado', 3: 'Nublado',
+        45: 'NÃ©voa', 48: 'NÃ©voa GÃ©lida', 51: 'Chuvisco Leve', 53: 'Chuvisco Moderado', 55: 'Chuvisco Forte',
         56: 'Chuvisco Congelante Leve', 57: 'Chuvisco Congelante Forte', 61: 'Chuva Leve', 63: 'Chuva Moderada', 65: 'Chuva Forte',
         66: 'Chuva Congelante Leve', 67: 'Chuva Congelante Forte', 71: 'Neve Leve', 73: 'Neve Moderada', 75: 'Neve Forte',
-        77: 'Grãos de Neve', 80: 'Pancadas de Chuva Leves', 81: 'Pancadas de Chuva Moderadas', 82: 'Pancadas de Chuva Fortes',
+        77: 'GrÃ£os de Neve', 80: 'Pancadas de Chuva Leves', 81: 'Pancadas de Chuva Moderadas', 82: 'Pancadas de Chuva Fortes',
         85: 'Pancadas de Neve Leves', 86: 'Pancadas de Neve Fortes', 95: 'Tempestade', 96: 'Tempestade c/ Granizo Leve', 99: 'Tempestade c/ Granizo Forte'
       };
       
@@ -2198,17 +2198,17 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
       if (weatherDiv) {
         weatherDiv.innerHTML = `
           <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800">
-            <h4 id="weather-${type}-title" class="text-sm font-bold text-slate-200 mb-4">Previsão Real para ${location.name} (Fonte: Open-Meteo)</h4>
+            <h4 id="weather-${type}-title" class="text-sm font-bold text-slate-200 mb-4">PrevisÃ£o Real para ${location.name} (Fonte: Open-Meteo)</h4>
             <div class="flex items-center gap-6">
               <div class="flex flex-col items-center justify-center">
                 <i data-lucide="cloud" class="w-12 h-12 text-blue-400"></i>
-                <span class="text-2xl font-bold text-white mt-2">${temp}Â°C</span>
+                <span class="text-2xl font-bold text-white mt-2">${temp}Ã‚Â°C</span>
               </div>
               <div class="flex-1">
                 <div class="text-sm text-slate-300 font-medium">${weatherDesc}</div>
                 <div class="text-xs text-slate-400 mt-1 flex flex-wrap items-center gap-3">
-                  <span>Min: ${minTemp}Â°</span>
-                  <span>Max: ${maxTemp}Â°</span>
+                  <span>Min: ${minTemp}Ã‚Â°</span>
+                  <span>Max: ${maxTemp}Ã‚Â°</span>
                   <span class="text-blue-400 flex items-center gap-1"><i data-lucide="droplets" class="w-3 h-3"></i> ${precipChance}%</span>
                 </div>
               </div>
@@ -2223,8 +2223,8 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
       if (weatherDiv) {
         weatherDiv.innerHTML = `
           <div class="bg-slate-900/50 p-4 rounded-xl border border-rose-500/30 text-rose-400">
-            <h4 class="text-sm font-bold mb-2">Previsão Indisponível</h4>
-            <p class="text-xs">Não foi possível carregar a previsão do tempo real para este local.</p>
+            <h4 class="text-sm font-bold mb-2">PrevisÃ£o IndisponÃ­vel</h4>
+            <p class="text-xs">NÃ£o foi possÃ­vel carregar a previsÃ£o do tempo real para este local.</p>
           </div>
         `;
       }
@@ -2258,7 +2258,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
        if (window.lucide) lucide.createIcons();
     }
 
-    // Limpa o timeout anterior para evitar múltiplas chamadas
+    // Limpa o timeout anterior para evitar mÃºltiplas chamadas
     if (this.auditTimeout) {
       clearTimeout(this.auditTimeout);
     }
@@ -2278,7 +2278,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
 
         const badgeEl = document.getElementById('plan-audit-badge');
         if (badgeEl) {
-          badgeEl.textContent = audit.safetyScore >= 75 ? 'SEGURO' : audit.safetyScore >= 50 ? 'RESTRIÇÃƒO' : 'CRÍTICO';
+          badgeEl.textContent = audit.safetyScore >= 75 ? 'SEGURO' : audit.safetyScore >= 50 ? 'RESTRIÃ‡ÃƒÆ’O' : 'CRÃTICO';
           badgeEl.className = `px-2.5 py-0.5 rounded-full text-xs font-bold ${audit.statusClass}`;
         }
 
@@ -2291,12 +2291,12 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
           if (audit.warnings.length > 0) {
             defectsBanner.classList.remove('hidden');
             defectsBanner.className = 'flex flex-col gap-3 p-5 rounded-2xl bg-gradient-to-r from-rose-950/90 via-red-950/70 to-slate-900 border border-rose-500/50 shadow-[0_0_20px_rgba(225,29,72,0.15)] animate-pulse';
-            if (defectsTitle) defectsTitle.textContent = `${100 - audit.safetyScore} RISCO - ${audit.safetyScore >= 50 ? 'ALERTA' : 'CRÍTICO'}`;
-            defectsText.innerHTML = audit.warnings.map(w => `<div class="flex items-start gap-1.5"><span class="text-rose-400 mt-1 text-[10px]">â—</span> <span><strong>${w.title}:</strong> ${w.description}</span></div>`).join('');
-            if (defectsAction) defectsAction.innerHTML = "A IA recomenda reformular o cronograma de saída ou acionar a Correção Automática para mitigação.";
+            if (defectsTitle) defectsTitle.textContent = `${100 - audit.safetyScore} RISCO - ${audit.safetyScore >= 50 ? 'ALERTA' : 'CRÃTICO'}`;
+            defectsText.innerHTML = audit.warnings.map(w => `<div class="flex items-start gap-1.5"><span class="text-rose-400 mt-1 text-[10px]">Ã¢â€”Â</span> <span><strong>${w.title}:</strong> ${w.description}</span></div>`).join('');
+            if (defectsAction) defectsAction.innerHTML = "A IA recomenda reformular o cronograma de saÃ­da ou acionar a CorreÃ§Ã£o AutomÃ¡tica para mitigaÃ§Ã£o.";
           } else {
             defectsBanner.className = 'bg-emerald-950/40 border border-emerald-500/40 p-4 rounded-2xl flex items-center gap-3';
-            defectsBanner.innerHTML = '<span class="text-xl">âœ¨</span><div class="text-emerald-200 text-sm"><strong>Nenhum defeito detectado!</strong> O plano está com segurança máxima para despacho.</div>';
+            defectsBanner.innerHTML = '<span class="text-xl">Ã¢Å“Â¨</span><div class="text-emerald-200 text-sm"><strong>Nenhum defeito detectado!</strong> O plano estÃ¡ com seguranÃ§a mÃ¡xima para despacho.</div>';
           }
         }
 
@@ -2305,22 +2305,22 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
           warnContainer.innerHTML = audit.warnings.map(w => `
             <div class="p-2.5 rounded-xl bg-slate-950 border border-rose-500/30 text-slate-300">
               <div class="flex items-center justify-between font-bold text-rose-400 text-xs mb-1">
-                <span>âš ï¸ ${w.title}</span>
+                <span>Ã¢Å¡Â Ã¯Â¸Â ${w.title}</span>
                 <span class="font-mono text-[10px] text-rose-500">${w.penalty}</span>
               </div>
               <p class="text-[11px] text-slate-400 leading-snug">${w.description}</p>
             </div>
-          `).join('') || '<p class="text-xs text-emerald-400">Nenhum perigo crítico detectado.</p>';
+          `).join('') || '<p class="text-xs text-emerald-400">Nenhum perigo crÃ­tico detectado.</p>';
         }
 
         const prescContainer = document.getElementById('plan-prescriptions-container');
         if (prescContainer) {
           prescContainer.innerHTML = audit.prescriptions.map(p => `
             <div class="p-2.5 rounded-xl bg-cyan-950/30 border border-cyan-500/40 text-slate-300">
-              <div class="font-bold text-cyan-300 text-xs mb-1">ðŸ’¡ ${p.action}</div>
+              <div class="font-bold text-cyan-300 text-xs mb-1">Ã°Å¸â€™Â¡ ${p.action}</div>
               <p class="text-[11px] text-slate-300 leading-snug">${p.detail}</p>
             </div>
-          `).join('') || '<p class="text-xs text-slate-500">Nenhum ajuste necessário.</p>';
+          `).join('') || '<p class="text-xs text-slate-500">Nenhum ajuste necessÃ¡rio.</p>';
         }
         
         this.renderMarketplace();
@@ -2340,11 +2340,11 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     const destRef = document.getElementById('plan-dest-ref')?.value || '';
     
     if (!originCity || !destCity) {
-      this.showToast('Informe a Origem (Cidade) e o Destino (Cidade) para ativar a previsão.', true);
+      this.showToast('Informe a Origem (Cidade) e o Destino (Cidade) para ativar a previsÃ£o.', true);
       return;
     }
     
-    this.showToast(`Buscando rota AWS e previsão do tempo: ${originCity} -> ${destCity}...`);
+    this.showToast(`Buscando rota AWS e previsÃ£o do tempo: ${originCity} -> ${destCity}...`);
     
     // Process weather for origin and destination
     await this.fetchRealWeather(originCity, 'origem');
@@ -2353,7 +2353,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     // AWS Location Service Integration
     try {
       if (window.LocationService) {
-        // Query formatação: CEP, Cidade, Estado, Brasil
+        // Query formataÃ§Ã£o: CEP, Cidade, Estado, Brasil
         const originNeighb = document.getElementById('plan-origin-neighborhood')?.value || '';
         const originStr = originNeighb ? (originRef ? `${originRef}, ${originNeighb}` : originNeighb) : originRef;
         const originQuery = originStr ? `${originStr}, ${originCity}, ${originState}, Brazil` : `${originCity}, ${originState}, Brazil`;
@@ -2387,7 +2387,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
             durationInput.value = durText.trim();
           }
 
-          // Atualizar Custo de Combustível
+          // Atualizar Custo de CombustÃ­vel
           this.simulateFuelCost();
 
           const mapContainer = document.getElementById('planner-map-container');
@@ -2407,10 +2407,10 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
                window.plannerMapController.invalidateSize();
             }, 300);
           }
-          this.showToast('Previsão AWS ativada e rota calculada com sucesso!');
+          this.showToast('PrevisÃ£o AWS ativada e rota calculada com sucesso!');
         }
       } else {
-        this.showToast('Módulo LocationService não carregado.', 'error');
+        this.showToast('MÃ³dulo LocationService nÃ£o carregado.', 'error');
       }
     } catch(err) {
       console.error('Erro AWS Location:', err);
@@ -2424,7 +2424,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     const deadlineInput = document.getElementById('plan-deadline');
     
     if (!deptimeInput) {
-      this.showToast('Informe o Horário Previsto de Saída primeiro.', true);
+      this.showToast('Informe o HorÃ¡rio Previsto de SaÃ­da primeiro.', true);
       return;
     }
     
@@ -2440,7 +2440,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     if (hoursMatch) hours = parseInt(hoursMatch[1]);
     
     if (days === 0 && hours === 0) {
-       this.showToast('Formato de previsão inválido. Use "X dias Y horas".', true);
+       this.showToast('Formato de previsÃ£o invÃ¡lido. Use "X dias Y horas".', true);
        return;
     }
     
@@ -2453,7 +2453,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
       deadlineInput.value = localISOTime;
       this.showToast('Janela limite de entrega calculada.');
     } else {
-      this.showToast('Data de saída inválida.', true);
+      this.showToast('Data de saÃ­da invÃ¡lida.', true);
     }
   },
 
@@ -2468,7 +2468,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     
     if (statusContainer) {
       statusContainer.innerHTML = `
-        <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Status Validação ANTT/MT:</span>
+        <span class="text-[10px] uppercase font-bold text-slate-500 tracking-wider">Status ValidaÃ§Ã£o ANTT/MT:</span>
         <span class="text-xs font-bold text-emerald-400 flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3"></i> Validado e Assinado Digitalmente</span>
       `;
       // Re-initialize lucide icons for the new check-circle
@@ -2492,8 +2492,8 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
       id: plan.code,
       type: 'LOGISTICO',
       date: new Date().toISOString(),
-      client: plan.clientName || 'Cliente não informado',
-      product: plan.productName || 'Produto não informado',
+      client: plan.clientName || 'Cliente nÃ£o informado',
+      product: plan.productName || 'Produto nÃ£o informado',
       origin: document.getElementById('plan-origin-city')?.options[document.getElementById('plan-origin-city')?.selectedIndex]?.text || 'Origem',
       destination: document.getElementById('plan-dest-city')?.options[document.getElementById('plan-dest-city')?.selectedIndex]?.text || 'Destino',
       isSigned: isSigned || false,
@@ -2514,7 +2514,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
 
   async reformulatePlanWithAI() {
     if (!appState.useAICredit()) {
-      this.showToast('Créditos de IA esgotados. Contate o suporte para recarregar.', 'error');
+      this.showToast('CrÃ©ditos de IA esgotados. Contate o suporte para recarregar.', 'error');
       return;
     }
 
@@ -2529,7 +2529,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
       <div class="flex flex-col items-center justify-center p-8 space-y-4">
         <i data-lucide="loader-2" class="w-12 h-12 text-blue-500 animate-spin"></i>
         <h3 class="text-lg font-bold text-white">IA Otimizando Plano de Viagem...</h3>
-        <p class="text-slate-400 text-sm text-center">O Gemini está reformulando o plano logístico para anular os riscos e garantir Score 100.</p>
+        <p class="text-slate-400 text-sm text-center">O Gemini estÃ¡ reformulando o plano logÃ­stico para anular os riscos e garantir Score 100.</p>
       </div>
     `;
     if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -2542,7 +2542,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="bg-rose-950/20 border border-rose-500/40 p-5 rounded-2xl space-y-3">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-rose-400 uppercase tracking-wider">ANTES â€¢ Plano com Defeitos</span>
+            <span class="text-xs font-bold text-rose-400 uppercase tracking-wider">ANTES Ã¢â‚¬Â¢ Plano com Defeitos</span>
             <span class="px-2.5 py-0.5 rounded-full font-mono font-bold text-xs bg-rose-500/20 text-rose-400 border border-rose-500/40">
               Score: ${currentAudit.safetyScore}%
             </span>
@@ -2558,7 +2558,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
           <div class="flex items-center justify-between">
             <span class="text-xs font-bold text-emerald-300 uppercase tracking-wider flex items-center gap-1.5">
               <i data-lucide="sparkles" class="w-4 h-4 text-emerald-400"></i>
-              DEPOIS â€¢ Modelagem IA GENERAL
+              DEPOIS Ã¢â‚¬Â¢ Modelagem IA GENERAL
             </span>
             <span class="px-2.5 py-0.5 rounded-full font-mono font-black text-xs bg-emerald-500 text-slate-950 shadow-md">
               Score: 100% SEGURO
@@ -2579,7 +2579,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
             <div class="flex items-center justify-between p-2 rounded-lg bg-slate-900 border border-slate-800">
               <div>
                 <span class="font-bold text-white block">${c.item}</span>
-                <span class="text-[11px] text-slate-400">${c.before} âž” <strong class="text-emerald-400">${c.after}</strong></span>
+                <span class="text-[11px] text-slate-400">${c.before} Ã¢Å¾â€ <strong class="text-emerald-400">${c.after}</strong></span>
               </div>
               <span class="font-bold text-emerald-400 font-mono text-xs">${c.gain}</span>
             </div>
@@ -2603,21 +2603,21 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     
     const mockData = {
       CAMINHAO: [
-        { name: "Frota Própria", model: "Veículo da Empresa", time: "Permanente", capacity: "Conforme Frota", rating: 5.0, icon: "truck" },
-        { name: "Transportes São João", model: "Scania R450 6x2", time: "15 anos", capacity: "35 ton", rating: 4.8, icon: "truck" },
-        { name: "Logística Alpha", model: "Volvo FH 540", time: "8 anos", capacity: "40 ton", rating: 4.5, icon: "truck" },
+        { name: "Frota PrÃ³pria", model: "VeÃ­culo da Empresa", time: "Permanente", capacity: "Conforme Frota", rating: 5.0, icon: "truck" },
+        { name: "Transportes SÃ£o JoÃ£o", model: "Scania R450 6x2", time: "15 anos", capacity: "35 ton", rating: 4.8, icon: "truck" },
+        { name: "LogÃ­stica Alpha", model: "Volvo FH 540", time: "8 anos", capacity: "40 ton", rating: 4.5, icon: "truck" },
         { name: "Cargas Express", model: "Mercedes Actros", time: "5 anos", capacity: "32 ton", rating: 4.2, icon: "truck" }
       ],
       AVIAO: [
         { name: "AirCargo Brasil", model: "Boeing 737-800BCF", time: "22 anos", capacity: "23 ton", rating: 4.9, icon: "plane" },
-        { name: "Voo Rápido Log", model: "Airbus A330F", time: "10 anos", capacity: "70 ton", rating: 4.7, icon: "plane" }
+        { name: "Voo RÃ¡pido Log", model: "Airbus A330F", time: "10 anos", capacity: "70 ton", rating: 4.7, icon: "plane" }
       ],
       NAVIO: [
-        { name: "Navegação Oceânica", model: "Porta-Contêineres Panamax", time: "30 anos", capacity: "4.500 TEU", rating: 4.6, icon: "ship" },
-        { name: "Marítima Log", model: "Navio Tanque Aframax", time: "18 anos", capacity: "120.000 ton", rating: 4.4, icon: "ship" }
+        { name: "NavegaÃ§Ã£o OceÃ¢nica", model: "Porta-ContÃªineres Panamax", time: "30 anos", capacity: "4.500 TEU", rating: 4.6, icon: "ship" },
+        { name: "MarÃ­tima Log", model: "Navio Tanque Aframax", time: "18 anos", capacity: "120.000 ton", rating: 4.4, icon: "ship" }
       ],
       TREM: [
-        { name: "Ferrovia Nacional", model: "Locomotiva AC44i (Composição 80 vagões)", time: "40 anos", capacity: "8.000 ton", rating: 4.5, icon: "train" },
+        { name: "Ferrovia Nacional", model: "Locomotiva AC44i (ComposiÃ§Ã£o 80 vagÃµes)", time: "40 anos", capacity: "8.000 ton", rating: 4.5, icon: "train" },
         { name: "Sul Cargas Express", model: "Locomotiva SD70ACe", time: "12 anos", capacity: "6.500 ton", rating: 4.3, icon: "train" }
       ]
     };
@@ -2639,7 +2639,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     
     let companies = [...customProviders, ...allMockData];
     
-    // Filtro de exclusão local
+    // Filtro de exclusÃ£o local
     let hiddenCarriers = [];
     try {
       hiddenCarriers = JSON.parse(localStorage.getItem('general_hidden_carriers')) || [];
@@ -2647,7 +2647,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     companies = companies.filter(c => !hiddenCarriers.includes(c.name));
 
     if (companies.length === 0) {
-      container.innerHTML = `<p class="text-xs text-slate-500 col-span-full">Nenhuma transportadora disponível para este modal no momento.</p>`;
+      container.innerHTML = `<p class="text-xs text-slate-500 col-span-full">Nenhuma transportadora disponÃ­vel para este modal no momento.</p>`;
       return;
     }
 
@@ -2668,13 +2668,13 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
             </div>
           </div>
           <div class="space-y-1.5 text-[11px] text-slate-400 mb-4">
-            <p><span class="font-semibold text-slate-300">Veículo:</span> ${c.model}</p>
+            <p><span class="font-semibold text-slate-300">VeÃ­culo:</span> ${c.model}</p>
             <p><span class="font-semibold text-slate-300">Capacidade:</span> ${c.capacity}</p>
             <p><span class="font-semibold text-slate-300">Tempo de Mercado:</span> ${c.time}</p>
           </div>
         </div>
         <div class="flex items-center gap-2 mt-3">
-          <button onclick="App.showToast('Nenhuma avaliação detalhada no momento', 'info')" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 border border-slate-700 flex items-center justify-center transition-all shadow-md" title="Exibir Avaliações">
+          <button onclick="App.showToast('Nenhuma avaliaÃ§Ã£o detalhada no momento', 'info')" class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 border border-slate-700 flex items-center justify-center transition-all shadow-md" title="Exibir AvaliaÃ§Ãµes">
             <i data-lucide="eye" class="w-4 h-4"></i>
           </button>
           <button onclick="App.selectProvider('${c.name}', ${c.rating || 5.0})" class="flex-1 bg-slate-800 hover:bg-emerald-600 text-white py-2 rounded-lg text-xs font-bold transition-all shadow-md">
@@ -2711,7 +2711,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     const time = document.getElementById('provider-time').value.trim();
     
     if (!name || !model) {
-      this.showToast('Preencha os campos obrigatórios (Nome e Veículo).', 'error');
+      this.showToast('Preencha os campos obrigatÃ³rios (Nome e VeÃ­culo).', 'error');
       return;
     }
 
@@ -2757,7 +2757,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
   },
 
   submitAppRating(stars) {
-    this.showToast(`Obrigado pela sua avaliação de ${stars} estrela(s)!`, 'success');
+    this.showToast(`Obrigado pela sua avaliaÃ§Ã£o de ${stars} estrela(s)!`, 'success');
     const modal = document.getElementById('app-rating-modal');
     if (modal) {
       modal.classList.add('hidden');
@@ -2782,20 +2782,20 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     if (document.getElementById('plan-tank-fill')) document.getElementById('plan-tank-fill').value = String(opt.tankFillPercent);
 
     this.closeAIReformerModal();
-    // this.runLogisticsPlanAudit(); // A auditoria IA agora é apenas manual
+    // this.runLogisticsPlanAudit(); // A auditoria IA agora Ã© apenas manual
     this.syncPredictiveFromCurrentPlan(false);
     this.showToast("Plano reformulado com sucesso! Score 100% Seguro aplicado.");
   },
 
   /* =======================================================
-   * IA PREDITIVA (VINCULADA DINAMICAMENTE AO PLANO LOGÍSTICO)
+   * IA PREDITIVA (VINCULADA DINAMICAMENTE AO PLANO LOGÃSTICO)
    * ======================================================= */
   renderPredictiveTab() {
     const select = document.getElementById('pred-plan-select');
     if (select) {
       const savedPlans = JSON.parse(localStorage.getItem('GENERAL_PAAC_SAVED_PLANS') || '[]');
       const logPlans = savedPlans.filter(p => p.type === 'LOGISTICO');
-      select.innerHTML = '<option value="">Selecione um Plano Logístico Aprovado...</option>' + 
+      select.innerHTML = '<option value="">Selecione um Plano LogÃ­stico Aprovado...</option>' + 
         logPlans.map((p, idx) => `<option value="${idx}">${p.id || p.code} - ${p.clientName || (p.data && p.data.clientName) || 'Cliente N/A'} (${p.origin || (p.data && p.data.origin) || 'Origem N/A'} -> ${p.destination || (p.data && p.data.destination) || 'Destino N/A'})</option>`).join('');
     }
   },
@@ -2803,12 +2803,12 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
   async runPredictiveAnalysis() {
     const select = document.getElementById('pred-plan-select');
     if (!select || select.value === '') {
-      this.showToast('Selecione um plano logístico primeiro para rodar a análise.', 'warning');
+      this.showToast('Selecione um plano logÃ­stico primeiro para rodar a anÃ¡lise.', 'warning');
       return;
     }
 
     if (!appState.useAICredit()) {
-      this.showToast('Créditos de IA esgotados. Contate o suporte para recarregar.', 'error');
+      this.showToast('CrÃ©ditos de IA esgotados. Contate o suporte para recarregar.', 'error');
       return;
     }
     
@@ -2820,10 +2820,10 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     setTimeout(async () => {
       try {
         await this.syncPredictiveFromSelectedPlan(true); // run analysis
-        this.showToast('Análise preditiva de IA concluída.', 'success');
+        this.showToast('AnÃ¡lise preditiva de IA concluÃ­da.', 'success');
       } catch (err) {
-        console.error('Erro na análise preditiva:', err);
-        this.showToast('Falha na simulação de IA. Verifique sua conexão.', 'error');
+        console.error('Erro na anÃ¡lise preditiva:', err);
+        this.showToast('Falha na simulaÃ§Ã£o de IA. Verifique sua conexÃ£o.', 'error');
         document.getElementById('pred-probability-num').innerHTML = 'ERRO';
       }
     }, 500);
@@ -2833,7 +2833,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     const select = document.getElementById('pred-plan-select');
     const dashboard = document.getElementById('predictive-dashboard');
     if (!select || select.value === '') {
-      this.showToast('Selecione um plano logístico.', 'warning');
+      this.showToast('Selecione um plano logÃ­stico.', 'warning');
       if (dashboard) dashboard.classList.add('hidden');
       return;
     }
@@ -2843,7 +2843,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     let plan = savedPlans[select.value];
     if (!plan) return;
 
-    // Se estiver rodando análise de IA, otimiza
+    // Se estiver rodando anÃ¡lise de IA, otimiza
     if (runAnalysis) {
       const result = await LogisticsPlanner.optimizePlanWithAI(plan);
       plan = result.optimizedPlan;
@@ -2851,7 +2851,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
 
     const forecast = AIPredictiveEngine.simulateFromLogisticsPlan(plan);
 
-    // No banner de origem dos dados não tem mais o id pred-sync-plan-title.
+    // No banner de origem dos dados nÃ£o tem mais o id pred-sync-plan-title.
     // Wait, the banner was removed in HTML earlier?
     // Let me check what is in index.html for the banner. It was replaced with the select element.
     // I don't need to update planTitleEl anymore because the dropdown select already shows the selected plan.
@@ -2870,7 +2870,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     const sliderSpeed = document.getElementById('slider-speed');
     if (sliderSpeed) sliderSpeed.value = String(this.simulationState.speed);
     const valSpeed = document.getElementById('val-speed');
-    if (valSpeed) valSpeed.textContent = `${this.simulationState.speed} km/h (Média Requerida)`;
+    if (valSpeed) valSpeed.textContent = `${this.simulationState.speed} km/h (MÃ©dia Requerida)`;
 
     const selectWeather = document.getElementById('select-weather');
     if (selectWeather) selectWeather.value = this.simulationState.weather;
@@ -2900,7 +2900,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     if (actionsContainer) {
       actionsContainer.innerHTML = forecast.preventiveActions.map(act => `
         <div class="flex items-center gap-2 p-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
-          <span class="text-purple-400">ðŸ›¡ï¸</span>
+          <span class="text-purple-400">Ã°Å¸â€ºÂ¡Ã¯Â¸Â</span>
           <span>${act}</span>
         </div>
       `).join('');
@@ -2963,7 +2963,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     if (actionsContainer) {
       actionsContainer.innerHTML = forecast.preventiveActions.map(act => `
         <div class="flex items-center gap-2 p-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-300">
-          <span class="text-purple-400">ðŸ›¡ï¸</span>
+          <span class="text-purple-400">Ã°Å¸â€ºÂ¡Ã¯Â¸Â</span>
           <span>${act}</span>
         </div>
       `).join('');
@@ -2971,7 +2971,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
   },
 
   /* =======================================================
-   * IA PRESCRITIVA (PLANO DE AÇÃƒO 5W2H)
+   * IA PRESCRITIVA (PLANO DE AÃ‡ÃƒÆ’O 5W2H)
    * ======================================================= */
   renderAIPlanTab(plan) {
     if (plan) this.currentAIPlan = plan;
@@ -2989,17 +2989,17 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
           <div class="bg-slate-900/80 border ${item.completed ? 'border-emerald-500/40 bg-emerald-950/10' : 'border-slate-800'} rounded-2xl p-5 transition-all">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800/80 mb-3">
               <div class="flex items-center gap-3">
-                <span class="px-2.5 py-1 rounded-lg font-mono font-bold text-xs ${item.priority === 'CRÍTICA' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'}">
-                  ${item.id} â€¢ ${item.priority}
+                <span class="px-2.5 py-1 rounded-lg font-mono font-bold text-xs ${item.priority === 'CRÃTICA' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'}">
+                  ${item.id} Ã¢â‚¬Â¢ ${item.priority}
                 </span>
                 <span class="text-xs font-bold text-slate-400">${item.phase}</span>
               </div>
               <div class="flex items-center gap-2">
                 <button onclick="App.rateAIAction('${item.id}', 'EFICAZ')" title="Avaliar como Eficaz" class="px-2.5 py-1 bg-slate-800 hover:bg-emerald-600 hover:text-white rounded-lg text-xs font-semibold text-slate-300 transition-all">
-                  ðŸ‘ Eficaz
+                  Ã°Å¸â€˜Â Eficaz
                 </button>
                 <button onclick="App.rateAIAction('${item.id}', 'REAJUSTAR')" title="Sugerir Ajuste" class="px-2.5 py-1 bg-slate-800 hover:bg-amber-600 hover:text-white rounded-lg text-xs font-semibold text-slate-300 transition-all">
-                  ðŸ‘Ž Reajustar
+                  Ã°Å¸â€˜Å½ Reajustar
                 </button>
               </div>
             </div>
@@ -3027,10 +3027,10 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
 
             <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div class="text-xs text-slate-300 leading-relaxed">
-                <strong class="text-cyan-400">Instrução Técnica (How):</strong> ${item.how}
+                <strong class="text-cyan-400">InstruÃ§Ã£o TÃ©cnica (How):</strong> ${item.how}
               </div>
               <button onclick="App.executeAIAction('${item.id}')" class="flex-shrink-0 px-4 py-2 rounded-xl text-xs font-bold ${item.completed ? 'bg-emerald-600/30 text-emerald-300 border border-emerald-500/50' : 'bg-cyan-600 hover:bg-cyan-500 text-white shadow-md'} transition-all">
-                ${item.completed ? 'âœ“ Concluído' : 'Executar Ação'}
+                ${item.completed ? 'Ã¢Å“â€œ ConcluÃ­do' : 'Executar AÃ§Ã£o'}
               </button>
             </div>
           </div>
@@ -3041,7 +3041,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
 
   async regenerateAIPlan() {
     if (!appState.useAICredit()) {
-      this.showToast('Créditos de IA esgotados. Contate o suporte para recarregar.', 'error');
+      this.showToast('CrÃ©ditos de IA esgotados. Contate o suporte para recarregar.', 'error');
       return;
     }
 
@@ -3050,7 +3050,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
       const select = document.getElementById('action-plan-link');
       if (select && select.value) {
         inc = {
-          eventType: 'Falha Logística / Operacional',
+          eventType: 'Falha LogÃ­stica / Operacional',
           road: 'Rota do Plano',
           city: 'N/D',
           km: 'N/D',
@@ -3078,13 +3078,13 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     ];
 
     if (!fiveWhys[0]) {
-      this.showToast("Preencha ao menos o 1Âº Porquê antes de gerar o plano.", "warning");
+      this.showToast("Preencha ao menos o 1Ã‚Âº PorquÃª antes de gerar o plano.", "warning");
       return;
     }
 
     const container = document.getElementById('ai-plan-5w2h-container');
     if (container) {
-      container.innerHTML = '<div class="flex flex-col justify-center items-center py-10"><i data-lucide="loader-2" class="w-10 h-10 animate-spin text-cyan-500 mb-4"></i><p class="text-slate-400 font-bold text-sm">Gerando Plano 5W2H com Inteligência Artificial...</p></div>';
+      container.innerHTML = '<div class="flex flex-col justify-center items-center py-10"><i data-lucide="loader-2" class="w-10 h-10 animate-spin text-cyan-500 mb-4"></i><p class="text-slate-400 font-bold text-sm">Gerando Plano 5W2H com InteligÃªncia Artificial...</p></div>';
       if (window.lucide) window.lucide.createIcons();
     }
 
@@ -3096,7 +3096,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
       
       this.renderAIPlanTab(plan);
       if (window.lucide) window.lucide.createIcons();
-      this.showToast("Plano de Ação 5W2H recalculado e atualizado pela IA!");
+      this.showToast("Plano de AÃ§Ã£o 5W2H recalculado e atualizado pela IA!");
     } catch (e) {
       console.error(e);
       this.showToast("Falha ao gerar plano IA", "error");
@@ -3114,18 +3114,18 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     else if (actionId === 'ACT-05') appState.toggleChecklist('insurerNotified');
     else if (actionId === 'ACT-06') appState.toggleChecklist('transshipmentReady');
 
-    this.showToast('Ação registrada na central!');
-    // Não re-renderiza todo o plano de IA para não perder o que foi gerado em memória, apenas muda o UI.
+    this.showToast('AÃ§Ã£o registrada na central!');
+    // NÃ£o re-renderiza todo o plano de IA para nÃ£o perder o que foi gerado em memÃ³ria, apenas muda o UI.
     const btn = event.currentTarget;
     if (btn) {
       btn.classList.remove('bg-cyan-600', 'hover:bg-cyan-500', 'text-white');
       btn.classList.add('bg-emerald-600/30', 'text-emerald-300', 'border', 'border-emerald-500/50');
-      btn.innerHTML = 'âœ“ Concluído';
+      btn.innerHTML = 'Ã¢Å“â€œ ConcluÃ­do';
     }
   },
 
   rateAIAction(actionId, rating) {
-    this.showToast(`Avaliação de ação ${actionId} registrada: ${rating}`);
+    this.showToast(`AvaliaÃ§Ã£o de aÃ§Ã£o ${actionId} registrada: ${rating}`);
   },
 
   renderActionPlanView() {
@@ -3134,7 +3134,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     const label = select?.previousElementSibling;
     
     if (inc) {
-      if (label) label.textContent = 'Ocorrência Ativa Vinculada:';
+      if (label) label.textContent = 'OcorrÃªncia Ativa Vinculada:';
       if (select) {
         select.innerHTML = `<option value="${inc.id}" selected>${inc.id} - ${inc.title}</option>`;
         select.disabled = true;
@@ -3144,13 +3144,13 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     }
 
     if (!select) return;
-    if (label) label.textContent = 'Vincular a um Plano Logístico Aprovado:';
+    if (label) label.textContent = 'Vincular a um Plano LogÃ­stico Aprovado:';
     select.disabled = false;
 
     let savedPlans = JSON.parse(localStorage.getItem('general_saved_plans') || '[]');
     let logPlans = savedPlans.filter(p => p.type === 'LOGISTICO');
 
-    select.innerHTML = '<option value="">Selecione um plano logístico...</option>';
+    select.innerHTML = '<option value="">Selecione um plano logÃ­stico...</option>';
     logPlans.forEach(p => {
       const opt = document.createElement('option');
       opt.value = p.id;
@@ -3190,7 +3190,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
       }];
       
       appState.save();
-      this.showToast('Plano de Ação Tático aprovado e salvo na ocorrência com sucesso!');
+      this.showToast('Plano de AÃ§Ã£o TÃ¡tico aprovado e salvo na ocorrÃªncia com sucesso!');
       
       // Update Dossier if it's the active tab, or just prepare it
       this.renderDossierTab();
@@ -3199,7 +3199,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
       // Fallback for saved plans when there is no active incident
       const select = document.getElementById('action-plan-link');
       if (!select || !select.value) {
-        this.showToast('Selecione um Plano Logístico ou ative uma Ocorrência primeiro!');
+        this.showToast('Selecione um Plano LogÃ­stico ou ative uma OcorrÃªncia primeiro!');
         return;
       }
 
@@ -3221,7 +3221,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
         this.syncToFirebase();
       if (window.db) window.db.collection('saved_plans').doc(savedPlan.id).set(savedPlan).catch(e => console.error("Firebase sync err:", e));
       
-      this.showToast('Plano de Ação salvo de forma avulsa com sucesso!');
+      this.showToast('Plano de AÃ§Ã£o salvo de forma avulsa com sucesso!');
       this.renderSavedPlansTab();
       this.switchTab('saved-plans');
     }
@@ -3252,11 +3252,11 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
 
   rateAIAction(actionId, rating) {
     AICopilotEngine.saveFeedback(actionId, 'EXECUTADA', rating);
-    this.showToast(`Feedback registrado! A IA aprendeu com sua avaliação (${rating}).`);
+    this.showToast(`Feedback registrado! A IA aprendeu com sua avaliaÃ§Ã£o (${rating}).`);
   },
 
   /* =======================================================
-   * AVISO AO CLIENTE (SINISTRO, PERÍCIA & ATRASO DE ENTREGA)
+   * AVISO AO CLIENTE (SINISTRO, PERÃCIA & ATRASO DE ENTREGA)
    * ======================================================= */
   openClientDelayNoticeModal() {
     const inc = appState.getCurrentIncident();
@@ -3267,7 +3267,7 @@ if (document.getElementById('plan-driver-cnpj') && preset.driverCnpj) document.g
     content.innerHTML = `
       <div class="bg-slate-950 p-4 rounded-xl border border-purple-500/30 space-y-3">
         <div class="flex items-center justify-between text-xs pb-2 border-b border-slate-800">
-          <span class="text-purple-300 font-bold">Destinatário: ${inc.carrier || 'Techline Brasil'} / Central do Cliente</span>
+          <span class="text-purple-300 font-bold">DestinatÃ¡rio: ${inc.carrier || 'Techline Brasil'} / Central do Cliente</span>
           <span class="font-mono text-slate-400">NF-e: ${inc.nfeNumber || '000.284.119'}</span>
         </div>
         <div class="text-xs font-mono text-slate-300 max-h-48 overflow-y-auto whitespace-pre-wrap leading-relaxed">
@@ -3275,7 +3275,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
         </div>
       </div>
       <div class="text-xs text-slate-400 bg-slate-900 p-3 rounded-xl border border-slate-800">
-        ðŸ’¡ <strong>Amparo Técnico:</strong> Este comunicado informa preventivamente o cliente de que a carga encontra-se em análise documental e pericial, justificando o atraso por força maior e preservando o relacionamento comercial.
+        Ã°Å¸â€™Â¡ <strong>Amparo TÃ©cnico:</strong> Este comunicado informa preventivamente o cliente de que a carga encontra-se em anÃ¡lise documental e pericial, justificando o atraso por forÃ§a maior e preservando o relacionamento comercial.
       </div>
     `;
 
@@ -3289,11 +3289,11 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
   },
 
   /* =======================================================
-   * FINALIZAÇÃƒO DE OCORRÃŠNCIA COM AUDITORIA PÓS-MORTEM
+   * FINALIZAÃ‡ÃƒÆ’O DE OCORRÃƒÅ NCIA COM AUDITORIA PÃ“S-MORTEM
    * ======================================================= */
   async openFinishIncidentModal() {
     if (appState.currentUser && appState.currentUser.role !== 'Administrador Geral') {
-      this.showToast('⚠️ Acesso Negado: Apenas Administrador Geral pode finalizar ocorrências (Cadeia de Comando).');
+      this.showToast('âš ï¸ Acesso Negado: Apenas Administrador Geral pode finalizar ocorrÃªncias (Cadeia de Comando).');
       return;
     }
 
@@ -3306,8 +3306,8 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
     content.innerHTML = `
       <div class="flex flex-col items-center justify-center p-8 space-y-4">
         <i data-lucide="loader-2" class="w-12 h-12 text-emerald-500 animate-spin"></i>
-        <h3 class="text-lg font-bold text-white">IA Gerando Auditoria Pós-Mortem...</h3>
-        <p class="text-slate-400 text-sm text-center">Aguarde enquanto o Gemini avalia a resposta ao incidente e calcula o índice de eficiência.</p>
+        <h3 class="text-lg font-bold text-white">IA Gerando Auditoria PÃ³s-Mortem...</h3>
+        <p class="text-slate-400 text-sm text-center">Aguarde enquanto o Gemini avalia a resposta ao incidente e calcula o Ã­ndice de eficiÃªncia.</p>
       </div>
     `;
     if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -3318,7 +3318,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
     content.innerHTML = `
       <div class="bg-gradient-to-r from-slate-950 to-emerald-950/40 p-4 rounded-2xl border border-emerald-500/40 flex items-center justify-between">
         <div>
-          <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Índice de Resolução & Gestão de Crise</span>
+          <span class="text-xs text-emerald-400 font-bold uppercase tracking-wider">Ãndice de ResoluÃ§Ã£o & GestÃ£o de Crise</span>
           <h4 class="font-black text-white text-base mt-0.5">${postMortem.managementRating}</h4>
         </div>
         <div class="text-right">
@@ -3330,7 +3330,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
       <div class="space-y-2">
         <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
           <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-400"></i>
-          1. Causas Primárias e Vulnerabilidades da Viagem:
+          1. Causas PrimÃ¡rias e Vulnerabilidades da Viagem:
         </h4>
         <div class="grid grid-cols-1 gap-2 text-xs">
           ${postMortem.originalDefects.map(d => `
@@ -3344,7 +3344,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
       <div class="space-y-2">
         <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
           <i data-lucide="check-square" class="w-4 h-4 text-cyan-400"></i>
-          2. Avaliação Técnica das Decisões Tomadas no Sinistro:
+          2. AvaliaÃ§Ã£o TÃ©cnica das DecisÃµes Tomadas no Sinistro:
         </h4>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
           ${postMortem.auditedDecisions.map(a => `
@@ -3362,7 +3362,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
       <div class="space-y-2">
         <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
           <i data-lucide="book-open" class="w-4 h-4 text-purple-400"></i>
-          3. Lições Aprendidas para Prevenção de Não-Conformidade (ISO/SASSMAQ):
+          3. LiÃ§Ãµes Aprendidas para PrevenÃ§Ã£o de NÃ£o-Conformidade (ISO/SASSMAQ):
         </h4>
         <ul class="list-disc pl-4 space-y-1 text-xs text-slate-300">
           ${postMortem.lessonsLearned.map(l => `<li>${l}</li>`).join('')}
@@ -3388,7 +3388,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
       status: 'CONCLUIDA'
     });
 
-    appState.addDispatchLog("Encerramento Oficial", "OCORRÃŠNCIA CONCLUÍDA", `ENC-${Date.now().toString().slice(-4)}`, inc.responsible);
+    appState.addDispatchLog("Encerramento Oficial", "OCORRÃƒÅ NCIA CONCLUÃDA", `ENC-${Date.now().toString().slice(-4)}`, inc.responsible);
     
     // Save AI Carrier Rating if applicable
     if (inc._tempPostMortemScore && inc.carrier) {
@@ -3397,9 +3397,9 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
     }
     
     this.closeFinishIncidentModal();
-    this.showToast(`Ocorrência ${inc.id} finalizada e arquivada com sucesso!`);
+    this.showToast(`OcorrÃªncia ${inc.id} finalizada e arquivada com sucesso!`);
     
-    // Limpa a ocorrência atual para que o dashboard mostre "Sem ocorrência"
+    // Limpa a ocorrÃªncia atual para que o dashboard mostre "Sem ocorrÃªncia"
     appState.currentIncidentId = null;
     appState.saveCurrentIdToStorage(null);
     appState.notify();
@@ -3408,7 +3408,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
   },
 
   /* =======================================================
-   * COPILOT CHATBOT (ASSISTENTE TÁTICO)
+   * COPILOT CHATBOT (ASSISTENTE TÃTICO)
    * ======================================================= */
   handleCopilotSubmit(e) {
     e.preventDefault();
@@ -3433,14 +3433,14 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
         ${text}
       </div>
       <div class="w-7 h-7 rounded-lg bg-blue-700 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">
-        Você
+        VocÃª
       </div>
     `;
     log.appendChild(userBubble);
     log.scrollTop = log.scrollHeight;
 
     setTimeout(async () => {
-      const answer = `Olá, sou o General. Estou indisponível no momento por falta de inteligência artificial.<br><br>Por favor, entre em contato com a central de ajuda:<br>- E-mail: suporte@general.com<br>- Tel: (11) 99999-9999`;
+      const answer = `OlÃ¡, sou o General. Estou indisponÃ­vel no momento por falta de inteligÃªncia artificial.<br><br>Por favor, entre em contato com a central de ajuda:<br>- E-mail: suporte@general.com<br>- Tel: (11) 99999-9999`;
       const aiBubble = document.createElement('div');
       aiBubble.className = 'flex items-start gap-3 max-w-2xl';
       aiBubble.innerHTML = `
@@ -3458,7 +3458,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
   },
 
   /* =======================================================
-   * OUTROS MÓDULOS & VIEWS
+   * OUTROS MÃ“DULOS & VIEWS
    * ======================================================= */
   renderIncidentsList() {
     const activeContainer = document.getElementById('incidents-sidebar-list');
@@ -3467,13 +3467,13 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
     if (activeContainer) {
       const activeIncidents = appState.incidents.filter(inc => inc.status !== 'CONCLUIDA');
       activeContainer.innerHTML = activeIncidents.map(inc => this.buildSidebarCard(inc)).join('') || 
-        '<p class="text-[10px] text-slate-500 text-center py-2">Nenhuma ocorrência ativa.</p>';
+        '<p class="text-[10px] text-slate-500 text-center py-2">Nenhuma ocorrÃªncia ativa.</p>';
     }
     
     if (historyContainer) {
       const completedIncidents = appState.incidents.filter(inc => inc.status === 'CONCLUIDA');
       historyContainer.innerHTML = completedIncidents.map(inc => this.buildSidebarCard(inc)).join('') ||
-        '<p class="text-[10px] text-slate-500 text-center py-2">Nenhum histórico.</p>';
+        '<p class="text-[10px] text-slate-500 text-center py-2">Nenhum histÃ³rico.</p>';
     }
     if (typeof lucide !== 'undefined') lucide.createIcons();
   },
@@ -3484,7 +3484,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
       <div onclick="appState.setCurrentIncident('${inc.id}')" class="p-3 rounded-xl border ${isCur ? 'bg-blue-600/15 border-blue-500 text-white shadow-md' : 'bg-slate-900/50 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'} cursor-pointer transition-all mb-2">
         <div class="flex items-center justify-between text-xs mb-1">
           <span class="font-bold font-mono ${isCur ? 'text-blue-400' : 'text-slate-300'}">${inc.id}</span>
-          <span class="text-[10px] px-2 py-0.5 rounded font-semibold ${inc.severity === 'CRITICO' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : inc.status === 'CONCLUIDA' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}">${inc.status === 'CONCLUIDA' ? 'CONCLUÍDA' : inc.severity}</span>
+          <span class="text-[10px] px-2 py-0.5 rounded font-semibold ${inc.severity === 'CRITICO' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : inc.status === 'CONCLUIDA' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-amber-500/20 text-amber-400'}">${inc.status === 'CONCLUIDA' ? 'CONCLUÃDA' : inc.severity}</span>
         </div>
         <div class="font-bold text-xs text-white truncate mb-1">${inc.title}</div>
         <div class="text-[11px] text-slate-400 flex items-center justify-between mt-2">
@@ -3495,7 +3495,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
           </div>
           ${inc.status !== 'CONCLUIDA' ? `
           <div class="flex items-center gap-2">
-             <button onclick="event.stopPropagation(); App.downloadConcludedPDF('${inc.id}')" class="text-slate-500 hover:text-emerald-400 transition-colors" title="Baixar Ocorrência (PDF)"><i data-lucide="file-down" class="w-3.5 h-3.5"></i></button>
+             <button onclick="event.stopPropagation(); App.downloadConcludedPDF('${inc.id}')" class="text-slate-500 hover:text-emerald-400 transition-colors" title="Baixar OcorrÃªncia (PDF)"><i data-lucide="file-down" class="w-3.5 h-3.5"></i></button>
              <button onclick="event.stopPropagation(); App.editIncident('${inc.id}')" class="text-slate-500 hover:text-blue-400 transition-colors" title="Editar"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button>
              <button onclick="event.stopPropagation(); App.deleteIncident('${inc.id}', false)" class="text-slate-500 hover:text-red-400 transition-colors" title="Apagar"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
           </div>
@@ -3518,7 +3518,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
         <div class="col-span-full py-12 flex flex-col items-center justify-center border-2 border-dashed border-slate-800 rounded-2xl">
           <i data-lucide="archive-x" class="w-12 h-12 text-slate-600 mb-3"></i>
           <h3 class="text-white font-bold mb-1">Nenhum Registro Encontrado</h3>
-          <p class="text-sm text-slate-400">Ocorrências finalizadas e planos bem sucedidos aparecerão aqui.</p>
+          <p class="text-sm text-slate-400">OcorrÃªncias finalizadas e planos bem sucedidos aparecerÃ£o aqui.</p>
         </div>
       `;
       if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -3557,7 +3557,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
         <div class="col-span-full py-12 flex flex-col items-center justify-center border-2 border-dashed border-slate-800 rounded-2xl">
           <i data-lucide="archive-x" class="w-12 h-12 text-slate-600 mb-3"></i>
           <h3 class="text-white font-bold mb-1">Nenhum Registro Encontrado</h3>
-          <p class="text-sm text-slate-400">Nenhum dossiê ou plano atende aos filtros atuais.</p>
+          <p class="text-sm text-slate-400">Nenhum dossiÃª ou plano atende aos filtros atuais.</p>
         </div>
       `;
       if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -3571,11 +3571,11 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
         <div class="bg-slate-900 border-2 border-rose-500/50 hover:border-rose-500 rounded-2xl p-5 transition-all flex flex-col shadow-lg shadow-rose-900/20">
           <div class="flex items-center justify-between mb-3 border-b border-slate-800 pb-3">
             <span class="font-mono text-sm font-bold text-rose-400 flex items-center gap-2">
-              <i data-lucide="alert-circle" class="w-4 h-4"></i> OCORRÃŠNCIA: ${inc.id}
+              <i data-lucide="alert-circle" class="w-4 h-4"></i> OCORRÃƒÅ NCIA: ${inc.id}
             </span>
             <div class="flex items-center gap-3">
               <span class="text-xs text-slate-500 font-mono">${new Date(item.date).toLocaleDateString()}</span>
-              <button onclick="App.deleteIncident('${inc.id}', true)" class="text-slate-500 hover:text-red-500 transition-colors" title="Apagar Histórico">
+              <button onclick="App.deleteIncident('${inc.id}', true)" class="text-slate-500 hover:text-red-500 transition-colors" title="Apagar HistÃ³rico">
                 <i data-lucide="trash-2" class="w-4 h-4"></i>
               </button>
             </div>
@@ -3591,7 +3591,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
           </div>
           ` : ''}
           <h3 class="font-bold text-white text-base leading-snug mb-2">${inc.title}</h3>
-          <p class="text-xs text-slate-400 mb-4 flex-1 line-clamp-3">${inc.docsParecer || 'Sem parecer técnico redigido.'}</p>
+          <p class="text-xs text-slate-400 mb-4 flex-1 line-clamp-3">${inc.docsParecer || 'Sem parecer tÃ©cnico redigido.'}</p>
           
           <div class="grid grid-cols-2 gap-2 mb-4 text-[11px]">
             <div class="bg-slate-950 p-2 rounded border border-slate-800">
@@ -3599,7 +3599,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
               <span class="font-bold text-slate-300 truncate block">${inc.driverName || 'N/A'}</span>
             </div>
             <div class="bg-slate-950 p-2 rounded border border-slate-800">
-              <span class="text-slate-500 block mb-0.5">Veículo</span>
+              <span class="text-slate-500 block mb-0.5">VeÃ­culo</span>
               <span class="font-bold text-slate-300 truncate block">${inc.plate || 'N/A'}</span>
             </div>
           </div>
@@ -3621,13 +3621,13 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
 
           <div class="flex flex-col gap-2 mt-2">
             <button onclick="App.downloadConcludedPDF('${inc.id}')" class="w-full bg-rose-950/40 border border-rose-900/50 hover:bg-rose-900/60 text-rose-300 font-bold py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-xs">
-              <i data-lucide="file-text" class="w-3 h-3 text-rose-400"></i> Baixar Dossiê (Geral)
+              <i data-lucide="file-text" class="w-3 h-3 text-rose-400"></i> Baixar DossiÃª (Geral)
             </button>
             <button onclick="App.downloadHistoryPlanPDF('${inc.id}')" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-xs border border-slate-700">
-              <i data-lucide="map" class="w-3 h-3 text-emerald-400"></i> Baixar Plano Logístico
+              <i data-lucide="map" class="w-3 h-3 text-emerald-400"></i> Baixar Plano LogÃ­stico
             </button>
             <button onclick="App.downloadActionPlanPDF('${inc.id}')" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-xs border border-slate-700">
-              <i data-lucide="check-square" class="w-3 h-3 text-blue-400"></i> Baixar Plano de Ação
+              <i data-lucide="check-square" class="w-3 h-3 text-blue-400"></i> Baixar Plano de AÃ§Ã£o
             </button>
             <button onclick="App.downloadTransshipmentPDF('${inc.id}')" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-xs border border-slate-700">
               <i data-lucide="truck" class="w-3 h-3 text-orange-400"></i> Baixar Plano de Transbordo
@@ -3647,13 +3647,13 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
             <span class="text-xs text-slate-500 font-mono">${new Date(item.date).toLocaleDateString()}</span>
           </div>
           
-          <h3 class="font-bold text-white text-base leading-snug mb-2">${plan.client || 'Cliente Padrão'}</h3>
-          <p class="text-xs text-slate-400 mb-4 flex-1 line-clamp-3">Viagem concluída sem sinistros registrados na origem: ${plan.origin} para o destino: ${plan.destination}.</p>
+          <h3 class="font-bold text-white text-base leading-snug mb-2">${plan.client || 'Cliente PadrÃ£o'}</h3>
+          <p class="text-xs text-slate-400 mb-4 flex-1 line-clamp-3">Viagem concluÃ­da sem sinistros registrados na origem: ${plan.origin} para o destino: ${plan.destination}.</p>
           
           <div class="grid grid-cols-2 gap-2 mb-4 text-[11px]">
             <div class="bg-slate-950 p-2 rounded border border-slate-800">
               <span class="text-slate-500 block mb-0.5">Produto</span>
-              <span class="font-bold text-slate-300 truncate block">${plan.product || 'Não especificado'}</span>
+              <span class="font-bold text-slate-300 truncate block">${plan.product || 'NÃ£o especificado'}</span>
             </div>
             <div class="bg-slate-950 p-2 rounded border border-slate-800">
               <span class="text-slate-500 block mb-0.5">Aprovado por</span>
@@ -3667,7 +3667,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
               Avaliar Viagem
             </button>
             <button onclick="App.downloadHistoryPlanPDF('${plan.id}')" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 rounded-xl transition-all flex items-center justify-center gap-2 text-xs shadow-lg shadow-blue-900/30">
-              <i data-lucide="file-text" class="w-3 h-3"></i> Baixar Plano Logístico
+              <i data-lucide="file-text" class="w-3 h-3"></i> Baixar Plano LogÃ­stico
             </button>
           </div>
         </div>
@@ -3679,12 +3679,12 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
   },
 
   deleteIncident(id, fromHistory = false) {
-    if (!confirm('Tem certeza que deseja apagar permanentemente esta ocorrência? Esta ação não pode ser desfeita.')) return;
+    if (!confirm('Tem certeza que deseja apagar permanentemente esta ocorrÃªncia? Esta aÃ§Ã£o nÃ£o pode ser desfeita.')) return;
     
     appState.incidents = appState.incidents.filter(inc => inc.id !== id);
     appState.save();
     
-    this.showToast('Ocorrência apagada com sucesso!', 'success');
+    this.showToast('OcorrÃªncia apagada com sucesso!', 'success');
     
     if (fromHistory) {
       this.renderHistoryTab();
@@ -3703,17 +3703,17 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
 
     content.innerHTML = `
       <div class="space-y-3">
-        <button onclick="App.showToast('Download do Plano Logístico em andamento...', 'success')" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold p-4 rounded-xl transition-all flex items-center justify-between group">
+        <button onclick="App.showToast('Download do Plano LogÃ­stico em andamento...', 'success')" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold p-4 rounded-xl transition-all flex items-center justify-between group">
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center"><i data-lucide="file-check-2" class="w-4 h-4"></i></div>
-            <div class="text-left"><span class="block text-sm">Plano Logístico (Base)</span><span class="text-[10px] text-slate-400">PDF Gerado via Otimização</span></div>
+            <div class="text-left"><span class="block text-sm">Plano LogÃ­stico (Base)</span><span class="text-[10px] text-slate-400">PDF Gerado via OtimizaÃ§Ã£o</span></div>
           </div>
           <i data-lucide="download" class="w-4 h-4 text-slate-500 group-hover:text-blue-400"></i>
         </button>
         <button onclick="App.showToast('Download do Plano Prescritivo em andamento...', 'success')" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold p-4 rounded-xl transition-all flex items-center justify-between group">
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center"><i data-lucide="brain-circuit" class="w-4 h-4"></i></div>
-            <div class="text-left"><span class="block text-sm">Plano Prescritivo (5W2H)</span><span class="text-[10px] text-slate-400">PDF Gerado via Inteligência Artificial</span></div>
+            <div class="text-left"><span class="block text-sm">Plano Prescritivo (5W2H)</span><span class="text-[10px] text-slate-400">PDF Gerado via InteligÃªncia Artificial</span></div>
           </div>
           <i data-lucide="download" class="w-4 h-4 text-slate-500 group-hover:text-cyan-400"></i>
         </button>
@@ -3761,7 +3761,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
         <p class="text-xs text-slate-400 mb-3 line-clamp-2">${h.perigoFogo}</p>
         <button onclick="App.applyHazmatToIncident('${h.onu}')" class="w-full py-2 bg-slate-800 hover:bg-orange-600 hover:text-white text-slate-300 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2">
           <i data-lucide="shield-check" class="w-4 h-4"></i>
-          Aplicar Ã  Ocorrência Atual
+          Aplicar ÃƒÂ  OcorrÃªncia Atual
         </button>
       </div>
     `).join('') || '<p class="text-xs text-slate-500 col-span-full">Nenhum produto perigoso encontrado.</p>';
@@ -3773,7 +3773,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
     const incId = select?.value;
 
     if (!incId) {
-      this.showToast('Por favor, selecione uma ocorrência antes de aplicar o produto.', 'warning');
+      this.showToast('Por favor, selecione uma ocorrÃªncia antes de aplicar o produto.', 'warning');
       return;
     }
 
@@ -3786,7 +3786,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
       onuCode: hazmat.onu,
       cargoDescription: `${hazmat.nome} (ONU ${hazmat.onu} - Classe ${hazmat.classe})`
     });
-    this.showToast(`Produto ONU ${hazmat.onu} vinculado Ã  ocorrência ${incId}!`);
+    this.showToast(`Produto ONU ${hazmat.onu} vinculado ÃƒÂ  ocorrÃªncia ${incId}!`);
     this.switchTab('dashboard');
   },
 
@@ -3797,7 +3797,7 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
     const guia = document.getElementById('new-onu-guide')?.value.trim();
 
     if (!onu || !nome || !classe) {
-      this.showToast('Por favor, preencha NÂº ONU, Nome e Classe.', true);
+      this.showToast('Por favor, preencha NÃ‚Âº ONU, Nome e Classe.', true);
       return;
     }
 
@@ -3809,8 +3809,8 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
       numRisco: "Desconhecido", // Fallbacks if not provided
       guia: guia || "N/A",
       perigoFogo: "Produto cadastrado manualmente.",
-      perigoSaude: "Verifique o Guia de Emergência correspondente.",
-      epi: "EPIs de padrão mínimo de acordo com a classe.",
+      perigoSaude: "Verifique o Guia de EmergÃªncia correspondente.",
+      epi: "EPIs de padrÃ£o mÃ­nimo de acordo com a classe.",
       isolamentoFogo: "1000m preventivo",
       isolamentoDerramamento: "100m preventivo"
     });
@@ -3850,8 +3850,8 @@ ${NotificationHub.getTemplate('AVISO_CLIENTE_SINISTRO_ATRASO', inc)}
       container.innerHTML = `
         <div class="flex flex-col items-center justify-center p-12 bg-slate-900/50 rounded-2xl border border-slate-800">
           <i data-lucide="folder-search" class="w-16 h-16 text-slate-500 mb-4 opacity-50"></i>
-          <h3 class="text-lg font-bold text-slate-300 mb-2">Nenhuma Ocorrência Selecionada</h3>
-          <p class="text-sm text-slate-500 text-center max-w-md">Para visualizar o Dossiê Executivo, por favor, selecione uma ocorrência no filtro global localizado no topo da tela.</p>
+          <h3 class="text-lg font-bold text-slate-300 mb-2">Nenhuma OcorrÃªncia Selecionada</h3>
+          <p class="text-sm text-slate-500 text-center max-w-md">Para visualizar o DossiÃª Executivo, por favor, selecione uma ocorrÃªncia no filtro global localizado no topo da tela.</p>
         </div>
       `;
       if (window.lucide) window.lucide.createIcons();
@@ -3898,7 +3898,7 @@ ${NotificationHub.getTemplate('WHATSAPP_EMERGENCIA', inc)}
             <i data-lucide="mail" class="w-4 h-4"></i>
             E-mail para Seguradora
           </button>
-          <button onclick="NotificationHub.callEmergency('191', 'PRF Rodoviária'); App.closeDispatchModal();" class="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 p-3 rounded-xl font-bold text-xs border border-slate-700 transition-all">
+          <button onclick="NotificationHub.callEmergency('191', 'PRF RodoviÃ¡ria'); App.closeDispatchModal();" class="flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 p-3 rounded-xl font-bold text-xs border border-slate-700 transition-all">
             <i data-lucide="phone" class="w-4 h-4 text-blue-400"></i>
             Ligar PRF (191)
           </button>
@@ -4023,7 +4023,7 @@ ${NotificationHub.getTemplate('WHATSAPP_EMERGENCIA', inc)}
     const selectedPlan = (appState.savedPlans || [])[planIdx];
 
     if (!selectedPlan) {
-      this.showToast('Erro: É necessário vincular um Plano Logístico salvo.', 'error');
+      this.showToast('Erro: Ã‰ necessÃ¡rio vincular um Plano LogÃ­stico salvo.', 'error');
       return;
     }
 
@@ -4039,10 +4039,10 @@ ${NotificationHub.getTemplate('WHATSAPP_EMERGENCIA', inc)}
     const cityStr = city ? `${city} / ${state}` : '';
     const cep = formData.get('cep') || '';
 
-    // Tentativa de Geocodificação AWS Location Service para a Cidade/Referência
+    // Tentativa de GeocodificaÃ§Ã£o AWS Location Service para a Cidade/ReferÃªncia
     try {
       if (window.LocationService) {
-        this.showToast('Buscando localização aproximada via satélite...');
+        this.showToast('Buscando localizaÃ§Ã£o aproximada via satÃ©lite...');
         
         const query = cep ? `${cep}, ${cityStr}, Brazil` : `${cityStr}, Brazil`;
         
@@ -4101,7 +4101,7 @@ ${NotificationHub.getTemplate('WHATSAPP_EMERGENCIA', inc)}
            }
          }, 300);
 
-         this.showToast('Ocorrência atualizada com sucesso!');
+         this.showToast('OcorrÃªncia atualizada com sucesso!');
          return;
        }
     }
@@ -4158,14 +4158,14 @@ ${NotificationHub.getTemplate('WHATSAPP_EMERGENCIA', inc)}
     newInc.volume = selectedPlan.volume;
     newInc.slaStartTime = new Date().toISOString();
     
-    appState.save(); // Salvar as alterações (incluindo lat/lng e logisticsPlan)
+    appState.save(); // Salvar as alteraÃ§Ãµes (incluindo lat/lng e logisticsPlan)
 
     this.closeNewIncidentModal();
     this.renderIncidentsList();
     this.renderSavedPlansTab();
     this.switchTab('dashboard');
     
-    // Atualizar mapa após exibir a tab
+    // Atualizar mapa apÃ³s exibir a tab
     setTimeout(() => {
                  if (window.mapController) {
              if (!window.mapController.map) {
@@ -4177,7 +4177,7 @@ ${NotificationHub.getTemplate('WHATSAPP_EMERGENCIA', inc)}
            }
     }, 300);
 
-    this.showToast('Nova ocorrência criada com sucesso e mapeada!');
+    this.showToast('Nova ocorrÃªncia criada com sucesso e mapeada!');
     } catch (err) {
       console.error('Erro ao criar ocorrencia:', err);
       this.showToast('Ocorreu um erro interno: ' + err.message, 'error');
@@ -4189,13 +4189,13 @@ ${NotificationHub.getTemplate('WHATSAPP_EMERGENCIA', inc)}
   saveLogisticsPlan() {
     const plan = this.getPlanFromInputs();
     if (!plan.origin || !plan.destination || !plan.productName) {
-      this.showToast('Por favor, preencha as informações básicas do plano antes de salvar.', 'error');
+      this.showToast('Por favor, preencha as informaÃ§Ãµes bÃ¡sicas do plano antes de salvar.', 'error');
       return;
     }
     
-    // Obtém o plano 5W2H da IA gerado
+    // ObtÃ©m o plano 5W2H da IA gerado
     const isOptimized = document.getElementById('ai-plan-5w2h-container').innerHTML.trim() !== '';
-    const safePlanData = isOptimized ? 'Plano otimizado por IA (100% Seguro)' : 'Plano Original sem otimização';
+    const safePlanData = isOptimized ? 'Plano otimizado por IA (100% Seguro)' : 'Plano Original sem otimizaÃ§Ã£o';
     
     plan.status = 'APROVADO';
     plan.approvalDate = new Date().toISOString();
@@ -4205,46 +4205,46 @@ ${NotificationHub.getTemplate('WHATSAPP_EMERGENCIA', inc)}
     // Adicionar dados de quem aprovou (Baseado no Perfil Complementar)
     const currentUser = JSON.parse(localStorage.getItem('general_user') || '{}');
     plan.approvedBy = currentUser.name || 'Aprovador Autorizado';
-    plan.approvedByCompany = currentUser.company || 'Empresa Logística (Teste)';
+    plan.approvedByCompany = currentUser.company || 'Empresa LogÃ­stica (Teste)';
     plan.approvedByRole = currentUser.role || 'Gestor de Frota';
 
     appState.activePlan = plan;
     
-    // Salva na lista de planos históricos
+    // Salva na lista de planos histÃ³ricos
     appState.savedPlans = appState.savedPlans || [];
     appState.savedPlans.push(plan);
     localStorage.setItem('GENERAL_PAAC_SAVED_PLANS', JSON.stringify(appState.savedPlans));
       this.syncToFirebase();
 
-    this.showToast('Plano Logístico salvo e aprovado com sucesso!', 'success');
+    this.showToast('Plano LogÃ­stico salvo e aprovado com sucesso!', 'success');
     
     if (typeof lucide !== 'undefined') lucide.createIcons();
   },
 
   async exportDriverBriefing() {
     const plan = this.getPlanFromInputs();
-    this.showToast('ðŸ¤– IA do Gemini processando briefing de riscos...', 'info');
+    this.showToast('Ã°Å¸Â¤â€“ IA do Gemini processando briefing de riscos...', 'info');
     
     // IA gera a auditoria e extrai insights
     const audit = await LogisticsPlanner.auditPlan(plan);
 
-    const geminiPrompt = `Aja como o Copilot de Segurança Logística. Reescreva o conteúdo da Folha de Viagem Segura (Briefing do Motorista) em formato HTML limpo e profissional, utilizando os dados fornecidos.
+    const geminiPrompt = `Aja como o Copilot de SeguranÃ§a LogÃ­stica. Reescreva o conteÃºdo da Folha de Viagem Segura (Briefing do Motorista) em formato HTML limpo e profissional, utilizando os dados fornecidos.
 Motorista: ${plan.driverName}
-Trajeto: ${plan.origin} até ${plan.destination}
-Distância: ${plan.distanceKm} km
-Veículo: ${plan.vehicleType}
+Trajeto: ${plan.origin} atÃ© ${plan.destination}
+DistÃ¢ncia: ${plan.distanceKm} km
+VeÃ­culo: ${plan.vehicleType}
 Produto: ${plan.productName} ${plan.onuCode ? `(ONU ${plan.onuCode})` : ''}
-Score de Segurança: ${audit.safetyScore}%
+Score de SeguranÃ§a: ${audit.safetyScore}%
 Perigos Detectados: ${audit.warnings.map(w => w.title + ": " + w.description).join('; ')}
-Prescrições Obrigatórias: ${audit.prescriptions.map(p => p.action + ": " + p.detail).join('; ')}
+PrescriÃ§Ãµes ObrigatÃ³rias: ${audit.prescriptions.map(p => p.action + ": " + p.detail).join('; ')}
 
 O HTML DEVE conter:
-- Um título "GENERAL - Folha de Viagem Segura" e a data/hora atual.
+- Um tÃ­tulo "GENERAL - Folha de Viagem Segura" e a data/hora atual.
 - Os dados do condutor e da viagem agrupados.
-- Uma seção de "Perigos Críticos na Rota" destacada (use cores como bg-rose-50 e text-rose-900).
-- Uma seção de "Recomendações e Plano de Ação" (use bg-blue-50 e text-blue-900).
+- Uma seÃ§Ã£o de "Perigos CrÃ­ticos na Rota" destacada (use cores como bg-rose-50 e text-rose-900).
+- Uma seÃ§Ã£o de "RecomendaÃ§Ãµes e Plano de AÃ§Ã£o" (use bg-blue-50 e text-blue-900).
 - Linhas no final para assinatura do Condutor e do Gestor/Despachante.
-Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\`html ou tags markdown.`;
+Retorne APENAS o HTML da view, usando classes do Tailwind CSS. NÃ£o inclua \`\`\`html ou tags markdown.`;
 
     let htmlBody = "";
     try {
@@ -4253,7 +4253,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
         htmlBody = response.candidates[0].content.parts[0].text;
         htmlBody = htmlBody.replace(/```html/g, '').replace(/```/g, '').trim();
       } else {
-        throw new Error("Resposta inválida da IA");
+        throw new Error("Resposta invÃ¡lida da IA");
       }
     } catch (e) {
       console.error("Falha no Gemini:", e);
@@ -4261,12 +4261,12 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
       htmlBody = `
         <div class="border-b-2 border-slate-900 pb-3 mb-4 flex justify-between items-start">
           <div>
-            <h1 class="text-lg font-black tracking-wider text-blue-900 uppercase">GENERAL â€¢ Folha de Viagem Segura</h1>
-            <p class="text-xs text-slate-600">Briefing Pré-Viagem do Condutor & Validação de Risco</p>
+            <h1 class="text-lg font-black tracking-wider text-blue-900 uppercase">GENERAL Ã¢â‚¬Â¢ Folha de Viagem Segura</h1>
+            <p class="text-xs text-slate-600">Briefing PrÃ©-Viagem do Condutor & ValidaÃ§Ã£o de Risco</p>
           </div>
           <div class="text-right font-mono">
             <span class="font-bold text-sm text-blue-900">SCORE: ${audit.safetyScore}%</span>
-            <div class="text-[10px] text-slate-500">Emissão: ${new Date().toLocaleString('pt-BR')}</div>
+            <div class="text-[10px] text-slate-500">EmissÃ£o: ${new Date().toLocaleString('pt-BR')}</div>
           </div>
         </div>
 
@@ -4274,20 +4274,20 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
           <div><strong>Cliente:</strong> ${plan.clientName}</div>
           <div><strong>Produto:</strong> ${plan.productName} ${plan.onuCode ? `(ONU ${plan.onuCode})` : ''}</div>
           <div><strong>Condutor:</strong> ${plan.driverName}</div>
-          <div><strong>Veículo:</strong> ${plan.vehicleType}</div>
+          <div><strong>VeÃ­culo:</strong> ${plan.vehicleType}</div>
           <div><strong>Trajeto:</strong> ${plan.origin} -> ${plan.destination}</div>
           <div><strong>Rodovias:</strong> ${plan.plannedRoads} (${plan.distanceKm} km)</div>
         </div>
 
         <div class="mb-4 bg-rose-50 border border-rose-200 p-3 rounded">
-          <h2 class="font-bold text-rose-900 uppercase text-xs mb-1">âš ï¸ Perigos & Pontos Críticos na Rota:</h2>
+          <h2 class="font-bold text-rose-900 uppercase text-xs mb-1">Ã¢Å¡Â Ã¯Â¸Â Perigos & Pontos CrÃ­ticos na Rota:</h2>
           <ul class="list-disc pl-4 space-y-1 text-rose-800">
             ${audit.warnings.map(w => `<li><strong>${w.title}:</strong> ${w.description}</li>`).join('')}
           </ul>
         </div>
 
         <div class="mb-4 bg-blue-50 border border-blue-200 p-3 rounded">
-          <h2 class="font-bold text-blue-900 uppercase text-xs mb-1">ðŸ’¡ Recomendações Obrigatórias de Condução:</h2>
+          <h2 class="font-bold text-blue-900 uppercase text-xs mb-1">Ã°Å¸â€™Â¡ RecomendaÃ§Ãµes ObrigatÃ³rias de ConduÃ§Ã£o:</h2>
           <ul class="list-disc pl-4 space-y-1 text-blue-800">
             ${audit.prescriptions.map(p => `<li><strong>${p.action}:</strong> ${p.detail}</li>`).join('')}
           </ul>
@@ -4300,7 +4300,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
           </div>
           <div>
             <div class="border-b border-slate-400 mb-1 pb-6 font-medium">Gestor de Frota / Despachante</div>
-            <p>Liberação de Viagem Validada por IA</p>
+            <p>LiberaÃ§Ã£o de Viagem Validada por IA</p>
           </div>
         </div>
       `;
@@ -4340,7 +4340,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     if (!inc || inc.status === 'CONCLUIDA') {
       if (workspaceGrid) workspaceGrid.style.display = 'none';
       if (checklistSummary) checklistSummary.style.display = 'none';
-      if (headerTitle) headerTitle.textContent = "Nenhuma ocorrência ativa";
+      if (headerTitle) headerTitle.textContent = "Nenhuma ocorrÃªncia ativa";
       if (riskScoreEl) {
         riskScoreEl.textContent = "--/100";
         riskScoreEl.className = "px-2 py-0.5 text-[10px] font-black rounded-full border border-slate-700 text-slate-500 bg-slate-800/50";
@@ -4351,11 +4351,11 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
             <div class="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4">
               <i data-lucide="shield-alert" class="w-8 h-8 text-slate-500"></i>
             </div>
-            <h3 class="text-white font-bold text-lg">Nenhuma ocorrência selecionada</h3>
-            <p class="text-slate-400 text-sm mt-1 text-center max-w-md">Selecione uma ocorrência na barra lateral ou inicie um novo protocolo de emergência para visualizar o painel tático.</p>
+            <h3 class="text-white font-bold text-lg">Nenhuma ocorrÃªncia selecionada</h3>
+            <p class="text-slate-400 text-sm mt-1 text-center max-w-md">Selecione uma ocorrÃªncia na barra lateral ou inicie um novo protocolo de emergÃªncia para visualizar o painel tÃ¡tico.</p>
             <button onclick="App.openNewIncidentModal()" class="mt-6 flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-lg shadow-blue-900/30 transition-all">
               <i data-lucide="plus-circle" class="w-4 h-4"></i>
-              Criar Nova Ocorrência
+              Criar Nova OcorrÃªncia
             </button>
           </div>
         `;
@@ -4363,10 +4363,10 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
       if (metricsContainer) metricsContainer.innerHTML = '';
       
       const timelineList = document.getElementById('incident-timeline-list');
-      if (timelineList) timelineList.innerHTML = '<div class="text-xs text-slate-500 text-center py-4">Aguardando ocorrência...</div>';
+      if (timelineList) timelineList.innerHTML = '<div class="text-xs text-slate-500 text-center py-4">Aguardando ocorrÃªncia...</div>';
       
       const checklistCont = document.getElementById('checklist-container');
-      if (checklistCont) checklistCont.innerHTML = '<div class="text-xs text-slate-500 text-center py-4">Aguardando ocorrência...</div>';
+      if (checklistCont) checklistCont.innerHTML = '<div class="text-xs text-slate-500 text-center py-4">Aguardando ocorrÃªncia...</div>';
       
       if (typeof lucide !== 'undefined') lucide.createIcons();
       return;
@@ -4377,7 +4377,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     if (workspaceGrid) workspaceGrid.style.display = '';
     if (checklistSummary) checklistSummary.style.display = '';
 
-    if (headerTitle) headerTitle.textContent = `${inc.id} â€¢ ${inc.title}`;
+    if (headerTitle) headerTitle.textContent = `${inc.id} Ã¢â‚¬Â¢ ${inc.title}`;
 
     if (riskScoreEl) {
       riskScoreEl.textContent = `${risk.score}/100`;
@@ -4395,7 +4395,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
             <div>
               <div class="flex items-center gap-2">
                 <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-800 text-slate-300">SCORE ATUAL</span>
-                <span class="text-xs text-slate-400">Avaliação do Incidente</span>
+                <span class="text-xs text-slate-400">AvaliaÃ§Ã£o do Incidente</span>
               </div>
               <h3 class="text-white font-bold text-base mt-1">${risk.topAction ? risk.topAction.title : 'Em Andamento'}</h3>
             </div>
@@ -4407,7 +4407,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
             </button>
             <button onclick="App.openDispatchModal()" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-xl font-bold text-xs shadow-lg transition-all">
               <i data-lucide="send" class="w-4 h-4"></i>
-              Disparo Rápido
+              Disparo RÃ¡pido
             </button>
           </div>
         </div>
@@ -4445,7 +4445,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
 
       <div class="bg-slate-900/80 border border-slate-800/80 p-4 rounded-2xl">
         <div class="flex items-center justify-between text-slate-400 text-xs mb-2">
-          <span>Motorista & Vítimas</span>
+          <span>Motorista & VÃ­timas</span>
           <i data-lucide="user-check" class="w-4 h-4 text-blue-400"></i>
         </div>
         <div class="text-base font-bold text-white truncate">${inc.driverName}</div>
@@ -4457,20 +4457,20 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
 
       <div class="bg-slate-900/80 border border-slate-800/80 p-4 rounded-2xl">
         <div class="flex items-center justify-between text-slate-400 text-xs mb-2">
-          <span>Classificação HazMat</span>
+          <span>ClassificaÃ§Ã£o HazMat</span>
           <i data-lucide="flame" class="w-4 h-4 text-orange-400"></i>
         </div>
         <div class="text-base font-bold ${hazmat ? 'text-orange-400' : 'text-slate-300'}">
           ${hazmat ? `ONU ${hazmat.onu} (Classe ${hazmat.classeId})` : 'Carga Geral / Sem ONU'}
         </div>
         <div class="text-[11px] text-slate-400 mt-1">
-          ${hazmat ? `Isolamento: ${hazmat.isolamentoGrandeVazamento}m` : 'Sem risco químico ativo'}
+          ${hazmat ? `Isolamento: ${hazmat.isolamentoGrandeVazamento}m` : 'Sem risco quÃ­mico ativo'}
         </div>
       </div>
 
       <div class="bg-slate-900/80 border border-slate-800/80 p-4 rounded-2xl">
         <div class="flex items-center justify-between text-slate-400 text-xs mb-2">
-          <span>SLA Resposta Rápida</span>
+          <span>SLA Resposta RÃ¡pida</span>
           <i data-lucide="timer" class="w-4 h-4 text-cyan-400"></i>
         </div>
         <div id="sla-timer-display" class="text-xl font-black text-cyan-400 font-mono">00:42:15</div>
@@ -4505,14 +4505,14 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     if (!container) return;
 
     const items = [
-      { key: 'driverSafe', label: 'Motorista & Tripulação em Segurança' },
+      { key: 'driverSafe', label: 'Motorista & TripulaÃ§Ã£o em SeguranÃ§a' },
       { key: 'signalized', label: 'Via devidamente sinalizada a 200m' },
-      { key: 'isolated', label: 'Perímetro isolado contra curiosos / fontes de fogo' },
+      { key: 'isolated', label: 'PerÃ­metro isolado contra curiosos / fontes de fogo' },
       { key: 'cargoInspected', label: 'Vistoria inicial de lacres e avarias da carga' },
-      { key: 'insurerNotified', label: 'Seguradora comunicada com nÂº de protocolo' },
-      { key: 'cetesbNotified', label: 'Órgão ambiental notificado (se HazMat)' },
-      { key: 'evidencePreserved', label: 'Evidências fotográficas e tacógrafo coletados' },
-      { key: 'transshipmentReady', label: 'Veículo substituto e guincho posicionados' }
+      { key: 'insurerNotified', label: 'Seguradora comunicada com nÃ‚Âº de protocolo' },
+      { key: 'cetesbNotified', label: 'Ã“rgÃ£o ambiental notificado (se HazMat)' },
+      { key: 'evidencePreserved', label: 'EvidÃªncias fotogrÃ¡ficas e tacÃ³grafo coletados' },
+      { key: 'transshipmentReady', label: 'VeÃ­culo substituto e guincho posicionados' }
     ];
 
     const completed = items.filter(it => inc.checklists[it.key]).length;
@@ -4522,7 +4522,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
       <div class="flex items-center justify-between mb-3">
         <div>
           <h4 class="font-bold text-white text-sm">Progresso do PAAC (Golden Hour)</h4>
-          <p class="text-xs text-slate-400">${completed} de ${items.length} etapas críticas concluídas</p>
+          <p class="text-xs text-slate-400">${completed} de ${items.length} etapas crÃ­ticas concluÃ­das</p>
         </div>
         <div class="text-right font-black text-lg text-blue-400">${progress}%</div>
       </div>
@@ -4533,7 +4533,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
         ${items.map(it => `
           <div onclick="appState.toggleChecklist('${it.key}')" class="flex items-center gap-2 p-2.5 rounded-xl border ${inc.checklists[it.key] ? 'bg-emerald-950/30 border-emerald-500/40 text-emerald-300' : 'bg-slate-900/60 border-slate-800 text-slate-400 hover:border-slate-700'} cursor-pointer transition-all">
             <div class="w-5 h-5 rounded-md flex items-center justify-center border ${inc.checklists[it.key] ? 'bg-emerald-600 border-emerald-500 text-white' : 'border-slate-700'}">
-              ${inc.checklists[it.key] ? 'âœ“' : ''}
+              ${inc.checklists[it.key] ? 'Ã¢Å“â€œ' : ''}
             </div>
             <span class="text-xs font-medium select-none truncate">${it.label}</span>
           </div>
@@ -4568,10 +4568,10 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     if (globalSearchInput && predictiveDropdown) {
       const predefinedModules = [
         { title: 'Painel Central', keywords: ['painel', 'dashboard', 'inicio', 'home'], tab: 'dashboard', icon: 'layout-dashboard' },
-        { title: 'Construtor de Plano Logístico', keywords: ['plano', 'logistico', 'construir', 'novo'], tab: 'wizard', icon: 'map' },
-        { title: 'Catálogo ONU (HazMat)', keywords: ['onu', 'produto', 'perigoso', 'catalogo', 'hazmat'], tab: 'docs', icon: 'book' },
-        { title: 'Inteligência Artificial Preditiva', keywords: ['ia', 'preditiva', 'inteligencia', 'artificial', 'previsao'], tab: 'ai-plan', icon: 'bot' },
-        { title: 'Histórico Geral', keywords: ['historico', 'salvos', 'antigos', 'passado', 'ocorrências', 'ocorrencias'], tab: 'history', icon: 'history' },
+        { title: 'Construtor de Plano LogÃ­stico', keywords: ['plano', 'logistico', 'construir', 'novo'], tab: 'wizard', icon: 'map' },
+        { title: 'CatÃ¡logo ONU (HazMat)', keywords: ['onu', 'produto', 'perigoso', 'catalogo', 'hazmat'], tab: 'docs', icon: 'book' },
+        { title: 'InteligÃªncia Artificial Preditiva', keywords: ['ia', 'preditiva', 'inteligencia', 'artificial', 'previsao'], tab: 'ai-plan', icon: 'bot' },
+        { title: 'HistÃ³rico Geral', keywords: ['historico', 'salvos', 'antigos', 'passado', 'ocorrÃªncias', 'ocorrencias'], tab: 'history', icon: 'history' },
         { title: 'Planos Salvos', keywords: ['planos', 'salvos', 'guardados', 'meus'], tab: 'saved-plans', icon: 'save' },
       ];
 
@@ -4600,7 +4600,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
         );
 
         if (matchedModules.length > 0) {
-          resultsHTML += `<div class="px-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider bg-slate-900 border-b border-slate-800">Módulos & Ferramentas</div>`;
+          resultsHTML += `<div class="px-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider bg-slate-900 border-b border-slate-800">MÃ³dulos & Ferramentas</div>`;
           matchedModules.forEach(m => {
             resultsHTML += `
               <div class="px-4 py-3 hover:bg-slate-800 cursor-pointer flex items-center gap-3 transition-colors border-b border-slate-800/50" onclick="App.switchTab('${m.tab}'); document.getElementById('predictive-search-dropdown').classList.add('hidden'); document.getElementById('global-search-input').value = '';">
@@ -4609,7 +4609,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
                 </div>
                 <div>
                   <h4 class="text-sm font-bold text-slate-200">${m.title}</h4>
-                  <p class="text-[10px] text-slate-500">Ir para o módulo</p>
+                  <p class="text-[10px] text-slate-500">Ir para o mÃ³dulo</p>
                 </div>
               </div>
             `;
@@ -4619,7 +4619,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
         if (typeof searchHazmatList === 'function') {
           const matchedProducts = searchHazmatList(query).slice(0, 5);
           if (matchedProducts.length > 0) {
-            resultsHTML += `<div class="px-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider bg-slate-900 border-b border-slate-800 border-t">Catálogo ONU</div>`;
+            resultsHTML += `<div class="px-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider bg-slate-900 border-b border-slate-800 border-t">CatÃ¡logo ONU</div>`;
             matchedProducts.forEach(p => {
               resultsHTML += `
                 <div class="px-4 py-3 hover:bg-slate-800 cursor-pointer flex items-center gap-3 transition-colors border-b border-slate-800/50" onclick="App.switchTab('docs'); setTimeout(() => { const hInput = document.getElementById('hazmat-search-input'); if(hInput) { hInput.value = '${p.onu}'; hInput.dispatchEvent(new Event('input')); } }, 100); document.getElementById('predictive-search-dropdown').classList.add('hidden'); document.getElementById('global-search-input').value = '';">
@@ -4656,7 +4656,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
                     </div>
                     <div class="flex-1 overflow-hidden">
                       <h4 class="text-xs font-bold text-slate-200 truncate">${p.id}</h4>
-                      <p class="text-[10px] text-slate-500">${p.client || 'Cliente não informado'}</p>
+                      <p class="text-[10px] text-slate-500">${p.client || 'Cliente nÃ£o informado'}</p>
                     </div>
                   </div>
                 `;
@@ -4674,7 +4674,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
           }).slice(0, 3);
           
           if (matchedIncidents.length > 0) {
-              resultsHTML += `<div class="px-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider bg-slate-900 border-b border-slate-800 border-t">Histórico (Ocorrências)</div>`;
+              resultsHTML += `<div class="px-3 py-2 text-[10px] font-bold text-slate-500 uppercase tracking-wider bg-slate-900 border-b border-slate-800 border-t">HistÃ³rico (OcorrÃªncias)</div>`;
               matchedIncidents.forEach(inc => {
                 resultsHTML += `
                   <div class="px-4 py-3 hover:bg-slate-800 cursor-pointer flex items-center gap-3 transition-colors border-b border-slate-800/50" onclick="App.switchTab('history'); document.getElementById('predictive-search-dropdown').classList.add('hidden'); document.getElementById('global-search-input').value = '';">
@@ -4728,7 +4728,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
             <p class="text-xs text-slate-400 mb-3 line-clamp-2">${h.perigoFogo}</p>
             <button onclick="App.applyHazmatToIncident('${h.onu}')" class="w-full py-2 bg-slate-800 hover:bg-orange-600 hover:text-white text-slate-300 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2">
               <i data-lucide="shield-check" class="w-4 h-4"></i>
-              Aplicar Ã  Ocorrência Atual
+              Aplicar ÃƒÂ  OcorrÃªncia Atual
             </button>
           </div>
         `).join('') || '<p class="text-xs text-slate-500 col-span-full">Nenhum produto perigoso encontrado.</p>';
@@ -4738,7 +4738,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
   },
 
   /* =======================================================
-   * DOCUMENTAÇÃƒO & LAUDOS
+   * DOCUMENTAÃ‡ÃƒÆ’O & LAUDOS
    * ======================================================= */
   renderDocsTab() {
     const inc = appState.getCurrentIncident();
@@ -4806,11 +4806,11 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     const inc = appState.getCurrentIncident();
     if (!inc) return;
     
-    this.showToast("IA gerando rascunho de parecer técnico...");
+    this.showToast("IA gerando rascunho de parecer tÃ©cnico...");
     setTimeout(() => {
       const parecerEl = document.getElementById('docs-parecer');
       if (parecerEl) {
-        parecerEl.value = `PARECER TÉCNICO PRELIMINAR - GERADO POR IA\n\nData do Sinistro: ${new Date(inc.createdAt).toLocaleString()}\nLocal: ${inc.road} - ${inc.city}\nVeículo: ${inc.plate}\nCarga: ${inc.cargoDescription}\n\nConforme análise dos dados telemétricos e registros preenchidos, o evento ocorreu sob condições adversas. O transbordo foi acionado e as medidas de mitigação ambiental foram tomadas em tempo hábil. Atesta-se que a equipe seguiu o protocolo Golden Hour para isolamento do perímetro.`;
+        parecerEl.value = `PARECER TÃ‰CNICO PRELIMINAR - GERADO POR IA\n\nData do Sinistro: ${new Date(inc.createdAt).toLocaleString()}\nLocal: ${inc.road} - ${inc.city}\nVeÃ­culo: ${inc.plate}\nCarga: ${inc.cargoDescription}\n\nConforme anÃ¡lise dos dados telemÃ©tricos e registros preenchidos, o evento ocorreu sob condiÃ§Ãµes adversas. O transbordo foi acionado e as medidas de mitigaÃ§Ã£o ambiental foram tomadas em tempo hÃ¡bil. Atesta-se que a equipe seguiu o protocolo Golden Hour para isolamento do perÃ­metro.`;
         this.saveParecer();
       }
     }, 1500);
@@ -4876,37 +4876,37 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
 
     const sops = {
       'docs': {
-        title: 'Como Proceder: Gestão Documental',
+        title: 'Como Proceder: GestÃ£o Documental',
         steps: [
-          '<strong>1. Coleta Inicial:</strong> Obtenha o Boletim de Ocorrência (B.O.) da Polícia Rodoviária assim que for liberado.',
-          '<strong>2. Registro Fotográfico:</strong> Solicite Ã  equipe de campo fotos amplas do local, do veículo tombado/sinistrado e de possíveis danos ambientais (vazamentos).',
-          '<strong>3. Anexos Importantes:</strong> Realize o upload destes documentos (PDF, JPG) na seção "Anexar Laudos e Fotos".',
-          '<strong>4. Parecer do Gestor:</strong> Utilize o campo de "Parecer Técnico" para redigir a justificativa técnica. Você pode utilizar o botão "Esboço com IA" para gerar um texto base a partir das informações já preenchidas no sistema.',
-          '<strong>5. Finalização:</strong> Certifique-se de salvar o parecer. Esta documentação será essencial na emissão do Dossiê PDF final.'
+          '<strong>1. Coleta Inicial:</strong> Obtenha o Boletim de OcorrÃªncia (B.O.) da PolÃ­cia RodoviÃ¡ria assim que for liberado.',
+          '<strong>2. Registro FotogrÃ¡fico:</strong> Solicite ÃƒÂ  equipe de campo fotos amplas do local, do veÃ­culo tombado/sinistrado e de possÃ­veis danos ambientais (vazamentos).',
+          '<strong>3. Anexos Importantes:</strong> Realize o upload destes documentos (PDF, JPG) na seÃ§Ã£o "Anexar Laudos e Fotos".',
+          '<strong>4. Parecer do Gestor:</strong> Utilize o campo de "Parecer TÃ©cnico" para redigir a justificativa tÃ©cnica. VocÃª pode utilizar o botÃ£o "EsboÃ§o com IA" para gerar um texto base a partir das informaÃ§Ãµes jÃ¡ preenchidas no sistema.',
+          '<strong>5. FinalizaÃ§Ã£o:</strong> Certifique-se de salvar o parecer. Esta documentaÃ§Ã£o serÃ¡ essencial na emissÃ£o do DossiÃª PDF final.'
         ]
       },
       'planner': {
-        title: 'Como Proceder: Planejador Logístico',
+        title: 'Como Proceder: Planejador LogÃ­stico',
         steps: [
           '<strong>1. Preenchimento:</strong> Insira os dados reais da viagem (origem, destino, motorista, carga).',
-          '<strong>2. Auditoria IA:</strong> A Inteligência Artificial fará a leitura preditiva e retornará os alertas de perigo.',
-          '<strong>3. Otimização:</strong> Clique em "Reformular com IA" para que o sistema ajuste os horários e parâmetros, tornando a viagem 100% Segura.',
+          '<strong>2. Auditoria IA:</strong> A InteligÃªncia Artificial farÃ¡ a leitura preditiva e retornarÃ¡ os alertas de perigo.',
+          '<strong>3. OtimizaÃ§Ã£o:</strong> Clique em "Reformular com IA" para que o sistema ajuste os horÃ¡rios e parÃ¢metros, tornando a viagem 100% Segura.',
           '<strong>4. Briefing:</strong> Exporte o briefing revisado para entregar ao motorista.'
         ]
       },
       'dashboard': {
         title: 'Como Proceder: Dashboard & Mapa',
         steps: [
-          '<strong>1. Abertura:</strong> Em caso de acidente, clique no botão superior "Nova Ocorrência".',
-          '<strong>2. Mapa e Raio:</strong> O mapa será centrado no acidente, desenhando automaticamente o Raio de Isolamento Tático (em caso de produtos perigosos).',
-          '<strong>3. Ação Imediata:</strong> Navegue pelas demais abas para acionar resgate, investigar a causa, preencher laudos e notificar a seguradora.'
+          '<strong>1. Abertura:</strong> Em caso de acidente, clique no botÃ£o superior "Nova OcorrÃªncia".',
+          '<strong>2. Mapa e Raio:</strong> O mapa serÃ¡ centrado no acidente, desenhando automaticamente o Raio de Isolamento TÃ¡tico (em caso de produtos perigosos).',
+          '<strong>3. AÃ§Ã£o Imediata:</strong> Navegue pelas demais abas para acionar resgate, investigar a causa, preencher laudos e notificar a seguradora.'
         ]
       },
       'default': {
-        title: 'Guia de Operação',
+        title: 'Guia de OperaÃ§Ã£o',
         steps: [
-          'Siga as instruções exibidas na tela para preencher os dados.',
-          'Em caso de dúvida técnica ou procedimental, acione a aba "Copilot Tático 24h".'
+          'Siga as instruÃ§Ãµes exibidas na tela para preencher os dados.',
+          'Em caso de dÃºvida tÃ©cnica ou procedimental, acione a aba "Copilot TÃ¡tico 24h".'
         ]
       }
     };
@@ -4931,7 +4931,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
   },
 
   /* =======================================================
-   * PERFIL DO USUÁRIO
+   * PERFIL DO USUÃRIO
    * ======================================================= */
   openProfileModal() {
     if (!appState.currentUser) return;
@@ -4971,7 +4971,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
   },
   
   openAppRating() {
-    alert("Obrigado por usar o GENERAL! Em breve você será redirecionado para a loja de aplicativos para nos avaliar.");
+    alert("Obrigado por usar o GENERAL! Em breve vocÃª serÃ¡ redirecionado para a loja de aplicativos para nos avaliar.");
   },
 
   handleProfilePhoto(e) {
@@ -5054,7 +5054,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
 
       this.checkAuth();
       this.closeProfileModal();
-      this.showToast('âœ… Perfil atualizado com sucesso!');
+      this.showToast('Ã¢Å“â€¦ Perfil atualizado com sucesso!');
     } else {
       this.showToast('Preencha todos os campos do perfil.');
     }
@@ -5064,7 +5064,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     const select = document.getElementById('docs-incident-select');
     if (!select) return;
     
-    select.innerHTML = '<option value="">Selecione uma ocorrência ativa...</option>';
+    select.innerHTML = '<option value="">Selecione uma ocorrÃªncia ativa...</option>';
     
     const activeIncidents = appState.incidents.filter(inc => inc.status !== 'CONCLUIDA');
     activeIncidents.forEach(inc => {
@@ -5129,7 +5129,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
       const select = document.getElementById('docs-incident-select');
       
       if (!select || !select.value) {
-        this.showToast('Erro: Selecione uma ocorrência antes de anexar.', 'error');
+        this.showToast('Erro: Selecione uma ocorrÃªncia antes de anexar.', 'error');
         inputElement.value = ''; 
         return;
       }
@@ -5150,12 +5150,12 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     
     const select = document.getElementById('docs-incident-select');
     if (!select || !select.value) {
-      this.showToast('Selecione uma ocorrência primeiro.', 'error');
+      this.showToast('Selecione uma ocorrÃªncia primeiro.', 'error');
       return;
     }
 
     if (!textArea.value || textArea.value.trim().length < 10) {
-      this.showToast('O texto está muito curto para correção ortográfica.', 'error');
+      this.showToast('O texto estÃ¡ muito curto para correÃ§Ã£o ortogrÃ¡fica.', 'error');
       return;
     }
     
@@ -5165,14 +5165,14 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     setTimeout(() => {
       let fixedText = currentText.charAt(0).toUpperCase() + currentText.slice(1);
       if (!fixedText.endsWith('.')) fixedText += '.';
-      textArea.value = fixedText + '\\n\\n[Correção ortográfica aplicada pela IA]';
+      textArea.value = fixedText + '\\n\\n[CorreÃ§Ã£o ortogrÃ¡fica aplicada pela IA]';
       this.saveParecer();
-      this.showToast('Correção aplicada com sucesso!', 'success');
+      this.showToast('CorreÃ§Ã£o aplicada com sucesso!', 'success');
     }, 1500);
   },
 
   /* =======================================================
-   * PLANOS LOGÍSTICOS SALVOS
+   * PLANOS LOGÃSTICOS SALVOS
    * ======================================================= */
   renderSavedPlansTab() {
     const container = document.getElementById('saved-plans-container');
@@ -5185,7 +5185,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
         <div class="col-span-1 md:col-span-2 flex flex-col items-center justify-center p-12 bg-slate-900/60 border border-slate-800 rounded-2xl">
           <i data-lucide="database" class="w-12 h-12 text-slate-700 mb-4"></i>
           <h3 class="text-lg font-bold text-slate-300">Nenhum Plano Salvo</h3>
-          <p class="text-sm text-slate-500 mt-2 text-center max-w-md">Os planos logísticos aprovados na aba "Plano Logístico & IA" aparecerão aqui. Eles são necessários para abrir novas ocorrências.</p>
+          <p class="text-sm text-slate-500 mt-2 text-center max-w-md">Os planos logÃ­sticos aprovados na aba "Plano LogÃ­stico & IA" aparecerÃ£o aqui. Eles sÃ£o necessÃ¡rios para abrir novas ocorrÃªncias.</p>
         </div>
       `;
       if (typeof lucide !== 'undefined') lucide.createIcons();
@@ -5198,8 +5198,8 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
           <div class="bg-slate-900/60 border-2 border-emerald-500/50 hover:border-emerald-400 rounded-2xl p-5 transition-all group shadow-lg shadow-emerald-900/20">
             <div class="flex items-start justify-between mb-3">
               <div>
-                <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded-full uppercase border border-emerald-500/30">PLANO DE AÇÃƒO TÁTICO</span>
-                <h3 class="font-bold text-white text-sm mt-2">[${plan.id}] Ação Tática</h3>
+                <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded-full uppercase border border-emerald-500/30">PLANO DE AÃ‡ÃƒÆ’O TÃTICO</span>
+                <h3 class="font-bold text-white text-sm mt-2">[${plan.id}] AÃ§Ã£o TÃ¡tica</h3>
                 <p class="text-[11px] text-slate-400">Vinculado a: ${plan.linkedLogisticsPlan}</p>
               </div>
             </div>
@@ -5211,7 +5211,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
             </div>
             <div class="mt-4 flex flex-col gap-2">
               <button onclick="App.downloadSavedActionPlanPDF('${plan.id}')" class="w-full bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold py-2 rounded-lg transition-all flex items-center justify-center gap-2 border border-slate-700">
-                <i data-lucide="file-text" class="w-3 h-3 text-emerald-400"></i> Ver PDF (Plano Tático)
+                <i data-lucide="file-text" class="w-3 h-3 text-emerald-400"></i> Ver PDF (Plano TÃ¡tico)
               </button>
             </div>
           </div>
@@ -5219,7 +5219,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
       } else {
         const borderColor = plan.hasIncident ? 'border-rose-500/50 hover:border-rose-400 shadow-rose-900/20' : 'border-blue-500/50 hover:border-blue-400 shadow-blue-900/20';
         const statusBadge = plan.hasIncident 
-          ? '<span class="text-[10px] font-bold text-rose-400 bg-rose-500/20 px-2 py-0.5 rounded-full uppercase border border-rose-500/30">OCORRÃŠNCIA REGISTRADA</span>'
+          ? '<span class="text-[10px] font-bold text-rose-400 bg-rose-500/20 px-2 py-0.5 rounded-full uppercase border border-rose-500/30">OCORRÃƒÅ NCIA REGISTRADA</span>'
           : '<span class="text-[10px] font-bold text-blue-400 bg-blue-500/20 px-2 py-0.5 rounded-full uppercase border border-blue-500/30">PLANO SEM INCIDENTES</span>';
         
         return `
@@ -5228,14 +5228,14 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
             <div class="flex items-start justify-between mb-3">
               <div>
                 ${statusBadge}
-                <h3 class="font-bold text-white text-sm mt-2">${plan.id ? `[${plan.id}] ` : ''}${plan.client || 'Cliente Padrão'}</h3>
+                <h3 class="font-bold text-white text-sm mt-2">${plan.id ? `[${plan.id}] ` : ''}${plan.client || 'Cliente PadrÃ£o'}</h3>
                 <p class="text-[11px] text-slate-400">Origem: ${plan.origin} | Destino: ${plan.destination}</p>
               </div>
             </div>
             <div class="grid grid-cols-2 gap-2 mt-4 text-[11px]">
               <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
                 <span class="text-slate-500 block mb-0.5">Produto:</span>
-                <span class="font-bold text-slate-300">${plan.product || 'Não especificado'}</span>
+                <span class="font-bold text-slate-300">${plan.product || 'NÃ£o especificado'}</span>
               </div>
               <div class="bg-slate-950 p-2 rounded-lg border border-slate-800">
                 <span class="text-slate-500 block mb-0.5">Aprovado por:</span>
@@ -5244,7 +5244,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
             </div>
             <div class="mt-4 flex flex-col gap-2">
               <button onclick="App.downloadHistoryPlanPDF('${plan.id}')" class="w-full bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold py-2 rounded-lg transition-all flex items-center justify-center gap-2 border border-slate-700">
-                <i data-lucide="file-text" class="w-3 h-3 text-blue-400"></i> Ver PDF (Plano Logístico)
+                <i data-lucide="file-text" class="w-3 h-3 text-blue-400"></i> Ver PDF (Plano LogÃ­stico)
               </button>
               ${plan.hasIncident ? `
               <button onclick="App.showToast('Visualizando PDF do Plano Prescritivo...', 'info')" class="w-full bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold py-2 rounded-lg transition-all flex items-center justify-center gap-2 border border-slate-700">
@@ -5255,7 +5255,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
               </button>
               ` : `
               <button onclick="App.openProviderEvaluationModal('${plan.id}')" class="w-full bg-amber-600/20 hover:bg-amber-600/30 text-amber-400 text-xs font-bold py-2 rounded-lg transition-all flex items-center justify-center gap-2 border border-amber-500/30 shadow-[0_0_10px_rgba(245,158,11,0.1)] mb-2">
-                <i data-lucide="star" class="w-3 h-3"></i> Avaliação de Desempenho (5 Estrelas)
+                <i data-lucide="star" class="w-3 h-3"></i> AvaliaÃ§Ã£o de Desempenho (5 Estrelas)
               </button>
               <button onclick="App.openRouteEvaluationModal('${plan.id}')" class="w-full bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 text-xs font-bold py-2 rounded-lg transition-all flex items-center justify-center gap-2 border border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.1)]">
                 <i data-lucide="map" class="w-3 h-3"></i> Avaliar Rota
@@ -5281,7 +5281,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     if (!appState.savedPlans || !appState.savedPlans[index]) return;
     const plan = appState.savedPlans[index];
     appState.activePlan = plan;
-    this.showToast('Plano aplicado. Você já pode criar uma nova ocorrência.', 'success');
+    this.showToast('Plano aplicado. VocÃª jÃ¡ pode criar uma nova ocorrÃªncia.', 'success');
     this.switchTab('dashboard');
   },
 
@@ -5328,7 +5328,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     }
     
     if (!plan || !plan.carrierName) {
-      this.showToast('Erro: Transportadora não encontrada no plano.', 'error');
+      this.showToast('Erro: Transportadora nÃ£o encontrada no plano.', 'error');
       return;
     }
     
@@ -5348,7 +5348,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
       window.db.collection('carrier_evaluations').add(newEval).catch(e => console.error("Firebase err:", e));
     }
     
-    this.showToast(`Avaliação salva! Transportadora ${plan.carrierName} reavaliada com nota ${rating}.`);
+    this.showToast(`AvaliaÃ§Ã£o salva! Transportadora ${plan.carrierName} reavaliada com nota ${rating}.`);
     this.closeProviderEvaluationModal();
   },
 
@@ -5358,7 +5358,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     const dest = document.getElementById('plan-dest-city')?.value || '';
     
     if (!origin || !dest) {
-      this.showToast('Preencha a origem e destino (cidade) para ver as avaliações da rota.', 'warning');
+      this.showToast('Preencha a origem e destino (cidade) para ver as avaliaÃ§Ãµes da rota.', 'warning');
       return;
     }
     
@@ -5367,12 +5367,12 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     const container = document.getElementById('route-eval-history-list');
     
     if (!saved) {
-      container.innerHTML = '<div class="text-slate-400 text-xs text-center py-4">Nenhuma avaliação encontrada para esta rota no histórico.</div>';
+      container.innerHTML = '<div class="text-slate-400 text-xs text-center py-4">Nenhuma avaliaÃ§Ã£o encontrada para esta rota no histÃ³rico.</div>';
     } else {
       try {
         const evals = JSON.parse(saved);
         if (evals.length === 0) {
-          container.innerHTML = '<div class="text-slate-400 text-xs text-center py-4">Nenhuma avaliação encontrada.</div>';
+          container.innerHTML = '<div class="text-slate-400 text-xs text-center py-4">Nenhuma avaliaÃ§Ã£o encontrada.</div>';
         } else {
           container.innerHTML = evals.map(e => `
             <div class="bg-slate-950 border border-slate-800 rounded-xl p-3">
@@ -5380,12 +5380,12 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
                 <span class="text-xs font-bold text-emerald-400">${e.score} Estrelas</span>
                 <span class="text-[10px] text-slate-500">${new Date(e.date).toLocaleDateString()}</span>
               </div>
-              <p class="text-xs text-slate-300 italic">"${e.comments || 'Sem comentários adicionais.'}"</p>
+              <p class="text-xs text-slate-300 italic">"${e.comments || 'Sem comentÃ¡rios adicionais.'}"</p>
             </div>
           `).join('');
         }
       } catch (e) {
-        container.innerHTML = '<div class="text-rose-400 text-xs text-center py-4">Erro ao carregar avaliações.</div>';
+        container.innerHTML = '<div class="text-rose-400 text-xs text-center py-4">Erro ao carregar avaliaÃ§Ãµes.</div>';
       }
     }
     
@@ -5426,7 +5426,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     const comments = document.getElementById('route-eval-comments').value;
     
     if (score == 0) {
-      this.showToast('Por favor, dê uma nota de 1 a 5 para a rodovia.', 'error');
+      this.showToast('Por favor, dÃª uma nota de 1 a 5 para a rodovia.', 'error');
       return;
     }
 
@@ -5448,7 +5448,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     }
     
     document.getElementById('route-eval-modal').classList.add('hidden');
-    this.showToast('Avaliação de rota salva com sucesso! Os próximos planos nessa rota serão alertados.', 'success');
+    this.showToast('AvaliaÃ§Ã£o de rota salva com sucesso! Os prÃ³ximos planos nessa rota serÃ£o alertados.', 'success');
   },
 
   /* =======================================================
@@ -5456,7 +5456,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
    * ======================================================= */
   _generatePDFFromHTML(htmlString, filename) {
     if (typeof html2pdf === 'undefined') {
-      this.showToast('Módulo de PDF não carregado!', 'error');
+      this.showToast('MÃ³dulo de PDF nÃ£o carregado!', 'error');
       return;
     }
     const container = document.createElement('div');
@@ -5483,7 +5483,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
                 
                 await window.Capacitor.Plugins.Share.share({
                     title: 'Documento PDF',
-                    text: 'Aqui está o seu PDF.',
+                    text: 'Aqui estÃ¡ o seu PDF.',
                     url: result.uri,
                     dialogTitle: 'Salvar ou Compartilhar PDF'
                 });
@@ -5491,7 +5491,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
                 this.showToast('PDF gerado e pronto para compartilhamento!', 'success');
             } catch (e) {
                 console.error("Erro Capacitor Filesystem/Share:", e);
-                this.showToast('Erro ao exportar PDF no Android. Use a versão Web.', 'error');
+                this.showToast('Erro ao exportar PDF no Android. Use a versÃ£o Web.', 'error');
             }
         });
     } else {
@@ -5502,18 +5502,18 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
 
   downloadPlanPDF(planData = null) {
     
-    const getVal = (key, id, fallback = 'Não preenchido') => {
+    const getVal = (key, id, fallback = 'NÃ£o preenchido') => {
       if (planData) return planData[key] || fallback;
       return document.getElementById(id)?.value || fallback;
     };
     
-    const getSelectText = (key, id, fallback = 'Não preenchido') => {
+    const getSelectText = (key, id, fallback = 'NÃ£o preenchido') => {
       if (planData) return planData[key] || fallback;
       const el = document.getElementById(id);
       return el?.options[el.selectedIndex]?.text || fallback;
     };
 
-    const code = getVal('code', 'plan-code', 'Não informado');
+    const code = getVal('code', 'plan-code', 'NÃ£o informado');
     
     const clientName = getVal('clientName', 'plan-client-name');
     const clientContact = getVal('clientContact', 'plan-client-contact');
@@ -5539,20 +5539,20 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
         const originCity = document.getElementById('plan-origin-city')?.value;
         const originState = document.getElementById('plan-origin-state')?.value;
         const originRef = document.getElementById('plan-origin-ref')?.value;
-        return (originCity && originState) ? `${originRef ? originRef + ' - ' : ''}${originCity}, ${originState}` : 'Não preenchido';
+        return (originCity && originState) ? `${originRef ? originRef + ' - ' : ''}${originCity}, ${originState}` : 'NÃ£o preenchido';
     })();
     
     const dest = planData ? planData.destination : (() => {
         const destCity = document.getElementById('plan-dest-city')?.value;
         const destState = document.getElementById('plan-dest-state')?.value;
         const destRef = document.getElementById('plan-dest-ref')?.value;
-        return (destCity && destState) ? `${destRef ? destRef + ' - ' : ''}${destCity}, ${destState}` : 'Não preenchido';
+        return (destCity && destState) ? `${destRef ? destRef + ' - ' : ''}${destCity}, ${destState}` : 'NÃ£o preenchido';
     })();
     
     const dist = getVal('distanceKm', 'plan-dist');
     const roads = getVal('plannedRoads', 'plan-roads');
-    const depTime = planData ? (planData.departureTime ? new Date(planData.departureTime).toLocaleString('pt-BR') : 'Não preenchido') : (document.getElementById('plan-deptime')?.value ? new Date(document.getElementById('plan-deptime').value).toLocaleString('pt-BR') : 'Não preenchido');
-    const deadline = planData ? (planData.deliveryDeadline ? new Date(planData.deliveryDeadline).toLocaleString('pt-BR') : 'Não preenchido') : (document.getElementById('plan-deadline')?.value ? new Date(document.getElementById('plan-deadline').value).toLocaleString('pt-BR') : 'Não preenchido');
+    const depTime = planData ? (planData.departureTime ? new Date(planData.departureTime).toLocaleString('pt-BR') : 'NÃ£o preenchido') : (document.getElementById('plan-deptime')?.value ? new Date(document.getElementById('plan-deptime').value).toLocaleString('pt-BR') : 'NÃ£o preenchido');
+    const deadline = planData ? (planData.deliveryDeadline ? new Date(planData.deliveryDeadline).toLocaleString('pt-BR') : 'NÃ£o preenchido') : (document.getElementById('plan-deadline')?.value ? new Date(document.getElementById('plan-deadline').value).toLocaleString('pt-BR') : 'NÃ£o preenchido');
     
     const driver = getVal('driverName', 'plan-driver');
     const tenure = getSelectText('driverTenureDays', 'plan-tenure');
@@ -5563,21 +5563,21 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     const tech = getVal('tech', 'plan-tech-resp');
     
     const safetyScore = planData ? (planData.safetyScore || '--') : (document.getElementById('plan-score-num')?.textContent || '--');
-    const duration = planData ? (planData.duration || 'Não calculado') : (document.getElementById('plan-duration')?.value || 'Não calculado');
+    const duration = planData ? (planData.duration || 'NÃ£o calculado') : (document.getElementById('plan-duration')?.value || 'NÃ£o calculado');
     
     const warningsHTML = planData ? (planData.warningsHTML || '<p style="color: #64748b; font-style: italic;">Sem perigos detectados.</p>') : (document.getElementById('plan-warnings-container')?.innerHTML || '<p style="color: #64748b; font-style: italic;">Sem perigos detectados.</p>');
-    const prescriptionsHTML = planData ? (planData.prescriptionsHTML || '<p style="color: #64748b; font-style: italic;">Nenhuma recomendação adicional.</p>') : (document.getElementById('plan-prescriptions-container')?.innerHTML || '<p style="color: #64748b; font-style: italic;">Nenhuma recomendação adicional.</p>');
+    const prescriptionsHTML = planData ? (planData.prescriptionsHTML || '<p style="color: #64748b; font-style: italic;">Nenhuma recomendaÃ§Ã£o adicional.</p>') : (document.getElementById('plan-prescriptions-container')?.innerHTML || '<p style="color: #64748b; font-style: italic;">Nenhuma recomendaÃ§Ã£o adicional.</p>');
     
     let actionPlanHTML = planData ? (planData.actionPlanHTML || '') : (document.getElementById('ai-plan-5w2h-container')?.innerHTML || '');
     if (!actionPlanHTML || actionPlanHTML.trim() === '') {
-        actionPlanHTML = '<p style="color: #64748b; font-style: italic;">Nenhum plano de ação 5W2H gerado para esta operação.</p>';
+        actionPlanHTML = '<p style="color: #64748b; font-style: italic;">Nenhum plano de aÃ§Ã£o 5W2H gerado para esta operaÃ§Ã£o.</p>';
     }
     
     this._generatePDFFromHTML(`
       <!DOCTYPE html>
       <html>
       <head>
-        <title>Plano Logístico 100% Seguro</title>
+        <title>Plano LogÃ­stico 100% Seguro</title>
         <style>
           body { font-family: 'Inter', sans-serif; padding: 30px; color: #1e293b; line-height: 1.5; }
           .header { border-bottom: 2px solid #0f172a; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; }
@@ -5611,20 +5611,20 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
           <div style="display: flex; align-items: center; gap: 15px;">
             <img src="icons/logo.png" alt="GENERAL Logo" style="width: 55px; height: 55px; border-radius: 12px; object-fit: cover; border: 1px solid #e2e8f0;" />
             <div>
-              <h1 class="title" style="margin-bottom: 3px;">Plano Logístico Aprovado</h1>
-              <p class="subtitle" style="margin: 0;">Código: <strong>${code}</strong></p>
+              <h1 class="title" style="margin-bottom: 3px;">Plano LogÃ­stico Aprovado</h1>
+              <p class="subtitle" style="margin: 0;">CÃ³digo: <strong>${code}</strong></p>
             </div>
           </div>
           <div style="text-align: right;">
             <div class="score">Auditoria: ${safetyScore}</div>
-            <div class="subtitle">Emissão: ${new Date().toLocaleDateString('pt-BR')}</div>
+            <div class="subtitle">EmissÃ£o: ${new Date().toLocaleDateString('pt-BR')}</div>
           </div>
         </div>
         
         <div class="section">
           <h2>1. Dados do Cliente e Carga</h2>
           <div class="grid-3">
-            <div class="field"><strong>Cliente / Razão Social:</strong> <span>${clientName}</span></div>
+            <div class="field"><strong>Cliente / RazÃ£o Social:</strong> <span>${clientName}</span></div>
             <div class="field"><strong>Contato:</strong> <span>${clientContact}</span></div>
             <div class="field"><strong>Telefone:</strong> <span>${clientPhone}</span></div>
             <div class="field"><strong>E-mail:</strong> <span>${clientEmail}</span></div>
@@ -5647,9 +5647,9 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
             <div class="field"><strong>Modal:</strong> <span>${transportMode}</span></div>
             <div class="field"><strong>Natureza:</strong> <span>${cargoType}</span></div>
             <div class="field"><strong>Produto:</strong> <span>${product}</span></div>
-            <div class="field"><strong>Código ONU:</strong> <span>${onu}</span></div>
+            <div class="field"><strong>CÃ³digo ONU:</strong> <span>${onu}</span></div>
             <div class="field"><strong>Volume:</strong> <span>${volume}</span></div>
-            <div class="field"><strong>Cenário Tático:</strong> <span>${scenario}</span></div>
+            <div class="field"><strong>CenÃ¡rio TÃ¡tico:</strong> <span>${scenario}</span></div>
           </div>
         </div>
         
@@ -5658,34 +5658,34 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
           <div class="grid-3">
             <div class="field"><strong>Origem:</strong> <span>${origin}</span></div>
             <div class="field"><strong>Destino:</strong> <span>${dest}</span></div>
-            <div class="field"><strong>Distância:</strong> <span>${dist} km</span></div>
+            <div class="field"><strong>DistÃ¢ncia:</strong> <span>${dist} km</span></div>
             <div class="field"><strong>Rodovias:</strong> <span>${roads}</span></div>
-            <div class="field"><strong>Saída:</strong> <span>${depTime}</span></div>
-            <div class="field"><strong>Previsão Chegada (Manual):</strong> <span>${deadline}</span></div>
-            <div class="field"><strong>Previsão de Viagem (IA/AWS):</strong> <span style="color: #059669;">${duration}</span></div>
+            <div class="field"><strong>SaÃ­da:</strong> <span>${depTime}</span></div>
+            <div class="field"><strong>PrevisÃ£o Chegada (Manual):</strong> <span>${deadline}</span></div>
+            <div class="field"><strong>PrevisÃ£o de Viagem (IA/AWS):</strong> <span style="color: #059669;">${duration}</span></div>
           </div>
         </div>
         
         <div class="section">
-          <h2>3. Tripulação e Veículo</h2>
+          <h2>3. TripulaÃ§Ã£o e VeÃ­culo</h2>
           <div class="grid-3">
             <div class="field"><strong>Condutor:</strong> <span>${driver}</span></div>
             <div class="field"><strong>Tempo de Casa:</strong> <span>${tenure}</span></div>
             <div class="field"><strong>Familiaridade (Rota):</strong> <span>${fam}</span></div>
-            <div class="field"><strong>Familiaridade (Veículo):</strong> <span>${truckFam}</span></div>
-            <div class="field"><strong>Nível do Tanque:</strong> <span>${tankFill}%</span></div>
+            <div class="field"><strong>Familiaridade (VeÃ­culo):</strong> <span>${truckFam}</span></div>
+            <div class="field"><strong>NÃ­vel do Tanque:</strong> <span>${tankFill}%</span></div>
             <div class="field"><strong>Modo:</strong> <span>${planMode}</span></div>
           </div>
         </div>
 
         <div class="signature">
           <div>
-            <div class="sig-line">${driver !== 'Não preenchido' ? driver : 'Assinatura do Condutor'}</div>
-            <span style="font-size: 12px; color: #64748b;">Condutor / Responsável Transporte</span>
+            <div class="sig-line">${driver !== 'NÃ£o preenchido' ? driver : 'Assinatura do Condutor'}</div>
+            <span style="font-size: 12px; color: #64748b;">Condutor / ResponsÃ¡vel Transporte</span>
           </div>
           <div>
-            <div class="sig-line">${tech !== 'Não preenchido' ? tech : 'Assinatura Técnica'}</div>
-            <span style="font-size: 12px; color: #64748b;">Engenharia / Gestão de Risco</span>
+            <div class="sig-line">${tech !== 'NÃ£o preenchido' ? tech : 'Assinatura TÃ©cnica'}</div>
+            <span style="font-size: 12px; color: #64748b;">Engenharia / GestÃ£o de Risco</span>
           </div>
         </div>
       </body>
@@ -5850,22 +5850,22 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
         document.getElementById('plan-carrier-rating-card')?.classList.add('hidden');
         document.getElementById('plan-carrier-name').value = '';
       } else {
-        this.showToast(`Avaliação atualizada para ${p.rating.toFixed(1)}`, 'info');
+        this.showToast(`AvaliaÃ§Ã£o atualizada para ${p.rating.toFixed(1)}`, 'info');
       }
       
       localStorage.setItem('general_custom_providers', JSON.stringify(customProviders));
       this.renderMarketplace();
     } else {
-      this.showToast('Transportadora padrão não pode ser avaliada.', 'warning');
+      this.showToast('Transportadora padrÃ£o nÃ£o pode ser avaliada.', 'warning');
     }
   },
 
   notifyProviderRemoval(name) {
     const btn = document.getElementById('provider-notifications-btn');
     if (btn) btn.classList.remove('hidden');
-    this.showToast(`Transportadora ${name} removida por baixa avaliação (< 3.5)`, 'error');
+    this.showToast(`Transportadora ${name} removida por baixa avaliaÃ§Ã£o (< 3.5)`, 'error');
     
-    // Salvar notificação no localStorage
+    // Salvar notificaÃ§Ã£o no localStorage
     let notifs = JSON.parse(localStorage.getItem('general_notifications') || '[]');
     notifs.push({
       id: Date.now().toString(),
@@ -5905,7 +5905,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     let html = '';
     
     if (notifs.length === 0) {
-      html = '<div class="text-slate-400 text-center py-4">Nenhuma notificação recente.</div>';
+      html = '<div class="text-slate-400 text-center py-4">Nenhuma notificaÃ§Ã£o recente.</div>';
     } else {
       html = notifs.reverse().map(n => `
         <div class="p-4 bg-slate-950 rounded-xl border ${n.read ? 'border-slate-800 opacity-60' : 'border-rose-500/50'} text-slate-300 text-sm relative">
@@ -5919,7 +5919,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     div.innerHTML = `
       <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md overflow-hidden flex flex-col shadow-2xl animate-scale-up">
         <div class="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-800/50">
-          <h3 class="text-white font-bold flex items-center gap-2"><i data-lucide="bell" class="w-5 h-5 text-blue-400"></i> Notificações</h3>
+          <h3 class="text-white font-bold flex items-center gap-2"><i data-lucide="bell" class="w-5 h-5 text-blue-400"></i> NotificaÃ§Ãµes</h3>
           <button onclick="document.getElementById('notifications-modal').classList.add('hidden')" class="text-slate-400 hover:text-white transition-all"><i data-lucide="x" class="w-5 h-5"></i></button>
         </div>
         <div class="p-4 flex flex-col gap-3 max-h-96 overflow-y-auto" id="notifications-list">
@@ -5972,25 +5972,25 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
   downloadActionPlanPDF(id) {
     const inc = appState.incidents.find(i => i.id === id);
     if (!inc) return;
-    this._generatePDFFromHTML(`<html><head><title>Plano de Ação - ${id}</title><style>body{font-family:'Inter',sans-serif;padding:30px;color:#1e293b;}</style></head><body><h2>Plano de Ação Tático - Ocorrência ${id}</h2><p>Documento gerado automaticamente pelo sistema Antigravity.</p><div style="margin-top:20px;">${inc.actionPlanHTML || 'Plano preenchido manualmente.'}</div></body></html>`, 'Dossie_GENERAL.pdf');
+    this._generatePDFFromHTML(`<html><head><title>Plano de AÃ§Ã£o - ${id}</title><style>body{font-family:'Inter',sans-serif;padding:30px;color:#1e293b;}</style></head><body><h2>Plano de AÃ§Ã£o TÃ¡tico - OcorrÃªncia ${id}</h2><p>Documento gerado automaticamente pelo sistema Antigravity.</p><div style="margin-top:20px;">${inc.actionPlanHTML || 'Plano preenchido manualmente.'}</div></body></html>`, 'Dossie_GENERAL.pdf');
     
   },
   
   downloadSavedActionPlanPDF(id) {
     const plan = appState.savedPlans.find(p => p.id === id && p.type === 'ACAO');
     if (!plan || !plan.data) {
-      this.showToast('Detalhes do plano não encontrados.', 'error');
+      this.showToast('Detalhes do plano nÃ£o encontrados.', 'error');
       return;
     }
-    const htmlContent = plan.data.actionPlanHTML || plan.data.content || 'Detalhes do plano tático não disponíveis em HTML.';
-    this._generatePDFFromHTML(`<html><head><title>Plano de Ação - ${id}</title><style>body{font-family:'Inter',sans-serif;padding:30px;color:#1e293b;}</style></head><body><h2>Plano de Ação Tático Independente - ${id}</h2><p>Documento gerado automaticamente pelo sistema Antigravity.</p><p>Vinculado ao Plano Logístico: <b>${plan.linkedLogisticsPlan}</b></p><div style="margin-top:20px;">${htmlContent}</div></body></html>`, 'Dossie_GENERAL.pdf');
+    const htmlContent = plan.data.actionPlanHTML || plan.data.content || 'Detalhes do plano tÃ¡tico nÃ£o disponÃ­veis em HTML.';
+    this._generatePDFFromHTML(`<html><head><title>Plano de AÃ§Ã£o - ${id}</title><style>body{font-family:'Inter',sans-serif;padding:30px;color:#1e293b;}</style></head><body><h2>Plano de AÃ§Ã£o TÃ¡tico Independente - ${id}</h2><p>Documento gerado automaticamente pelo sistema Antigravity.</p><p>Vinculado ao Plano LogÃ­stico: <b>${plan.linkedLogisticsPlan}</b></p><div style="margin-top:20px;">${htmlContent}</div></body></html>`, 'Dossie_GENERAL.pdf');
     
   },
   
   downloadTransshipmentPDF(id) {
     const inc = appState.incidents.find(i => i.id === id);
     if (!inc) return;
-    this._generatePDFFromHTML(`<html><head><title>Plano de Transbordo - ${id}</title><style>body{font-family:'Inter',sans-serif;padding:30px;color:#1e293b;}</style></head><body><h2>Plano Operacional de Transbordo - Ocorrência ${id}</h2><p>Operação autorizada e monitorada.</p><div style="margin-top:20px; font-weight:bold;">Técnico Responsável: ${inc.responsible || 'N/A'}</div></body></html>`, 'Dossie_GENERAL.pdf');
+    this._generatePDFFromHTML(`<html><head><title>Plano de Transbordo - ${id}</title><style>body{font-family:'Inter',sans-serif;padding:30px;color:#1e293b;}</style></head><body><h2>Plano Operacional de Transbordo - OcorrÃªncia ${id}</h2><p>OperaÃ§Ã£o autorizada e monitorada.</p><div style="margin-top:20px; font-weight:bold;">TÃ©cnico ResponsÃ¡vel: ${inc.responsible || 'N/A'}</div></body></html>`, 'Dossie_GENERAL.pdf');
     
   },
 
@@ -6000,11 +6000,11 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     if (helper) {
       helper.classList.add('hidden');
     }
-    this.showToast('Dicas desativadas. Você pode reativá-las no seu Perfil.', 'info');
+    this.showToast('Dicas desativadas. VocÃª pode reativÃ¡-las no seu Perfil.', 'info');
   },
 
   hideCarrier(name) {
-    if (confirm(`Tem certeza que deseja excluir "${name}" do seu painel? (Apenas para você)`)) {
+    if (confirm(`Tem certeza que deseja excluir "${name}" do seu painel? (Apenas para vocÃª)`)) {
       let hiddenCarriers = [];
       try {
         hiddenCarriers = JSON.parse(localStorage.getItem('general_hidden_carriers')) || [];
@@ -6024,12 +6024,12 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
   sendHelpEmail() {
     const textarea = document.getElementById('help-duvida-textarea');
     if (!textarea || !textarea.value.trim()) {
-      this.showToast('Por favor, descreva sua dúvida antes de enviar.', 'warning');
+      this.showToast('Por favor, descreva sua dÃºvida antes de enviar.', 'warning');
       return;
     }
     const body = encodeURIComponent(textarea.value.trim());
     const email = 'generalia.suporte@gmail.com';
-    const subject = encodeURIComponent('Dúvida/Suporte - GENERAL App');
+    const subject = encodeURIComponent('DÃºvida/Suporte - GENERAL App');
     window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
     
     this.showToast('Redirecionando para o seu aplicativo de e-mail...', 'success');
@@ -6042,12 +6042,12 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     this.planStep++;
     if (this.planStep > 5) {
       this.planStep = 5;
-      this.showToast('O plano jǭ atingiu o estǭgio final.', 'info');
+      this.showToast('O plano jÇ­ atingiu o estÇ­gio final.', 'info');
       return;
     }
 
     // Update UI Step
-    const stepsText = ['Elaboração', 'Aprovado', 'Em Execução', 'A Caminho', 'A Avaliar'];
+    const stepsText = ['ElaboraÃ§Ã£o', 'Aprovado', 'Em ExecuÃ§Ã£o', 'A Caminho', 'A Avaliar'];
     
     // Reset all steps to default
     for (let i = 1; i <= 5; i++) {
@@ -6085,16 +6085,16 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
        let iconHtml = '';
        
        if (this.planStep === 2) {
-          message = 'O plano logístico foi aprovado formalmente. IA em prontidão.';
+          message = 'O plano logÃ­stico foi aprovado formalmente. IA em prontidÃ£o.';
           iconHtml = '<i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i>';
        } else if (this.planStep === 3) {
-          message = 'Plano entrou em execução. Monitoramento das rodovias iniciado.';
+          message = 'Plano entrou em execuÃ§Ã£o. Monitoramento das rodovias iniciado.';
           iconHtml = '<i data-lucide="play-circle" class="w-3.5 h-3.5 text-blue-400"></i>';
        } else if (this.planStep === 4) {
-          message = 'Frota está a caminho do destino. Rastreamento ativo.';
+          message = 'Frota estÃ¡ a caminho do destino. Rastreamento ativo.';
           iconHtml = '<i data-lucide="truck" class="w-3.5 h-3.5 text-amber-400"></i>';
        } else if (this.planStep === 5) {
-          message = 'Etapa concluída. Aguardando avaliação pós-mortem das decisões tomadas.';
+          message = 'Etapa concluÃ­da. Aguardando avaliaÃ§Ã£o pÃ³s-mortem das decisÃµes tomadas.';
           iconHtml = '<i data-lucide="star" class="w-3.5 h-3.5 text-purple-400"></i>';
        }
 
@@ -6104,7 +6104,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
            <div>
              <span class="text-white font-bold block mb-0.5">${stepsText[this.planStep - 1]}</span>
              <span class="text-slate-400">${message}</span>
-             <div class="text-[9px] text-slate-500 mt-1 font-mono">${timeStr} - Sistema Automático</div>
+             <div class="text-[9px] text-slate-500 mt-1 font-mono">${timeStr} - Sistema AutomÃ¡tico</div>
            </div>
          </div>
        `;
@@ -6112,7 +6112,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
        if (typeof lucide !== 'undefined') lucide.createIcons();
     }
     
-    this.showToast('Etapa avançada com sucesso', 'success');
+    this.showToast('Etapa avanÃ§ada com sucesso', 'success');
   },
 
   // ==========================================
@@ -6154,7 +6154,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     const xpCounter = document.getElementById('driver-xp-counter');
     if (xpCounter) xpCounter.textContent = xp;
 
-    this.showToast('Avaliação enviada! Você ganhou +50 XP!', 'success');
+    this.showToast('AvaliaÃ§Ã£o enviada! VocÃª ganhou +50 XP!', 'success');
     
     // Clear form
     document.getElementById('feedback-route').value = '';
@@ -6162,7 +6162,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
   },
 
   submitQuickReport() {
-    const reportOptions = ['Acidente a frente', 'Queda de barreira', 'Pista escorregadia', 'Blitz/Manifestação'];
+    const reportOptions = ['Acidente a frente', 'Queda de barreira', 'Pista escorregadia', 'Blitz/ManifestaÃ§Ã£o'];
     const randomReport = reportOptions[Math.floor(Math.random() * reportOptions.length)];
     
     const report = {
@@ -6176,22 +6176,22 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     rapidReports.push(report);
     localStorage.setItem('GENERAL_RAPID_REPORTS', JSON.stringify(rapidReports));
 
-    this.showToast('Reporte rápido enviado! Gestor e motoristas notificados.', 'error');
+    this.showToast('Reporte rÃ¡pido enviado! Gestor e motoristas notificados.', 'error');
     if (this.currentTab === 'risk-dashboard') {
       this.renderRiskDashboard();
     }
   },
 
   calculateRiskScore(feedbacks, rapidReports) {
-    // Score base 20 (Histórico base transportadora)
+    // Score base 20 (HistÃ³rico base transportadora)
     let score = 20;
     
-    // Penalidade por avaliações ruins recentes
-    const badRoad = feedbacks.filter(f => f.road === 'Péssima').length;
+    // Penalidade por avaliaÃ§Ãµes ruins recentes
+    const badRoad = feedbacks.filter(f => f.road === 'PÃ©ssima').length;
     const badSafety = feedbacks.filter(f => f.safety === 'Perigoso').length;
     score += (badRoad * 10) + (badSafety * 15);
     
-    // Penalidade por reportes rápidos
+    // Penalidade por reportes rÃ¡pidos
     score += (rapidReports.length * 20);
 
     // Bounding 0 - 100
@@ -6209,14 +6209,14 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
       activeContainer.innerHTML = `
         <div class="text-center p-4 border border-dashed border-slate-800 rounded-xl mt-4">
           <i data-lucide="check-circle" class="w-6 h-6 text-emerald-500 mx-auto mb-2"></i>
-          <p class="text-xs font-bold text-slate-400">Nenhuma ocorrência ativa.</p>
+          <p class="text-xs font-bold text-slate-400">Nenhuma ocorrÃªncia ativa.</p>
         </div>`;
     } else {
       activeContainer.innerHTML = activeIncidents.map(inc => {
         let badgeColor = 'bg-amber-900/30 text-amber-500 border-amber-800';
         let icon = 'alert-triangle';
         
-        if (inc.status === 'CRÍTICO' || inc.type === 'ALERTA_MOTORISTA' || inc.type === 'Acidente') {
+        if (inc.status === 'CRÃTICO' || inc.type === 'ALERTA_MOTORISTA' || inc.type === 'Acidente') {
             badgeColor = 'bg-rose-900/30 text-rose-500 border-rose-800';
             icon = 'siren';
         }
@@ -6229,7 +6229,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
               <i data-lucide="${icon}" class="w-3 h-3"></i> ${inc.status}
             </span>
           </div>
-          <p class="text-xs font-bold text-slate-200 mb-1 line-clamp-1">${inc.type || inc.cargoDescription || 'Ocorrência Geral'}</p>
+          <p class="text-xs font-bold text-slate-200 mb-1 line-clamp-1">${inc.type || inc.cargoDescription || 'OcorrÃªncia Geral'}</p>
           <div class="flex items-center gap-2 text-[10px] text-slate-400">
             <i data-lucide="user" class="w-3 h-3"></i> ${inc.driverName || 'Motorista'}
           </div>
@@ -6245,7 +6245,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     const feedbacks = JSON.parse(localStorage.getItem('GENERAL_FEEDBACKS') || '[]');
     const rapidReports = JSON.parse(localStorage.getItem('GENERAL_RAPID_REPORTS') || '[]');
     
-    // Alerta de Risco Crítico (>1 reportes rápidos em 24h)
+    // Alerta de Risco CrÃ­tico (>1 reportes rÃ¡pidos em 24h)
     const alertContainer = document.getElementById('risk-alert-container');
     if (alertContainer) {
       if (rapidReports.length >= 2) {
@@ -6265,8 +6265,8 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
         let borderClass = 'border-rose-900/50';
         let icon = 'alert-triangle';
         
-        if (r.originalType === 'Polícia') { colorClass = 'text-blue-400'; borderClass = 'border-blue-900/50'; icon = 'shield-alert'; }
-        else if (r.originalType === 'Obra' || r.originalType === 'Faixa interditada' || r.originalType === 'Objeto na via' || r.originalType === 'Lentidão') { colorClass = 'text-amber-400'; borderClass = 'border-amber-900/50'; icon = 'construction'; }
+        if (r.originalType === 'PolÃ­cia') { colorClass = 'text-blue-400'; borderClass = 'border-blue-900/50'; icon = 'shield-alert'; }
+        else if (r.originalType === 'Obra' || r.originalType === 'Faixa interditada' || r.originalType === 'Objeto na via' || r.originalType === 'LentidÃ£o') { colorClass = 'text-amber-400'; borderClass = 'border-amber-900/50'; icon = 'construction'; }
         
         return `
         <div class="bg-slate-950 p-3 rounded-xl border ${borderClass} flex flex-col">
@@ -6283,13 +6283,13 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     const scoreList = document.getElementById('risk-scores-list');
     if (scoreList) {
       const score = this.calculateRiskScore(feedbacks, rapidReports);
-      const riskLevel = score < 40 ? 'Baixo' : score < 75 ? 'Médio' : 'Crítico';
+      const riskLevel = score < 40 ? 'Baixo' : score < 75 ? 'MÃ©dio' : 'CrÃ­tico';
       const riskColor = score < 40 ? 'emerald' : score < 75 ? 'amber' : 'rose';
       
       scoreList.innerHTML = `
         <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex items-center justify-between">
           <div>
-            <span class="text-xs font-bold text-white block mb-1">Rota Ativa (Simulação)</span>
+            <span class="text-xs font-bold text-white block mb-1">Rota Ativa (SimulaÃ§Ã£o)</span>
             <span class="text-[10px] text-slate-400">Score calculado por IA + Feedbacks</span>
           </div>
           <div class="flex flex-col items-end">
@@ -6301,6 +6301,60 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     }
   }
 ,
+  async saveLinkedDriver(e) {
+      e.preventDefault();
+      
+      const btn = e.target.querySelector('button[type=""submit""]');
+      const oldHtml = btn.innerHTML;
+      btn.innerHTML = '<div class=""w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin""></div> Salvando...';
+      btn.disabled = true;
+
+      try {
+          const name = document.getElementById('reg-driver-name').value.trim();
+          const cpf = document.getElementById('reg-driver-cpf').value.trim();
+          const phone = document.getElementById('reg-driver-phone').value.trim();
+          
+          if(!name || !cpf) {
+              this.showToast('Nome e CPF são obrigatórios.', 'error');
+              return;
+          }
+          
+          const cpfClean = cpf.replace(/\D/g, '');
+          if(cpfClean.length !== 11) {
+              this.showToast('CPF inválido.', 'error');
+              return;
+          }
+          
+          // Current Gestor's CNPJ
+          const companyCnpj = appState.currentUser?.companyCnpj || 'GENERIC_CNPJ';
+          
+          const driverData = {
+              id: cpfClean,
+              name: name,
+              cpf: cpf,
+              phone: phone,
+              companyCnpj: companyCnpj,
+              role: 'motorista',
+              driverType: 'vinculado',
+              registeredBy: appState.currentUser?.id || 'gestor',
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          };
+          
+          await window.db.collection('users').doc(cpfClean).set(driverData, { merge: true });
+          
+          this.showToast('Motorista vinculado cadastrado com sucesso!', 'success');
+          e.target.reset();
+          
+          // Optionally switch back to planner or dashboard
+          this.switchTab('planner');
+      } catch(err) {
+          console.error(err);
+          this.showToast('Erro ao cadastrar motorista.', 'error');
+      } finally {
+          btn.innerHTML = oldHtml;
+          btn.disabled = false;
+      }
+  },
   submitGoogleExtraInfo() {
     const company = document.getElementById('google-extra-company')?.value.trim();
     const cnpj = document.getElementById('google-extra-cnpj')?.value.trim();
@@ -6329,7 +6383,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
        
        document.getElementById('google-extra-modal').classList.add('hidden');
        this.checkAuth();
-       this.showToast(`ðŸ”‘ Bem-vindo(a) via Google, ${window.tempGoogleUser.name}!`);
+       this.showToast(`Ã°Å¸â€â€˜ Bem-vindo(a) via Google, ${window.tempGoogleUser.name}!`);
     }
   },
 };
