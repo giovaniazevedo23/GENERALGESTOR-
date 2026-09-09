@@ -5023,7 +5023,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
       if (newCnpj) appState.currentUser.companyCnpj = newCnpj;
       
       if (window.db && newCompany) {
-          let cDoc = newCnpj ? newCnpj : newCompany;
+          let cDoc = newCnpj ? newCnpj.replace(/\D/g, '') : newCompany.replace(/\//g, '-');
           window.db.collection('companies').doc(cDoc).set({ name: newCompany, cnpj: newCnpj }).catch(console.error);
       }
 
@@ -6321,9 +6321,9 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
        
        // Save to Firestore so Motorista APK can see it
        if (window.db) {
-           window.db.collection('users').doc(window.tempGoogleUser.email).set(window.tempGoogleUser)
+           window.db.collection('users').doc(window.tempGoogleUser.email || window.tempGoogleUser.id).set(window.tempGoogleUser)
              .catch(e => console.error('Erro ao salvar no Firestore:', e));
-           window.db.collection('companies').doc(cnpj).set({ name: company, cnpj: cnpj })
+           window.db.collection('companies').doc(cnpj.replace(/\D/g, '')).set({ name: company, cnpj: cnpj })
              .catch(e => console.error('Erro ao salvar empresa:', e));
        }
        
