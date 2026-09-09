@@ -874,6 +874,11 @@
 
           </button>
 
+          <button data-tab="driver-registration" onclick="App.switchTab('driver-registration')" class="nav-button w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all">
+            <i data-lucide="user-plus" class="w-4 h-4 text-orange-400"></i>
+            Cadastrar Motorista
+          </button>
+
 
         </nav>
 
@@ -2549,7 +2554,8 @@
 
                 <div>
       <label class="block text-slate-400 font-semibold mb-1">Nome do Condutor / Motorista:</label>
-      <input id="plan-driver-name" type="text" placeholder="Nome Completo do Motorista" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:border-blue-500 outline-none transition-all" />
+      <input id="plan-driver-name" type="text" list="registered-drivers-list" placeholder="Selecione ou digite o nome do motorista" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:border-blue-500 outline-none transition-all" />
+      <datalist id="registered-drivers-list"></datalist>
     </div>
 
     <div>
