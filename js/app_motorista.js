@@ -9,176 +9,6 @@
  */
 
 const App = {
-  setTheme(themeId) {
-    alert('SETTING THEME: ' + themeId);
-    try { localStorage.setItem('app-theme', themeId); } catch(e) { console.warn('localStorage denied'); }
-    let styleEl = document.getElementById('dynamic-theme');
-    if (!styleEl) {
-      styleEl = document.createElement('style');
-      styleEl.id = 'dynamic-theme';
-      document.head.appendChild(styleEl);
-    }
-    
-    let css = '';
- } catch(e) { console.warn('localStorage denied'); }
-    let styleEl = document.getElementById('dynamic-theme');
-    if (!styleEl) {
-      styleEl = document.createElement('style');
-      styleEl.id = 'dynamic-theme';
-      document.head.appendChild(styleEl);
-    }
-    
-    let css = '';
-    
-    if (themeId === 'superhero') {
-      css = `
-        :root {
-          --tw-slate-950: #0a3314;
-          --tw-slate-900: #0f4a1f;
-          --tw-slate-800: #146329;
-          --tw-slate-700: #1a7a34;
-          --tw-slate-600: #229c43;
-          --tw-slate-500: #2cbd52;
-          --tw-slate-400: #4ade6e;
-          --tw-slate-300: #86f09f;
-          --tw-slate-200: #bbf7cb;
-          
-          --tw-blue-600: #9cb85c;
-          --tw-blue-500: #D6CE15;
-          --tw-blue-400: #e8e34f;
-          --tw-blue-900: #082910;
-          
-          --tw-rose-950: #38110b;
-          --tw-rose-900: #541d14;
-        }      `;
-    } else if (themeId === 'nurture') {
-      css = `
-        :root {
-          --tw-slate-950: #0a3133;
-          --tw-slate-900: #0e4a4d;
-          --tw-slate-800: #136366;
-          --tw-slate-700: #1a7a7e;
-          --tw-slate-600: #249ea3;
-          --tw-slate-500: #2dc4ca;
-          --tw-slate-400: #5ce1e6;
-          --tw-slate-300: #93f1f5;
-          --tw-slate-200: #c9fafc;
-          
-          --tw-blue-600: #57BA98;
-          --tw-blue-500: #65CCB8;
-          --tw-blue-400: #8ae3d1;
-          --tw-blue-900: #082829;
-        }      `;
-    } else if (themeId === 'fivehundred') {
-      css = `
-        :root {
-          --tw-slate-950: #1c0d2e;
-          --tw-slate-900: #2c144a;
-          --tw-slate-800: #3e1d66;
-          --tw-slate-700: #4f2680;
-          --tw-slate-600: #6b35ad;
-          --tw-slate-500: #8843d9;
-          --tw-slate-400: #aa71eb;
-          --tw-slate-300: #ccabf5;
-          --tw-slate-200: #ebd6ff;
-          
-          --tw-blue-600: #9b46e8;
-          --tw-blue-500: #17E9E0;
-          --tw-blue-400: #FFB48F;
-          --tw-blue-900: #150924;
-          
-          --tw-emerald-400: #FCCD04;
-          --tw-emerald-500: #e3b700;
-        }      `;
-    } else if (themeId === 'umwelt') {
-      css = `
-        :root {
-          --tw-slate-950: #092a33;
-          --tw-slate-900: #0d404d;
-          --tw-slate-800: #125666;
-          --tw-slate-700: #176e82;
-          --tw-slate-600: #2190aa;
-          --tw-slate-500: #2bb4d4;
-          --tw-slate-400: #5eddfc;
-          --tw-slate-300: #9eeafd;
-          --tw-slate-200: #cff4fe;
-          
-          --tw-blue-600: #3AAFA9;
-          --tw-blue-500: #5dcbc5;
-          --tw-blue-400: #8fe1dd;
-          --tw-blue-900: #072026;
-        }      `;
-    } else {
-      css = '';
-    }
-    
-    
-    if (themeId !== 'default' && themeId !== '' && css !== '') {
-      css += `
-        
-        /* Forcing Tailwind Overrides for Themes */
-        .bg-slate-950 { background-color: var(--tw-slate-950) !important; }
-        .bg-slate-900 { background-color: var(--tw-slate-900) !important; }
-        .bg-slate-900\/40 { background-color: color-mix(in srgb, var(--tw-slate-900) 40%, transparent) !important; }
-        .bg-slate-900\/50 { background-color: color-mix(in srgb, var(--tw-slate-900) 50%, transparent) !important; }
-        .bg-slate-900\/60 { background-color: color-mix(in srgb, var(--tw-slate-900) 60%, transparent) !important; }
-        .bg-slate-900\/80 { background-color: color-mix(in srgb, var(--tw-slate-900) 80%, transparent) !important; }
-        .bg-slate-900\/90 { background-color: color-mix(in srgb, var(--tw-slate-900) 90%, transparent) !important; }
-        .bg-slate-900\/95 { background-color: color-mix(in srgb, var(--tw-slate-900) 95%, transparent) !important; }
-        .bg-slate-800\/80 { background-color: color-mix(in srgb, var(--tw-slate-800) 80%, transparent) !important; }
-        .border-slate-800\/80 { border-color: color-mix(in srgb, var(--tw-slate-800) 80%, transparent) !important; }
-    
-        .bg-slate-800 { background-color: var(--tw-slate-800) !important; }
-        .bg-slate-700 { background-color: var(--tw-slate-700) !important; }
-        .text-slate-100 { color: var(--tw-slate-100) !important; }
-        .text-slate-200 { color: var(--tw-slate-200) !important; }
-        .text-slate-300 { color: var(--tw-slate-300) !important; }
-        .text-slate-400 { color: var(--tw-slate-400) !important; }
-        .text-slate-500 { color: var(--tw-slate-500) !important; }
-        .border-slate-800 { border-color: var(--tw-slate-800) !important; }
-        .border-slate-700 { border-color: var(--tw-slate-700) !important; }
-        
-        .bg-blue-600 { background-color: var(--tw-blue-600) !important; }
-        .hover\:bg-blue-500:hover { background-color: var(--tw-blue-500) !important; }
-        .text-blue-500 { color: var(--tw-blue-500) !important; }
-        .border-blue-500 { border-color: var(--tw-blue-500) !important; }
-        .focus\:border-blue-500:focus { border-color: var(--tw-blue-500) !important; }
-      `;
-    }
-    
-    
-    // Update visual selection
-    document.querySelectorAll('.theme-btn').forEach(btn => {
-      if (btn.dataset.theme === themeId || (themeId === 'default' && btn.dataset.theme === 'default')) {
-        btn.classList.add('theme-selected');
-      } else {
-        btn.classList.remove('theme-selected');
-      }
-    });
-    
-    
-    // Always inject the ring selection CSS, regardless of theme
-    css += `
-      .theme-selected .theme-ring {
-        box-shadow: 0 0 0 4px #0f172a, 0 0 0 6px #3b82f6 !important;
-      }
-    `;
-    
-    styleEl.innerHTML = css;
-
-
-    
-    if (document.readyState === 'complete') {
-        if(window.App && App.showToast) App.showToast('Tema atualizado com sucesso!', 'success');
-    }
-  },
-  
-  loadTheme() {
-    let saved = 'default';
-    try { saved = localStorage.getItem('app-theme') || 'default'; } catch(e) { console.warn('localStorage denied'); }
-    this.setTheme(saved);
-  },
-
   currentTab: 'dashboard',
   currentOptimizedResult: null,
   simulationState: {
@@ -193,7 +23,8 @@ const App = {
   },
 
   init() {
-    this.loadTheme();
+    this.setLoginType('vinculado');
+
     this.initCargoCatalog();
     this.populateCargoDropdowns();
     this.loadCustomEventTypes();
@@ -1225,7 +1056,7 @@ login() {
       
       const id = 'MOT-' + Math.floor(Math.random() * 90000 + 10000);
       appState.currentUser = { id, name, cpf, company, companyCnpj: cnpj, role: role, rank: rank, provider: 'manual' };
-      try { localStorage.setItem('general_user', JSON.stringify(appState.currentUser)); } catch(e) { console.warn('localStorage denied'); }
+      localStorage.setItem('general_user', JSON.stringify(appState.currentUser));
       document.getElementById('login-overlay').classList.add('hidden');
       document.getElementById('checklist-overlay').classList.remove('hidden');
       
@@ -1317,6 +1148,32 @@ login() {
           
           if (window.lucide && window.lucide.createIcons) {
               window.lucide.createIcons();
+          }
+      }
+  },
+
+
+  async promptChangeCompany() {
+      if(!appState.currentUser || appState.currentUser.driverType !== 'autonomo') return;
+      
+      const newCnpj = prompt('Digite o novo CNPJ da empresa que voc\u00ea vai atender:');
+      if(newCnpj) {
+          const cnpjClean = newCnpj.replace(/\D/g, '');
+          if(cnpjClean.length > 0) {
+              try {
+                  await window.db.collection('users').doc(appState.currentUser.id).update({
+                      companyCnpj: cnpjClean
+                  });
+                  appState.currentUser.companyCnpj = cnpjClean;
+                  localStorage.setItem('general_user', JSON.stringify(appState.currentUser));
+                  this.showToast('CNPJ atualizado com sucesso! Nova rota pronta.', 'success');
+                  // Update UI if necessary
+                  const companyInput = document.getElementById('motorista-company');
+                  if(companyInput) companyInput.value = cnpjClean;
+              } catch(e) {
+                  console.error(e);
+                  this.showToast('Erro ao atualizar empresa.', 'error');
+              }
           }
       }
   },
@@ -5085,12 +4942,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
   },
 
   saveProfile() {
-    alert('SAVE PROFILE CLICKED!');
-    if (!appState.currentUser) {
-        alert('NO CURRENT USER');
-        return;
-    }
-
+    if (!appState.currentUser) return;
     
     const newName = document.getElementById('profile-name').value;
     const newCompany = document.getElementById('profile-company').value;
@@ -5105,7 +4957,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
       appState.currentUser.email = newEmail;
       appState.currentUser.phone = newPhone;
       
-      try { localStorage.setItem('general_user', JSON.stringify(appState.currentUser)); } catch(e) { console.warn('localStorage denied'); }
+      localStorage.setItem('general_user', JSON.stringify(appState.currentUser));
       
       const showCopilotCb = document.getElementById('profile-show-copilot');
       if (showCopilotCb) {
@@ -6349,7 +6201,213 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
         const val = document.getElementById(`val-grav-${id}`);
         if(bar) bar.style.width = percent + '%';
         if(val) val.textContent = percent + '%';
-    };
+    ,
+
+  // --- NOVO LOGIN CPF / AUTÔNOMO ---
+  setLoginType(type) {
+    this.loginType = type;
+    const btnVinc = document.getElementById('btn-login-vinculado');
+    const btnAuto = document.getElementById('btn-login-autonomo');
+    const fieldName = document.getElementById('field-driver-name');
+    const fieldCnpj = document.getElementById('field-driver-cnpj');
+    
+    if(type === 'vinculado') {
+        btnVinc.className = 'bg-blue-600 text-white text-sm font-bold py-2 rounded-lg border border-blue-500 transition-all';
+        btnAuto.className = 'bg-slate-800 text-slate-400 text-sm font-bold py-2 rounded-lg border border-slate-700 transition-all hover:bg-slate-700 hover:text-slate-300';
+        fieldName.classList.add('hidden');
+        fieldCnpj.classList.add('hidden');
+    } else {
+        btnAuto.className = 'bg-blue-600 text-white text-sm font-bold py-2 rounded-lg border border-blue-500 transition-all';
+        btnVinc.className = 'bg-slate-800 text-slate-400 text-sm font-bold py-2 rounded-lg border border-slate-700 transition-all hover:bg-slate-700 hover:text-slate-300';
+        fieldName.classList.remove('hidden');
+        fieldCnpj.classList.remove('hidden');
+    }
+  },
+  
+  async loginDriver() {
+    const type = this.loginType || 'vinculado';
+    const cpf = document.getElementById('login-cpf').value.trim();
+    
+    if(!cpf) {
+        this.showToast('Por favor, digite seu CPF.', 'error');
+        return;
+    }
+    
+    const cpfClean = cpf.replace(/\D/g, '');
+    if(cpfClean.length !== 11) {
+        this.showToast('CPF invalido.', 'error');
+        return;
+    }
+    
+    const btn = document.getElementById('btn-action-login-motorista');
+    const oldHtml = btn.innerHTML;
+    btn.innerHTML = '<div class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> Entrando...';
+    btn.disabled = true;
+    
+    try {
+        let driverData = null;
+        if(type === 'vinculado') {
+            const doc = await window.db.collection('users').doc(cpfClean).get();
+            if(doc.exists) {
+                const data = doc.data();
+                if(data.driverType === 'vinculado' || data.type === 'vinculado' || data.role === 'motorista') {
+                    driverData = data;
+                } else {
+                    this.showToast('Este CPF não está registrado como motorista vinculado.', 'error');
+                    return;
+                }
+            } else {
+                this.showToast('CPF não encontrado. A transportadora já realizou seu cadastro?', 'error');
+                return;
+            }
+        } else {
+            const name = document.getElementById('login-name').value.trim();
+            const cnpj = document.getElementById('login-cnpj').value.trim();
+            if(!name || !cnpj) {
+                this.showToast('Preencha Nome e CNPJ da transportadora.', 'error');
+                return;
+            }
+            const cnpjClean = cnpj.replace(/\D/g, '');
+            
+            driverData = { 
+                id: cpfClean, 
+                name: name, 
+                cpf: cpf, 
+                companyCnpj: cnpjClean, 
+                role: 'motorista',
+                driverType: 'autonomo',
+                lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            
+            await window.db.collection('users').doc(cpfClean).set(driverData, { merge: true });
+        }
+        
+        appState.currentUser = driverData;
+        localStorage.setItem('general_user', JSON.stringify(driverData));
+        
+        document.getElementById('login-overlay').classList.add('hidden');
+        this.showToast(`Bem-vindo, ${driverData.name}!`);
+        this.checkAuth(); 
+    } catch(e) {
+        console.error(e);
+        this.showToast('Erro ao realizar login.', 'error');
+    } finally {
+        btn.innerHTML = oldHtml;
+        btn.disabled = false;
+    }
+  },
+
+  // --- CÂMERA E SINAIS VITAIS ---
+  startDriverCamera() {
+    if(this.cameraActive) {
+        this.stopDriverCamera();
+        return;
+    }
+    
+    const container = document.getElementById('driver-camera-container');
+    const video = document.getElementById('driver-selfie-video');
+    const btnFloat = document.getElementById('btn-start-camera-float');
+    
+    if(btnFloat) btnFloat.innerHTML = '<i data-lucide="video-off" class="w-5 h-5"></i> Parar Gravação';
+    
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
+    .then(stream => {
+        this.cameraActive = true;
+        this.videoStream = stream;
+        video.srcObject = stream;
+        container.classList.remove('hidden');
+        container.classList.add('flex');
+        
+        this.showToast('Câmera ativada. Transmissão iniciada.');
+        this.startTelemetryBroadcast(video);
+    })
+    .catch(err => {
+        console.error('Erro na câmera:', err);
+        this.showToast('Erro ao acessar câmera.', 'error');
+    });
+  },
+  
+  stopDriverCamera() {
+    this.cameraActive = false;
+    const container = document.getElementById('driver-camera-container');
+    const btnFloat = document.getElementById('btn-start-camera-float');
+    
+    if(this.videoStream) {
+        this.videoStream.getTracks().forEach(track => track.stop());
+    }
+    
+    if(this.telemetryInterval) {
+        clearInterval(this.telemetryInterval);
+    }
+    
+    container.classList.remove('flex');
+    container.classList.add('hidden');
+    if(btnFloat) btnFloat.innerHTML = '<i data-lucide="camera" class="w-5 h-5"></i> Iniciar Gravação da Rota';
+    
+    // Notify Gestor
+    if(this.monitoringChannel) {
+        this.monitoringChannel.postMessage({ type: 'route_ended' });
+    }
+  },
+  
+  startTelemetryBroadcast(videoElement) {
+    if(!this.monitoringChannel) {
+        this.monitoringChannel = new BroadcastChannel('general_monitoring_channel');
+    }
+    
+    const driverName = appState.currentUser ? appState.currentUser.name : 'Desconhecido';
+    
+    // Send Start Signal
+    this.monitoringChannel.postMessage({ 
+        type: 'route_started', 
+        driverName, 
+        routeCode: 'GNR-' + Math.floor(Math.random() * 90000 + 10000)
+    });
+    
+    // Create a hidden canvas to grab frames
+    const canvas = document.createElement('canvas');
+    canvas.width = 320;
+    canvas.height = 240;
+    const ctx = canvas.getContext('2d');
+    
+    let baseBpm = 75;
+    
+    this.telemetryInterval = setInterval(() => {
+        // Frame
+        let frameData = null;
+        if (videoElement.readyState === videoElement.HAVE_ENOUGH_DATA) {
+            ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+            frameData = canvas.toDataURL('image/jpeg', 0.5); // lower quality for speed
+        }
+        
+        // Mock HR
+        // Fluctuates slightly, but if user reported an incident, drop it
+        if(appState && appState.isEmergency) {
+            baseBpm = Math.max(40, baseBpm - 5); // drops dangerously
+        } else {
+            baseBpm = 70 + Math.floor(Math.random() * 15);
+        }
+        
+        document.getElementById('driver-local-bpm').innerText = baseBpm + ' bpm';
+        if(baseBpm < 50) document.getElementById('driver-local-bpm').classList.replace('text-white', 'text-rose-500');
+        
+        // GPS (Mock using geolocation if available, else static)
+        let loc = { lat: -23.5505 + (Math.random()*0.01), lng: -46.6333 + (Math.random()*0.01) };
+        if(appState.currentLocation) {
+            loc = appState.currentLocation;
+        }
+        
+        this.monitoringChannel.postMessage({
+            type: 'telemetry',
+            heartRate: baseBpm,
+            location: loc,
+            videoFrame: frameData
+        });
+        
+    }, 1000); // Send 1 frame/sec for demo purposes to avoid crashing localStorage/channel
+  }
+
+};
     
     if (incidents.length === 0) {
         setBar('critical', 0);

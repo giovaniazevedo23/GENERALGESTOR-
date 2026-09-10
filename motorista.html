@@ -48,52 +48,20 @@
 
           colors: {
 
-            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a', 950: '#0f172a' },
-            slate: {
-              50: 'var(--tw-slate-50, #f8fafc)',
-              100: 'var(--tw-slate-100, #f1f5f9)',
-              200: 'var(--tw-slate-200, #e2e8f0)',
-              300: 'var(--tw-slate-300, #cbd5e1)',
-              400: 'var(--tw-slate-400, #94a3b8)',
-              500: 'var(--tw-slate-500, #64748b)',
-              600: 'var(--tw-slate-600, #475569)',
-              700: 'var(--tw-slate-700, #334155)',
-              800: 'var(--tw-slate-800, #1e293b)',
-              900: 'var(--tw-slate-900, #0f172a)',
-              950: 'var(--tw-slate-950, #020617)'
-            },
-            blue: {
-              50: 'var(--tw-blue-50, #eff6ff)',
-              100: 'var(--tw-blue-100, #dbeafe)',
-              200: 'var(--tw-blue-200, #bfdbfe)',
-              300: 'var(--tw-blue-300, #93c5fd)',
-              400: 'var(--tw-blue-400, #60a5fa)',
-              500: 'var(--tw-blue-500, #3b82f6)',
-              600: 'var(--tw-blue-600, #2563eb)',
-              700: 'var(--tw-blue-700, #1d4ed8)',
-              800: 'var(--tw-blue-800, #1e40af)',
-              900: 'var(--tw-blue-900, #1e3a8a)',
-              950: 'var(--tw-blue-950, #172554)'
-            },
-            rose: {
-              300: 'var(--tw-rose-300, #fda4af)',
-              400: 'var(--tw-rose-400, #fb7185)',
-              500: 'var(--tw-rose-500, #f43f5e)',
-              600: 'var(--tw-rose-600, #e11d48)',
-              900: 'var(--tw-rose-900, #881337)',
-              950: 'var(--tw-rose-950, #4c0519)'
-            },
-            emerald: {
-              400: 'var(--tw-emerald-400, #34d399)',
-              500: 'var(--tw-emerald-500, #10b981)',
-              600: 'var(--tw-emerald-600, #059669)',
-              900: 'var(--tw-emerald-900, #064e3b)',
-              950: 'var(--tw-emerald-950, #022c22)'
-            },
-            amber: {
-              400: 'var(--tw-amber-400, #fbbf24)',
-              500: 'var(--tw-amber-500, #f59e0b)',
-              900: 'var(--tw-amber-900, #78350f)'
+            brand: {
+
+              50: '#eff6ff',
+
+              500: '#3b82f6',
+
+              600: '#2563eb',
+
+              700: '#1d4ed8',
+
+              900: '#1e3a8a',
+
+              950: '#0f172a'
+
             }
 
           }
@@ -126,18 +94,6 @@
 
   <link rel="stylesheet" href="css/styles.css" />
 
-
-    <!-- Global Error Handler -->
-    <script>
-      window.onerror = function(msg, url, lineNo, columnNo, error) {
-        if (msg.includes('ResizeObserver')) return; // ignore benign errors
-        alert('ERRO JS: ' + msg + '\nLinha: ' + lineNo);
-        return false;
-      };
-      window.addEventListener('unhandledrejection', function(event) {
-        alert('ERRO ASYNC: ' + event.reason);
-      });
-    </script>
 </head>
 
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white pb-safe">
@@ -176,23 +132,36 @@
 
       <div id="login-form" class="space-y-4">
 
+        
         <div id="login-form-motorista" class="space-y-4 w-full">
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Seu Nome</label>
-            <input type="text" id="motorista-name" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 font-mono focus:border-blue-500 outline-none transition-all" placeholder="Digite seu nome" />
-          </div>
-
-          <div class="mt-4">
-            <label class="block text-xs font-bold text-slate-300 mb-1">CPF</label>
-            <input type="text" id="motorista-cpf" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 font-mono focus:border-blue-500 outline-none transition-all" placeholder="000.000.000-00" oninput="let v = this.value.replace(/\D/g, ''); v = v.replace(/(\d{3})(\d)/, '$1.$2'); v = v.replace(/(\d{3})(\d)/, '$1.$2'); v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2'); this.value = v;" />
-          </div>
-
-          <div class="mt-4">
-            <label class="block text-xs font-bold text-slate-300 mb-1">CNPJ da Empresa</label>
-            <div class="relative">
-              <input type="text" id="motorista-cnpj" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 font-mono focus:border-blue-500 outline-none transition-all pr-16" placeholder="00.000.000/0001-00" oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2}).*/, '$1.$2.$3/$4-$5');" onblur="if(window.App) App.fetchCompanyByCnpj(this.value)" />
-              <button type="button" onclick="if(window.App) App.fetchCompanyByCnpj(document.getElementById('motorista-cnpj').value)" class="absolute right-2 top-1/2 -translate-y-1/2 text-blue-400 text-xs font-bold hover:text-blue-300 transition-all p-1">Buscar</button>
+          <div class="mb-4">
+            <label class="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-wider">Como você deseja acessar?</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button" id="btn-login-vinculado" onclick="App.setLoginType('vinculado')" class="bg-blue-600 text-white text-sm font-bold py-2 rounded-lg border border-blue-500 transition-all">Sou Vinculado</button>
+              <button type="button" id="btn-login-autonomo" onclick="App.setLoginType('autonomo')" class="bg-slate-800 text-slate-400 text-sm font-bold py-2 rounded-lg border border-slate-700 transition-all hover:bg-slate-700 hover:text-slate-300">Sou Autônomo</button>
             </div>
+          </div>
+          
+          <div id="field-driver-name" class="hidden">
+            <label class="block text-sm font-bold text-slate-300 mb-1">Nome Completo</label>
+            <input type="text" id="login-name" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors" placeholder="João da Silva">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-bold text-slate-300 mb-1">Seu CPF</label>
+            <input type="text" id="login-cpf" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors font-mono" placeholder="000.000.000-00">
+          </div>
+          
+          <div id="field-driver-cnpj" class="hidden">
+            <label class="block text-sm font-bold text-slate-300 mb-1">CNPJ da Empresa Contratante</label>
+            <input type="text" id="login-cnpj" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-colors font-mono" placeholder="00.000.000/0000-00">
+          </div>
+          
+          <button type="button" id="btn-action-login-motorista" onclick="App.loginDriver()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center gap-2 mt-6">
+            Acessar Sistema <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+
           </div>
 
           <div class="mt-4">
@@ -415,6 +384,11 @@
 
 
 
+
+        <button id="btn-trocar-empresa-desktop" onclick="App.promptChangeCompany()" class="hidden w-full bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-300 px-3 py-2.5 rounded-xl text-xs font-bold transition-all flex items-center gap-3">
+          <i data-lucide="building-2" class="w-4 h-4 text-blue-400"></i>
+          Trocar Empresa
+        </button>
         <button onclick="App.logout()" class="flex-shrink-0 flex items-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 px-3 py-2 rounded-xl text-xs font-bold transition-all touch-active">
 
           <i data-lucide="log-out" class="w-4 h-4"></i>
@@ -5732,6 +5706,11 @@
 
           </button>
 
+
+          <button id="btn-trocar-empresa" onclick="App.promptChangeCompany(); App.toggleMobileDrawer();" class="hidden w-full bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-300 font-bold py-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-2 mb-3">
+            <i data-lucide="building-2" class="w-4 h-4 text-blue-400"></i>
+            Trocar Empresa (CNPJ)
+          </button>
           <button onclick="App.logout(); App.toggleMobileDrawer();" class="w-full bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 font-bold py-2.5 rounded-xl text-xs transition-all flex items-center justify-center gap-2">
 
             <i data-lucide="log-out" class="w-4 h-4 text-rose-400"></i>
@@ -5922,52 +5901,6 @@
 
           <label class="text-xs font-bold text-slate-400 cursor-pointer" for="profile-show-copilot">Exibir Balão de Dicas (Copilot)</label>
 
-        </div>
-
-
-        <div class="border-t border-slate-800 pt-4 mt-2">
-          <label class="block text-xs font-bold text-slate-400 mb-3">Tema da Interface</label>
-          <div class="flex items-center justify-between gap-1 overflow-x-auto pb-2 custom-scrollbar">
-            <!-- Padrão -->
-            <button onclick="if(window.App) App.setTheme('default')" class="flex flex-col items-center gap-1.5 group shrink-0 theme-btn" data-theme="default">
-              <div class="w-10 h-10 rounded-full bg-[#0f172a] border-2 border-[#1e293b] group-hover:border-[#3b82f6] flex items-center justify-center overflow-hidden transition-all shadow-lg theme-ring">
-                <div class="w-1/2 h-full bg-[#020617]"></div><div class="w-1/2 h-full bg-[#2563eb]"></div>
-              </div>
-              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Padrão</span>
-            </button>
-            
-            <!-- Superhero -->
-            <button onclick="if(window.App) App.setTheme('superhero')" class="flex flex-col items-center gap-1.5 group shrink-0 theme-btn" data-theme="superhero">
-              <div class="w-10 h-10 rounded-full border-2 border-[#53900F] group-hover:border-[#D6CE15] flex items-center justify-center overflow-hidden transition-all shadow-lg theme-ring" style="background-color: #0a3314;">
-                <div class="w-1/2 h-full" style="background-color: #1a7a34;"></div><div class="w-1/2 h-full" style="background-color: #D6CE15;"></div>
-              </div>
-              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Cheesecake</span>
-            </button>
-
-            <!-- Nurture -->
-            <button onclick="if(window.App) App.setTheme('nurture')" class="flex flex-col items-center gap-1.5 group shrink-0 theme-btn" data-theme="nurture">
-              <div class="w-10 h-10 rounded-full border-2 border-[#3B945E] group-hover:border-[#57BA98] flex items-center justify-center overflow-hidden transition-all shadow-lg theme-ring" style="background-color: #0a3133;">
-                <div class="w-1/2 h-full" style="background-color: #1a7a7e;"></div><div class="w-1/2 h-full" style="background-color: #57BA98;"></div>
-              </div>
-              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Nurture</span>
-            </button>
-
-            <!-- Five Hundred -->
-            <button onclick="if(window.App) App.setTheme('fivehundred')" class="flex flex-col items-center gap-1.5 group shrink-0 theme-btn" data-theme="fivehundred">
-              <div class="w-10 h-10 rounded-full border-2 border-[#6d3085] group-hover:border-[#17E9E0] flex items-center justify-center overflow-hidden transition-all shadow-lg theme-ring" style="background-color: #1c0d2e;">
-                <div class="w-1/2 h-full" style="background-color: #4f2680;"></div><div class="w-1/2 h-full" style="background-color: #17E9E0;"></div>
-              </div>
-              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Five 500</span>
-            </button>
-
-            <!-- Umwelt -->
-            <button onclick="if(window.App) App.setTheme('umwelt')" class="flex flex-col items-center gap-1.5 group shrink-0 theme-btn" data-theme="umwelt">
-              <div class="w-10 h-10 rounded-full border-2 border-[#2B7A78] group-hover:border-[#3AAFA9] flex items-center justify-center overflow-hidden transition-all shadow-lg theme-ring" style="background-color: #092a33;">
-                <div class="w-1/2 h-full" style="background-color: #176e82;"></div><div class="w-1/2 h-full" style="background-color: #3AAFA9;"></div>
-              </div>
-              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Umwelt</span>
-            </button>
-          </div>
         </div>
 
       </div>
@@ -6634,9 +6567,7 @@
 
   <script src="js/report-pdf.js"></script>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
-  <script src="js/driver-monitor.js"></script>
-  <script src="js/app_motorista.js?v=7.0.0"></script>
+  <script src="js/app_motorista.js"></script>
 
   <script src="js/pwa.js"></script>
 
@@ -6687,50 +6618,24 @@
     
 
 
-  <!-- Driver Monitoring Overlay -->
-  <div id="driver-monitoring-overlay" class="hidden fixed inset-0 z-50 bg-slate-950/95 backdrop-blur-md flex flex-col items-center justify-center p-4">
-    <div class="absolute top-6 left-6 flex items-center gap-3">
-      <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center shadow-lg">
-        <i data-lucide="shield-check" class="w-6 h-6 text-emerald-500" id="monitor-shield-icon"></i>
+  <!-- Câmera do Motorista (Picture in Picture) -->
+  <div id="driver-camera-container" class="fixed top-20 right-4 w-28 h-36 bg-black rounded-xl border-2 border-blue-500 shadow-2xl overflow-hidden z-[60] hidden flex-col transition-all cursor-move">
+    <video id="driver-selfie-video" class="w-full h-full object-cover" autoplay playsinline muted></video>
+    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-1 flex items-center justify-between">
+      <div class="flex items-center gap-1 text-[8px] font-bold text-white">
+        <div class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></div> REC
       </div>
-      <div>
-        <h2 class="text-white font-black text-lg">Segurança Ativa</h2>
-        <p id="monitor-status-text" class="text-emerald-400 text-xs font-bold uppercase tracking-widest">Rosto Detectado</p>
-      </div>
-    </div>
-    
-    <div class="absolute top-6 right-6">
-      <div class="bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl shadow-lg flex items-center gap-3">
-        <i data-lucide="heart-pulse" class="w-5 h-5 text-rose-500 animate-pulse" id="bpm-icon"></i>
-        <div class="flex flex-col">
-          <span class="text-slate-400 text-[10px] uppercase font-bold tracking-wider">BPM Simulado</span>
-          <span id="bpm-value" class="text-white font-black text-xl leading-none">--</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Camera Container -->
-    <div class="relative w-full max-w-sm aspect-[3/4] bg-black rounded-3xl overflow-hidden border-4 border-slate-800 shadow-2xl mt-12">
-      <video id="monitor-video" autoplay muted playsinline class="absolute inset-0 w-full h-full object-cover"></video>
-      <canvas id="monitor-canvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
-      
-      <!-- Warning Overlay (Hidden by default) -->
-      <div id="monitor-warning" class="hidden absolute inset-0 bg-rose-600/90 flex flex-col items-center justify-center z-10">
-        <i data-lucide="alert-triangle" class="w-16 h-16 text-white mb-4 animate-bounce"></i>
-        <h3 class="text-white font-black text-2xl uppercase text-center px-4">Atenção!</h3>
-        <p class="text-white/90 text-sm font-bold text-center mt-2 px-6">Rosto não detectado.<br>Por favor, olhe para a câmera.</p>
-      </div>
-    </div>
-
-    <!-- Controls -->
-    <div class="absolute bottom-10 w-full px-6 max-w-sm flex flex-col gap-3">
-      <button onclick="if(window.DriverMonitor) DriverMonitor.stop()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-4 rounded-2xl border border-slate-700 transition-all flex items-center justify-center gap-2 shadow-lg">
-        <i data-lucide="pause-circle" class="w-5 h-5"></i>
-        Pausar Monitoramento
-      </button>
+      <span id="driver-local-bpm" class="text-[9px] font-bold text-rose-400">-- bpm</span>
     </div>
   </div>
-  
+
+
+        <!-- Start Camera Button -->
+        <button id="btn-start-camera-float" onclick="App.startDriverCamera()" class="fixed bottom-24 left-4 right-4 z-50 hidden bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl shadow-lg shadow-emerald-500/30 transition-all flex items-center justify-center gap-2">
+            <i data-lucide="camera" class="w-5 h-5"></i>
+            Iniciar Gravação da Rota
+        </button>
+
 </body>
 
 </html>

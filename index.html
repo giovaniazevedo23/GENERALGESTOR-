@@ -85,52 +85,27 @@
           colors: {
 
 
-            brand: { 50: '#eff6ff', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 900: '#1e3a8a', 950: '#0f172a' },
-            slate: {
-              50: 'var(--tw-slate-50, #f8fafc)',
-              100: 'var(--tw-slate-100, #f1f5f9)',
-              200: 'var(--tw-slate-200, #e2e8f0)',
-              300: 'var(--tw-slate-300, #cbd5e1)',
-              400: 'var(--tw-slate-400, #94a3b8)',
-              500: 'var(--tw-slate-500, #64748b)',
-              600: 'var(--tw-slate-600, #475569)',
-              700: 'var(--tw-slate-700, #334155)',
-              800: 'var(--tw-slate-800, #1e293b)',
-              900: 'var(--tw-slate-900, #0f172a)',
-              950: 'var(--tw-slate-950, #020617)'
-            },
-            blue: {
-              50: 'var(--tw-blue-50, #eff6ff)',
-              100: 'var(--tw-blue-100, #dbeafe)',
-              200: 'var(--tw-blue-200, #bfdbfe)',
-              300: 'var(--tw-blue-300, #93c5fd)',
-              400: 'var(--tw-blue-400, #60a5fa)',
-              500: 'var(--tw-blue-500, #3b82f6)',
-              600: 'var(--tw-blue-600, #2563eb)',
-              700: 'var(--tw-blue-700, #1d4ed8)',
-              800: 'var(--tw-blue-800, #1e40af)',
-              900: 'var(--tw-blue-900, #1e3a8a)',
-              950: 'var(--tw-blue-950, #172554)'
-            },
-            rose: {
-              300: 'var(--tw-rose-300, #fda4af)',
-              400: 'var(--tw-rose-400, #fb7185)',
-              500: 'var(--tw-rose-500, #f43f5e)',
-              600: 'var(--tw-rose-600, #e11d48)',
-              900: 'var(--tw-rose-900, #881337)',
-              950: 'var(--tw-rose-950, #4c0519)'
-            },
-            emerald: {
-              400: 'var(--tw-emerald-400, #34d399)',
-              500: 'var(--tw-emerald-500, #10b981)',
-              600: 'var(--tw-emerald-600, #059669)',
-              900: 'var(--tw-emerald-900, #064e3b)',
-              950: 'var(--tw-emerald-950, #022c22)'
-            },
-            amber: {
-              400: 'var(--tw-amber-400, #fbbf24)',
-              500: 'var(--tw-amber-500, #f59e0b)',
-              900: 'var(--tw-amber-900, #78350f)'
+            brand: {
+
+
+              50: '#eff6ff',
+
+
+              500: '#3b82f6',
+
+
+              600: '#2563eb',
+
+
+              700: '#1d4ed8',
+
+
+              900: '#1e3a8a',
+
+
+              950: '#0f172a'
+
+
             }
 
 
@@ -180,17 +155,15 @@
 
 
 
-    <!-- Global Error Handler -->
-    <script>
-      window.onerror = function(msg, url, lineNo, columnNo, error) {
-        if (msg.includes('ResizeObserver')) return; // ignore benign errors
-        alert('ERRO JS: ' + msg + '\nLinha: ' + lineNo);
-        return false;
-      };
-      window.addEventListener('unhandledrejection', function(event) {
-        alert('ERRO ASYNC: ' + event.reason);
-      });
-    </script>
+    <style>
+    body.light-mode { background: #f8fafc; color: #0f172a; }
+    body.light-mode .bg-slate-950 { background-color: #f1f5f9 !important; }
+    body.light-mode .bg-slate-900 { background-color: #ffffff !important; border-color: #e2e8f0 !important; }
+    body.light-mode .text-slate-400 { color: #64748b !important; }
+    body.light-mode .text-white { color: #0f172a !important; }
+    body.light-mode .border-slate-800, body.light-mode .border-slate-700 { border-color: #e2e8f0 !important; }
+    </style>
+    
 </head>
 
 
@@ -874,11 +847,6 @@
 
           </button>
 
-          <button data-tab="driver-registration" onclick="App.switchTab('driver-registration')" class="nav-button w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all">
-            <i data-lucide="user-plus" class="w-4 h-4 text-orange-400"></i>
-            Cadastrar Motorista
-          </button>
-
 
         </nav>
 
@@ -915,6 +883,13 @@
 
           </button>
 
+
+          
+          <!-- Motoristas Vinculados -->
+          <button data-tab="motoristas" onclick="App.switchTab('motoristas')" class="nav-button w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all group">
+            <i data-lucide="users" class="w-4 h-4 opacity-50 group-hover:opacity-100 group-[.active]:opacity-100 group-[.active]:text-blue-400 transition-opacity"></i>
+            Motoristas
+          </button>
 
           <button data-tab="driver-evaluations" onclick="App.switchTab('driver-evaluations')" class="nav-button w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition-all">
 
@@ -1414,39 +1389,7 @@
       </div>
 
 
-
-    <!-- VIEW: CADASTRO DE MOTORISTAS VINCULADOS -->
-    <div id="view-driver-registration" class="tab-view hidden space-y-6">
-      <div class="flex items-center justify-between mb-2">
-        <div>
-          <h2 class="text-2xl font-black text-white tracking-tight">Cadastro de Motoristas</h2>
-          <p class="text-sm text-slate-400 mt-1">Vincule novos motoristas ao CNPJ da sua empresa.</p>
-        </div>
-      </div>
-      
-      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl">
-        <form onsubmit="App.saveLinkedDriver(event)" class="space-y-4">
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Nome Completo</label>
-            <input type="text" id="reg-driver-name" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-white outline-none focus:border-blue-500" placeholder="Nome do Motorista" />
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">CPF</label>
-            <input type="text" id="reg-driver-cpf" required oninput="let v = this.value.replace(/\D/g, ''); v = v.replace(/(\d{3})(\d)/, '.'); v = v.replace(/(\d{3})(\d)/, '.'); v = v.replace(/(\d{3})(\d{1,2})$/, '-'); this.value = v;" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-white outline-none focus:border-blue-500 font-mono" placeholder="000.000.000-00" />
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-300 mb-1">Telefone / WhatsApp (Opcional)</label>
-            <input type="text" id="reg-driver-phone" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-white outline-none focus:border-blue-500" placeholder="(11) 99999-9999" />
-          </div>
-          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
-            <i data-lucide="save" class="w-5 h-5"></i>
-            Salvar Motorista Vinculado
-          </button>
-        </form>
-      </div>
-    </div>
-
-    <div id="view-planner" class="tab-view hidden space-y-6">
+<div id="view-planner" class="tab-view hidden space-y-6">
 
 
         
@@ -2586,13 +2529,12 @@
 
                 <div>
       <label class="block text-slate-400 font-semibold mb-1">Nome do Condutor / Motorista:</label>
-      <input id="plan-driver-name" type="text" list="registered-drivers-list" placeholder="Selecione ou digite o nome do motorista" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:border-blue-500 outline-none transition-all" />
-      <datalist id="registered-drivers-list"></datalist>
+      <input id="plan-driver-name" type="text" placeholder="Nome Completo do Motorista" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white focus:border-blue-500 outline-none transition-all" />
     </div>
 
     <div>
       <label class="block text-slate-400 font-semibold mb-1">CPF do Condutor:</label>
-      <input id="plan-driver-cpf" type="text" placeholder="000.000.000-00" oninput="let v = this.value.replace(/\D/g, ''); v = v.replace(/(\d{3})(\d)/, '$1.$2'); v = v.replace(/(\d{3})(\d)/, '$1.$2'); v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2'); this.value = v;" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white font-mono focus:border-blue-500 outline-none transition-all" />
+      <input id="plan-driver-cpf" type="text" placeholder="000.000.000-00" oninput="let v = this.value.replace(/\D/g, '').substring(0, 11); if(v.length>9) v=v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4'); else if(v.length>6) v=v.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3'); else if(v.length>3) v=v.replace(/(\d{3})(\d{1,3})/, '$1.$2'); this.value = v;" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2 text-white font-mono focus:border-blue-500 outline-none transition-all" />
     </div>
 
     <div>
@@ -9316,52 +9258,6 @@
         </div>
 
 
-        <div class="border-t border-slate-800 pt-4 mt-2">
-          <label class="block text-xs font-bold text-slate-400 mb-3">Tema da Interface</label>
-          <div class="flex items-center justify-between gap-1 overflow-x-auto pb-2 custom-scrollbar">
-            <!-- Padrão -->
-            <button onclick="if(window.App) App.setTheme('default')" class="flex flex-col items-center gap-1.5 group shrink-0 theme-btn" data-theme="default">
-              <div class="w-10 h-10 rounded-full bg-[#0f172a] border-2 border-[#1e293b] group-hover:border-[#3b82f6] flex items-center justify-center overflow-hidden transition-all shadow-lg theme-ring">
-                <div class="w-1/2 h-full bg-[#020617]"></div><div class="w-1/2 h-full bg-[#2563eb]"></div>
-              </div>
-              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Padrão</span>
-            </button>
-            
-            <!-- Superhero -->
-            <button onclick="if(window.App) App.setTheme('superhero')" class="flex flex-col items-center gap-1.5 group shrink-0 theme-btn" data-theme="superhero">
-              <div class="w-10 h-10 rounded-full border-2 border-[#53900F] group-hover:border-[#D6CE15] flex items-center justify-center overflow-hidden transition-all shadow-lg theme-ring" style="background-color: #0a3314;">
-                <div class="w-1/2 h-full" style="background-color: #1a7a34;"></div><div class="w-1/2 h-full" style="background-color: #D6CE15;"></div>
-              </div>
-              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Cheesecake</span>
-            </button>
-
-            <!-- Nurture -->
-            <button onclick="if(window.App) App.setTheme('nurture')" class="flex flex-col items-center gap-1.5 group shrink-0 theme-btn" data-theme="nurture">
-              <div class="w-10 h-10 rounded-full border-2 border-[#3B945E] group-hover:border-[#57BA98] flex items-center justify-center overflow-hidden transition-all shadow-lg theme-ring" style="background-color: #0a3133;">
-                <div class="w-1/2 h-full" style="background-color: #1a7a7e;"></div><div class="w-1/2 h-full" style="background-color: #57BA98;"></div>
-              </div>
-              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Nurture</span>
-            </button>
-
-            <!-- Five Hundred -->
-            <button onclick="if(window.App) App.setTheme('fivehundred')" class="flex flex-col items-center gap-1.5 group shrink-0 theme-btn" data-theme="fivehundred">
-              <div class="w-10 h-10 rounded-full border-2 border-[#6d3085] group-hover:border-[#17E9E0] flex items-center justify-center overflow-hidden transition-all shadow-lg theme-ring" style="background-color: #1c0d2e;">
-                <div class="w-1/2 h-full" style="background-color: #4f2680;"></div><div class="w-1/2 h-full" style="background-color: #17E9E0;"></div>
-              </div>
-              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Five 500</span>
-            </button>
-
-            <!-- Umwelt -->
-            <button onclick="if(window.App) App.setTheme('umwelt')" class="flex flex-col items-center gap-1.5 group shrink-0 theme-btn" data-theme="umwelt">
-              <div class="w-10 h-10 rounded-full border-2 border-[#2B7A78] group-hover:border-[#3AAFA9] flex items-center justify-center overflow-hidden transition-all shadow-lg theme-ring" style="background-color: #092a33;">
-                <div class="w-1/2 h-full" style="background-color: #176e82;"></div><div class="w-1/2 h-full" style="background-color: #3AAFA9;"></div>
-              </div>
-              <span class="text-[9px] font-bold text-slate-500 group-hover:text-slate-300">Umwelt</span>
-            </button>
-          </div>
-        </div>
-
-
       </div>
 
 
@@ -10361,7 +10257,7 @@
   <script src="js/report-pdf.js"></script>
 
 
-  <script src="js/app.js?v=7.0.0"></script>
+  <script src="js/app.js"></script>
 
 
   <script src="js/pwa.js"></script>
@@ -10472,6 +10368,26 @@
 
 
 
+
+    <div id="theme-modal" class="hidden fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 w-full max-w-sm">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-white font-bold text-lg">Escolher Tema</h2>
+        <button onclick="document.getElementById('theme-modal').classList.add('hidden')" class="text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+         <button onclick="document.body.classList.remove('light-mode'); document.getElementById('theme-modal').classList.add('hidden'); App.showToast('Modo Escuro Ativado');" class="bg-slate-800 border border-slate-700 rounded-xl p-4 text-center hover:border-blue-500 transition-all">
+           <i data-lucide="moon" class="w-6 h-6 text-blue-400 mx-auto mb-2"></i>
+           <span class="text-white text-sm font-bold">Escuro</span>
+         </button>
+         <button onclick="document.body.classList.add('light-mode'); document.getElementById('theme-modal').classList.add('hidden'); App.showToast('Modo Claro Ativado');" class="bg-slate-100 border border-slate-300 rounded-xl p-4 text-center hover:border-blue-500 transition-all">
+           <i data-lucide="sun" class="w-6 h-6 text-yellow-500 mx-auto mb-2"></i>
+           <span class="text-slate-900 text-sm font-bold">Claro</span>
+         </button>
+      </div>
+    </div>
+   </div>
+   
 </body>
 
 

@@ -9,169 +9,6 @@
  */
 
 const App = {
-  setTheme(themeId) {
-    alert('SETTING THEME: ' + themeId);
-    try { localStorage.setItem('app-theme', themeId); } catch(e) { console.warn('localStorage denied'); }
-    let styleEl = document.getElementById('dynamic-theme');
-    if (!styleEl) {
-      styleEl = document.createElement('style');
-      styleEl.id = 'dynamic-theme';
-      document.head.appendChild(styleEl);
-    }
-    
-    let css = '';
-    
-    if (themeId === 'superhero') {
-      css = `
-        :root {
-          --tw-slate-950: #0a3314;
-          --tw-slate-900: #0f4a1f;
-          --tw-slate-800: #146329;
-          --tw-slate-700: #1a7a34;
-          --tw-slate-600: #229c43;
-          --tw-slate-500: #2cbd52;
-          --tw-slate-400: #4ade6e;
-          --tw-slate-300: #86f09f;
-          --tw-slate-200: #bbf7cb;
-          
-          --tw-blue-600: #9cb85c;
-          --tw-blue-500: #D6CE15;
-          --tw-blue-400: #e8e34f;
-          --tw-blue-900: #082910;
-          
-          --tw-rose-950: #38110b;
-          --tw-rose-900: #541d14;
-        }      `;
-    } else if (themeId === 'nurture') {
-      css = `
-        :root {
-          --tw-slate-950: #0a3133;
-          --tw-slate-900: #0e4a4d;
-          --tw-slate-800: #136366;
-          --tw-slate-700: #1a7a7e;
-          --tw-slate-600: #249ea3;
-          --tw-slate-500: #2dc4ca;
-          --tw-slate-400: #5ce1e6;
-          --tw-slate-300: #93f1f5;
-          --tw-slate-200: #c9fafc;
-          
-          --tw-blue-600: #57BA98;
-          --tw-blue-500: #65CCB8;
-          --tw-blue-400: #8ae3d1;
-          --tw-blue-900: #082829;
-        }      `;
-    } else if (themeId === 'fivehundred') {
-      css = `
-        :root {
-          --tw-slate-950: #1c0d2e;
-          --tw-slate-900: #2c144a;
-          --tw-slate-800: #3e1d66;
-          --tw-slate-700: #4f2680;
-          --tw-slate-600: #6b35ad;
-          --tw-slate-500: #8843d9;
-          --tw-slate-400: #aa71eb;
-          --tw-slate-300: #ccabf5;
-          --tw-slate-200: #ebd6ff;
-          
-          --tw-blue-600: #9b46e8;
-          --tw-blue-500: #17E9E0;
-          --tw-blue-400: #FFB48F;
-          --tw-blue-900: #150924;
-          
-          --tw-emerald-400: #FCCD04;
-          --tw-emerald-500: #e3b700;
-        }      `;
-    } else if (themeId === 'umwelt') {
-      css = `
-        :root {
-          --tw-slate-950: #092a33;
-          --tw-slate-900: #0d404d;
-          --tw-slate-800: #125666;
-          --tw-slate-700: #176e82;
-          --tw-slate-600: #2190aa;
-          --tw-slate-500: #2bb4d4;
-          --tw-slate-400: #5eddfc;
-          --tw-slate-300: #9eeafd;
-          --tw-slate-200: #cff4fe;
-          
-          --tw-blue-600: #3AAFA9;
-          --tw-blue-500: #5dcbc5;
-          --tw-blue-400: #8fe1dd;
-          --tw-blue-900: #072026;
-        }      `;
-    } else {
-      // Default / empty
-      css = '';
-    }
-    
-    
-    if (themeId !== 'default' && themeId !== '' && css !== '') {
-      css += `
-        
-        /* Forcing Tailwind Overrides for Themes */
-        .bg-slate-950 { background-color: var(--tw-slate-950) !important; }
-        .bg-slate-900 { background-color: var(--tw-slate-900) !important; }
-        .bg-slate-900\/40 { background-color: color-mix(in srgb, var(--tw-slate-900) 40%, transparent) !important; }
-        .bg-slate-900\/50 { background-color: color-mix(in srgb, var(--tw-slate-900) 50%, transparent) !important; }
-        .bg-slate-900\/60 { background-color: color-mix(in srgb, var(--tw-slate-900) 60%, transparent) !important; }
-        .bg-slate-900\/80 { background-color: color-mix(in srgb, var(--tw-slate-900) 80%, transparent) !important; }
-        .bg-slate-900\/90 { background-color: color-mix(in srgb, var(--tw-slate-900) 90%, transparent) !important; }
-        .bg-slate-900\/95 { background-color: color-mix(in srgb, var(--tw-slate-900) 95%, transparent) !important; }
-        .bg-slate-800\/80 { background-color: color-mix(in srgb, var(--tw-slate-800) 80%, transparent) !important; }
-        .border-slate-800\/80 { border-color: color-mix(in srgb, var(--tw-slate-800) 80%, transparent) !important; }
-    
-        .bg-slate-800 { background-color: var(--tw-slate-800) !important; }
-        .bg-slate-700 { background-color: var(--tw-slate-700) !important; }
-        .text-slate-100 { color: var(--tw-slate-100) !important; }
-        .text-slate-200 { color: var(--tw-slate-200) !important; }
-        .text-slate-300 { color: var(--tw-slate-300) !important; }
-        .text-slate-400 { color: var(--tw-slate-400) !important; }
-        .text-slate-500 { color: var(--tw-slate-500) !important; }
-        .border-slate-800 { border-color: var(--tw-slate-800) !important; }
-        .border-slate-700 { border-color: var(--tw-slate-700) !important; }
-        
-        .bg-blue-600 { background-color: var(--tw-blue-600) !important; }
-        .hover\:bg-blue-500:hover { background-color: var(--tw-blue-500) !important; }
-        .text-blue-500 { color: var(--tw-blue-500) !important; }
-        .border-blue-500 { border-color: var(--tw-blue-500) !important; }
-        .focus\:border-blue-500:focus { border-color: var(--tw-blue-500) !important; }
-      `;
-    }
-    
-    
-    // Update visual selection
-    document.querySelectorAll('.theme-btn').forEach(btn => {
-      if (btn.dataset.theme === themeId || (themeId === 'default' && btn.dataset.theme === 'default')) {
-        btn.classList.add('theme-selected');
-      } else {
-        btn.classList.remove('theme-selected');
-      }
-    });
-    
-    
-    // Always inject the ring selection CSS, regardless of theme
-    css += `
-      .theme-selected .theme-ring {
-        box-shadow: 0 0 0 4px #0f172a, 0 0 0 6px #3b82f6 !important;
-      }
-    `;
-    
-    styleEl.innerHTML = css;
-
-
-    
-    // Show toast only if manually clicked (detect by checking if called after init)
-    if (document.readyState === 'complete') {
-        if(window.App && App.showToast) App.showToast('Tema atualizado com sucesso!', 'success');
-    }
-  },
-  
-  loadTheme() {
-    let saved = 'default';
-    try { saved = localStorage.getItem('app-theme') || 'default'; } catch(e) { console.warn('localStorage denied'); }
-    this.setTheme(saved);
-  },
-
   currentTab: 'dashboard',
   currentOptimizedResult: null,
   simulationState: {
@@ -186,7 +23,9 @@ const App = {
   },
 
   init() {
-    this.loadTheme();
+    this.renderDriversList();
+    this.initLiveMonitoring();
+
     this.initCargoCatalog();
     this.populateCargoDropdowns();
     this.loadCustomEventTypes();
@@ -1071,7 +910,7 @@ const App = {
     if (this.loginMode === 'login') {
         if (usersDb[id]) {
             appState.currentUser = usersDb[id];
-            try { localStorage.setItem('general_user', JSON.stringify(appState.currentUser)); } catch(e) { console.warn('localStorage denied'); }
+            localStorage.setItem('general_user', JSON.stringify(appState.currentUser));
             this.checkAuth();
         } else {
             const legacyUserJson = localStorage.getItem('general_user');
@@ -1102,7 +941,7 @@ const App = {
           appState.currentUser = { id, name, company, role, companyCnpj: cnpj, provider: 'manual' };
           usersDb[id] = appState.currentUser;
           localStorage.setItem('general_users_db', JSON.stringify(usersDb));
-          try { localStorage.setItem('general_user', JSON.stringify(appState.currentUser)); } catch(e) { console.warn('localStorage denied'); }
+          localStorage.setItem('general_user', JSON.stringify(appState.currentUser));
           
           if (window.db) {
              window.db.collection('users').doc(id).set(appState.currentUser).catch(e => console.error(e));
@@ -5003,12 +4842,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
   },
 
   saveProfile() {
-    alert('SAVE PROFILE CLICKED!');
-    if (!appState.currentUser) {
-        alert('NO CURRENT USER');
-        return;
-    }
-
+    if (!appState.currentUser) return;
     
     const newName = document.getElementById('profile-name').value;
     const newCompany = document.getElementById('profile-company').value;
@@ -5031,7 +4865,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
       appState.currentUser.email = newEmail;
       appState.currentUser.phone = newPhone;
       
-      try { localStorage.setItem('general_user', JSON.stringify(appState.currentUser)); } catch(e) { console.warn('localStorage denied'); }
+      localStorage.setItem('general_user', JSON.stringify(appState.currentUser));
       
       if (window.db) {
           let uid = appState.currentUser.email || appState.currentUser.id;
@@ -6301,59 +6135,6 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     }
   }
 ,
-
-  async saveLinkedDriver(e) {
-      e.preventDefault();
-      
-      const btn = e.target.querySelector('button[type="submit"]');
-      const oldHtml = btn.innerHTML;
-      btn.innerHTML = '<div class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> Salvando...';
-      btn.disabled = true;
-
-      try {
-          const name = document.getElementById('reg-driver-name').value.trim();
-          const cpf = document.getElementById('reg-driver-cpf').value.trim();
-          const phone = document.getElementById('reg-driver-phone').value.trim();
-          
-          if(!name || !cpf) {
-              this.showToast('Nome e CPF são obrigatórios.', 'error');
-              return;
-          }
-          
-          const cpfClean = cpf.replace(/\D/g, '');
-          if(cpfClean.length !== 11) {
-              this.showToast('CPF inválido.', 'error');
-              return;
-          }
-          
-          const companyCnpj = appState.currentUser?.companyCnpj || 'GENERIC_CNPJ';
-          
-          const driverData = {
-              id: cpfClean,
-              name: name,
-              cpf: cpf,
-              phone: phone,
-              companyCnpj: companyCnpj,
-              role: 'motorista',
-              driverType: 'vinculado',
-              registeredBy: appState.currentUser?.id || 'gestor',
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-          };
-          
-          await window.db.collection('users').doc(cpfClean).set(driverData, { merge: true });
-          
-          this.showToast('Motorista vinculado cadastrado com sucesso!', 'success');
-          e.target.reset();
-          
-          this.switchTab('planner');
-      } catch(err) {
-          console.error(err);
-          this.showToast('Erro ao cadastrar motorista.', 'error');
-      } finally {
-          btn.innerHTML = oldHtml;
-          btn.disabled = false;
-      }
-  },
   submitGoogleExtraInfo() {
     const company = document.getElementById('google-extra-company')?.value.trim();
     const cnpj = document.getElementById('google-extra-cnpj')?.value.trim();
@@ -6385,6 +6166,170 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
        this.showToast(`ðŸ”‘ Bem-vindo(a) via Google, ${window.tempGoogleUser.name}!`);
     }
   },
+
+  // --- GESTÃO DE MOTORISTAS ---
+  showDriverModal() {
+    const modal = document.getElementById('driver-modal');
+    if(modal) {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        document.getElementById('driver-modal-content').classList.remove('scale-95');
+        this.setDriverType('vinculado'); // default
+    }
+  },
+  hideDriverModal() {
+    const modal = document.getElementById('driver-modal');
+    if(modal) {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+        document.getElementById('driver-modal-content').classList.add('scale-95');
+        // Clear inputs
+        document.getElementById('driver-name').value = '';
+        document.getElementById('driver-cpf').value = '';
+        document.getElementById('driver-cnpj').value = '';
+    }
+  },
+  setDriverType(type) {
+    this.driverType = type;
+    const btnVinc = document.getElementById('btn-driver-type-vinculado');
+    const btnAuto = document.getElementById('btn-driver-type-autonomo');
+    const labelCnpj = document.getElementById('label-driver-cnpj');
+    
+    if(type === 'vinculado') {
+        btnVinc.className = 'bg-blue-600 text-white text-sm font-bold py-2 rounded-lg border border-blue-500 transition-all';
+        btnAuto.className = 'bg-slate-800 text-slate-400 text-sm font-bold py-2 rounded-lg border border-slate-700 transition-all hover:bg-slate-700 hover:text-slate-300';
+        labelCnpj.innerText = 'CNPJ da sua Empresa';
+    } else {
+        btnAuto.className = 'bg-blue-600 text-white text-sm font-bold py-2 rounded-lg border border-blue-500 transition-all';
+        btnVinc.className = 'bg-slate-800 text-slate-400 text-sm font-bold py-2 rounded-lg border border-slate-700 transition-all hover:bg-slate-700 hover:text-slate-300';
+        labelCnpj.innerText = 'CNPJ do Contratante';
+    }
+  },
+  saveDriver() {
+    const name = document.getElementById('driver-name').value.trim();
+    const cpf = document.getElementById('driver-cpf').value.trim();
+    const cnpj = document.getElementById('driver-cnpj').value.trim();
+    
+    if(!name || !cpf || !cnpj) {
+        this.showToast('Preencha todos os campos do motorista.', 'error');
+        return;
+    }
+    
+    let drivers = JSON.parse(localStorage.getItem('GENERAL_DRIVERS') || '[]');
+    drivers.push({
+        id: Date.now(),
+        type: this.driverType,
+        name,
+        cpf,
+        cnpj,
+        status: 'Ativo'
+    });
+    localStorage.setItem('GENERAL_DRIVERS', JSON.stringify(drivers));
+    
+    this.hideDriverModal();
+    this.showToast('Motorista cadastrado com sucesso!');
+    this.renderDriversList();
+  },
+  renderDriversList() {
+    const list = document.getElementById('drivers-list');
+    if(!list) return;
+    
+    const drivers = JSON.parse(localStorage.getItem('GENERAL_DRIVERS') || '[]');
+    if(drivers.length === 0) {
+        list.innerHTML = '<div class="col-span-2 p-4 border border-slate-800 border-dashed rounded-xl text-center text-slate-500 text-sm">Nenhum motorista cadastrado ainda.</div>';
+        return;
+    }
+    
+    list.innerHTML = drivers.map(d => `
+        <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl flex flex-col justify-between hover:border-slate-700 transition-colors">
+            <div>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold text-white">${d.name}</span>
+                    <span class="text-[9px] font-bold px-1.5 py-0.5 rounded uppercase ${d.type === 'vinculado' ? 'bg-blue-900/30 text-blue-400 border border-blue-800' : 'bg-amber-900/30 text-amber-400 border border-amber-800'}">${d.type}</span>
+                </div>
+                <div class="text-[10px] text-slate-400 space-y-0.5 font-mono">
+                    <p>CPF: ${d.cpf}</p>
+                    <p>CNPJ: ${d.cnpj}</p>
+                </div>
+            </div>
+            <div class="mt-3 pt-3 border-t border-slate-800 flex items-center justify-between">
+                <span class="text-[10px] text-emerald-400 flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3"></i> ${d.status}</span>
+                <button onclick="App.showToast('Função de edição em breve.')" class="text-slate-500 hover:text-blue-400"><i data-lucide="edit" class="w-3 h-3"></i></button>
+            </div>
+        </div>
+    `).join('');
+    
+    if(window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+  },
+  
+  // --- MONITORAMENTO AO VIVO ---
+  initLiveMonitoring() {
+    if(!this.monitoringChannel) {
+        this.monitoringChannel = new BroadcastChannel('general_monitoring_channel');
+        this.monitoringChannel.onmessage = (event) => {
+            this.handleLiveMonitoringData(event.data);
+        };
+    }
+  },
+  handleLiveMonitoringData(data) {
+    const idleContainer = document.getElementById('idle-monitoring-container');
+    const liveContainer = document.getElementById('live-monitoring-container');
+    const noSignal = document.getElementById('no-signal-overlay');
+    const alertCritical = document.getElementById('live-vital-alert');
+    const videoElem = document.getElementById('manager-live-video');
+    
+    if(!liveContainer) return;
+    
+    if(data.type === 'route_started') {
+        idleContainer.classList.add('hidden');
+        liveContainer.classList.remove('hidden');
+        document.getElementById('live-driver-name').innerText = data.driverName || 'Motorista Desconhecido';
+        document.getElementById('live-route-code').innerText = data.routeCode || 'Rota ' + Math.floor(Math.random()*1000);
+    }
+    else if(data.type === 'route_ended') {
+        idleContainer.classList.remove('hidden');
+        liveContainer.classList.add('hidden');
+        videoElem.srcObject = null;
+    }
+    else if(data.type === 'telemetry') {
+        // GPS
+        if(data.location) {
+            document.getElementById('live-location').innerText = `Lat: ${data.location.lat.toFixed(4)} Lng: ${data.location.lng.toFixed(4)}`;
+        }
+        
+        // Batimentos
+        if(data.heartRate) {
+            const hrElem = document.getElementById('live-heart-rate');
+            hrElem.innerHTML = `${data.heartRate} <span class="text-[10px] font-normal text-slate-500">BPM</span>`;
+            
+            if(data.heartRate < 50 || data.heartRate > 120) {
+                hrElem.classList.replace('text-white', 'text-rose-500');
+                alertCritical.classList.remove('hidden');
+            } else {
+                hrElem.classList.replace('text-rose-500', 'text-white');
+                alertCritical.classList.add('hidden');
+            }
+        }
+        
+        // Video Stream
+        // For a local demo, we pass the frame as dataURL or rely on WebRTC. 
+        // BroadcastChannel passing dataURL frames at low FPS is good enough for a demo.
+        if(data.videoFrame) {
+            noSignal.classList.add('hidden');
+            // Instead of srcObject, we can use a canvas or update poster
+            // To make it easy, we'll set it as a background image of the video parent, or just an img tag.
+            // Let's replace the video element with an image if it's not already.
+            let imgElem = document.getElementById('manager-live-img');
+            if(!imgElem) {
+                videoElem.style.display = 'none';
+                imgElem = document.createElement('img');
+                imgElem.id = 'manager-live-img';
+                imgElem.className = 'w-full h-full object-cover';
+                videoElem.parentElement.appendChild(imgElem);
+            }
+            imgElem.src = data.videoFrame;
+        }
+    }
+  }
+
 };
 
 window.addEventListener('DOMContentLoaded', () => {
