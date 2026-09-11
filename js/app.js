@@ -1008,6 +1008,69 @@ const App = {
     }
   },
 
+
+  formatCpfInput(input) {
+    let v = input.value.replace(/\D/g, "");
+    if (v.length > 11) v = v.slice(0, 11);
+    v = v.replace(/(\d{3})(\d)/, "$1.$2");
+    v = v.replace(/(\d{3})(\d)/, "$1.$2");
+    v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    input.value = v;
+  },
+
+  registerDriver(e) {
+    e.preventDefault();
+    if (!appState.currentUser || !appState.currentUser.companyCnpj) {
+      this.showToast('Você precisa configurar o CNPJ da empresa no seu perfil para cadastrar motoristas.', 'warning');
+      return;
+    }
+    const nameInput = document.getElementById('driver-register-name');
+    const cpfInput = document.getElementById('driver-register-cpf');
+    if (!nameInput || !cpfInput) return;
+    
+    const name = nameInput.value.trim();
+    const cpfRaw = cpfInput.value.replace(/\D/g, "");
+    
+    if (cpfRaw.length !== 11) {
+      this.showToast('CPF inválido. Digite 11 números.', 'warning');
+      return;
+    }
+    
+    if (!window.db) {
+      this.showToast('Erro de conexão.', 'error');
+      return;
+    }
+    
+    // Check if CPF already exists
+    window.db.collection('users').doc(cpfRaw).get().then(doc => {
+      if (doc.exists) {
+        this.showToast('Este CPF já está cadastrado no sistema!', 'warning');
+      } else {
+        // Register new driver
+        window.db.collection('users').doc(cpfRaw).set({
+          name: name,
+          cpf: cpfRaw,
+          role: 'motorista',
+          companyCnpj: appState.currentUser.companyCnpj,
+          createdAt: new Date().toISOString(),
+          status: 'Ativo',
+          avatarUrl: 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(name)
+        }).then(() => {
+          this.showToast('Motorista cadastrado com sucesso!', 'success');
+          nameInput.value = '';
+          cpfInput.value = '';
+          this.loadDriverEvaluations(); // Refresh list
+        }).catch(err => {
+          console.error("Erro ao cadastrar motorista: ", err);
+          this.showToast('Erro ao cadastrar motorista.', 'error');
+        });
+      }
+    }).catch(err => {
+      console.error(err);
+      this.showToast('Erro ao verificar CPF.', 'error');
+    });
+  },
+
   loadDriverEvaluations() {
     if (!appState.currentUser || !appState.currentUser.companyCnpj) {
         this.showToast('Você precisa configurar o CNPJ da empresa no seu perfil para ver os motoristas.', 'warning');
@@ -1180,6 +1243,8 @@ const App = {
     } else if (tabId === 'copilot') {
       this.renderCopilotTab();
     } else if (tabId === 'driver-evaluations') {
+      this.loadDriverEvaluations();
+    } else if (tabId === 'motoristas') {
       this.loadDriverEvaluations();
     } else if (tabId === 'risk-dashboard') {
       this.renderRiskDashboard();

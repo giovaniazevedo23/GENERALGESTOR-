@@ -4075,11 +4075,36 @@
         <h2 class="text-xl font-black text-white flex items-center gap-2">
           <i data-lucide="users" class="w-6 h-6 text-blue-400"></i> Gestão de Motoristas
         </h2>
+        <!-- Cadastro de Motorista -->
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-xl mb-6">
+          <div class="mb-6">
+            <h3 class="text-xl font-black text-white">Cadastro de Motoristas</h3>
+            <p class="text-sm text-slate-400">Cadastre um novo motorista para permitir seu acesso ao aplicativo.</p>
+          </div>
+          <form id="driver-register-form" onsubmit="App.registerDriver(event)" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-400 mb-1">Nome Completo</label>
+                <input type="text" id="driver-register-name" required class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-white text-sm focus:border-blue-500 outline-none" placeholder="Ex: João da Silva">
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-400 mb-1">CPF (Apenas números)</label>
+                <input type="text" id="driver-register-cpf" required maxlength="14" oninput="App.formatCpfInput(this)" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-white text-sm focus:border-blue-500 outline-none" placeholder="000.000.000-00">
+              </div>
+            </div>
+            <div class="flex justify-end mt-4">
+              <button type="submit" class="bg-emerald-600 hover:bg-emerald-500 text-white px-6 py-2.5 rounded-xl font-bold text-sm transition-all flex items-center gap-2 shadow-lg shadow-emerald-900/20">
+                <i data-lucide="user-plus" class="w-4 h-4"></i> Cadastrar Motorista
+              </button>
+            </div>
+          </form>
+        </div>
+        
         <!-- Gestão e Avaliação de Motoristas (NEW) -->
       <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-xl">
         <div class="flex items-center justify-between mb-6">
           <div>
-            <h3 class="text-xl font-black text-white">Avaliação de Motoristas</h3>
+            <h3 class="text-xl font-black text-white">Motoristas Cadastrados</h3>
             <p class="text-sm text-slate-400">Gerencie e avalie os condutores da sua empresa para a Tropa de Elite.</p>
           </div>
           <button onclick="if(window.App) App.loadDriverEvaluations()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl font-bold text-xs transition-all flex items-center gap-2">
