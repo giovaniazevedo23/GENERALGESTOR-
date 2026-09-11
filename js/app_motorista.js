@@ -6201,7 +6201,18 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
         const val = document.getElementById(`val-grav-${id}`);
         if(bar) bar.style.width = percent + '%';
         if(val) val.textContent = percent + '%';
-    ,
+    };
+    
+    if (incidents.length === 0) {
+        setBar('critical', 0);
+        setBar('high', 0);
+        setBar('medium', 0);
+    } else {
+        setBar('critical', 10);
+        setBar('high', 30);
+        setBar('medium', 60);
+    }
+  },
 
   // --- NOVO LOGIN CPF / AUTÔNOMO ---
   setLoginType(type) {
@@ -6347,6 +6358,12 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     // Notify Gestor
     if(this.monitoringChannel) {
         this.monitoringChannel.postMessage({ type: 'route_ended' });
+        if (window.db && appState.currentUser && appState.currentUser.cpf) {
+            window.db.collection('users').doc(appState.currentUser.cpf).update({ 
+                isTracking: false,
+                lastVideoFrame: null
+            }).catch(e => console.error(e));
+        }
     }
   },
   
@@ -6397,6 +6414,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
             loc = appState.currentLocation;
         }
         
+        
         this.monitoringChannel.postMessage({
             type: 'telemetry',
             heartRate: baseBpm,
@@ -6404,20 +6422,24 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
             videoFrame: frameData
         });
         
+        // --- NEW: Sincronizar com o Firebase a cada 3 segundos ---
+        // Usamos um contador para enviar o frame da cmera a cada 3 segundos, evitando sobrecarregar o Firebase.
+        if (!this.frameCounter) this.frameCounter = 0;
+        this.frameCounter++;
+        
+        if (this.frameCounter % 3 === 0 && window.db && appState.currentUser && appState.currentUser.cpf) {
+            window.db.collection('users').doc(appState.currentUser.cpf).update({
+                isTracking: true,
+                currentBpm: baseBpm,
+                lastVideoFrame: frameData,
+                location: loc,
+                lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
+            }).catch(e => console.error('Erro ao syncar telemetria no Firebase:', e));
+        }
+
+        
     }, 1000); // Send 1 frame/sec for demo purposes to avoid crashing localStorage/channel
   }
 
 };
     
-    if (incidents.length === 0) {
-        setBar('critical', 0);
-        setBar('high', 0);
-        setBar('medium', 0);
-    } else {
-        setBar('critical', 10);
-        setBar('high', 30);
-        setBar('medium', 60);
-    }
-  },
-
-}

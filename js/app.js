@@ -6328,7 +6328,111 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
   },
   
   // --- MONITORAMENTO AO VIVO ---
+
   initLiveMonitoring() {
+    // Listener no Firebase para Tropa em Campo e Painel Tático
+    if (window.db && appState.currentUser && appState.currentUser.companyCnpj) {
+        if (this.unsubLiveMonitoring) this.unsubLiveMonitoring(); // limpa o anterior se existir
+        
+        this.unsubLiveMonitoring = window.db.collection('users')
+            .where('companyCnpj', '==', appState.currentUser.companyCnpj)
+            .where('role', '==', 'motorista')
+            .where('isTracking', '==', true)
+            .onSnapshot(snap => {
+                const activeDrivers = [];
+                snap.forEach(doc => {
+                    const data = doc.data();
+                    activeDrivers.push({ id: doc.id, ...data });
+                });
+                this.renderTacticalMonitoring(activeDrivers);
+                this.renderTropaEmCampo(activeDrivers);
+            }, err => {
+                console.error("Erro ao escutar motoristas em rota:", err);
+            });
+    }
+  },
+  
+  renderTropaEmCampo(drivers) {
+      const container = document.getElementById('driver-rank-container');
+      if (!container) return;
+      
+      if (drivers.length === 0) {
+          container.innerHTML = '<div class="text-slate-500 text-xs italic">Nenhum motorista em campo no momento.</div>';
+          return;
+      }
+      
+      container.innerHTML = drivers.map(d => `
+          <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-xl border border-slate-700/50">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-full bg-slate-950 border border-indigo-500 flex items-center justify-center overflow-hidden">
+                ${d.avatarUrl ? `<img src="${d.avatarUrl}" class="w-full h-full object-cover">` : `<i data-lucide="user" class="w-4 h-4 text-indigo-500"></i>`}
+              </div>
+              <div>
+                <p class="text-xs font-bold text-white">${d.name || 'Motorista'}</p>
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">${d.currentBpm ? d.currentBpm + ' BPM' : 'Ativo'}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+            </div>
+          </div>
+      `).join('');
+      if (window.lucide) window.lucide.createIcons();
+  },
+  
+  renderTacticalMonitoring(drivers) {
+      const container = document.getElementById('live-tactical-monitoring');
+      if (!container) return;
+      
+      if (drivers.length === 0) {
+          container.innerHTML = '<div class="col-span-full text-slate-500 text-xs italic">Nenhum motorista transmitindo no momento.</div>';
+          return;
+      }
+      
+      container.innerHTML = drivers.map(d => `
+          <div class="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-lg relative group">
+             <!-- Video Feed Placeholder / Image -->
+             <div class="aspect-video w-full bg-slate-900 relative">
+                ${d.lastVideoFrame ? 
+                  `<img src="${d.lastVideoFrame}" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">` :
+                  `<div class="flex flex-col items-center justify-center h-full text-slate-600"><i data-lucide="video-off" class="w-8 h-8 mb-2"></i><span class="text-xs">Sem Câmera</span></div>`
+                }
+                
+                <div class="absolute top-2 right-2 bg-black/60 backdrop-blur border border-white/10 px-2 py-1 rounded-md flex items-center gap-1.5">
+                    <span class="relative flex h-1.5 w-1.5">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-rose-500"></span>
+                    </span>
+                    <span class="text-[9px] font-bold text-white tracking-widest uppercase">REC</span>
+                </div>
+                
+                <div class="absolute bottom-2 left-2 bg-black/60 backdrop-blur border border-white/10 px-2 py-1 rounded-md">
+                    <span class="text-[10px] font-bold text-white">${d.name || 'Motorista'}</span>
+                </div>
+             </div>
+             
+             <!-- Biometrics & Location -->
+             <div class="p-3 bg-slate-900/50 border-t border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="heart-pulse" class="w-4 h-4 ${d.currentBpm > 100 || d.currentBpm < 50 ? 'text-rose-500' : 'text-emerald-500'}"></i>
+                    <span class="text-xs font-bold text-white">${d.currentBpm || '--'} <span class="text-[9px] text-slate-500 font-normal">BPM</span></span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i data-lucide="map-pin" class="w-3 h-3 text-blue-400"></i>
+                    <span class="text-[10px] text-slate-400">Em Rota</span>
+                </div>
+             </div>
+          </div>
+      `).join('');
+      if (window.lucide) window.lucide.createIcons();
+  },
+
+
+  // OLD_INIT
+  old_initLiveMonitoring() {
     if(!this.monitoringChannel) {
         this.monitoringChannel = new BroadcastChannel('general_monitoring_channel');
         this.monitoringChannel.onmessage = (event) => {
