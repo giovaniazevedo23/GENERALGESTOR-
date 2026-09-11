@@ -156,12 +156,23 @@
 
 
     <style>
-    body.light-mode { background: #f8fafc; color: #0f172a; }
-    body.light-mode .bg-slate-950 { background-color: #f1f5f9 !important; }
+    body.light-mode { background-color: #f8fafc; color: #0f172a; }
+    body.light-mode .bg-slate-950 { background-color: #f8fafc !important; }
     body.light-mode .bg-slate-900 { background-color: #ffffff !important; border-color: #e2e8f0 !important; }
-    body.light-mode .text-slate-400 { color: #64748b !important; }
+    body.light-mode .bg-slate-800 { background-color: #f1f5f9 !important; border-color: #cbd5e1 !important; }
+    body.light-mode .text-slate-100, body.light-mode .text-slate-200, body.light-mode .text-slate-300, body.light-mode .text-slate-400 { color: #475569 !important; }
+    body.light-mode h1, body.light-mode h2, body.light-mode h3, body.light-mode h4 { color: #0f172a !important; }
+    body.light-mode label { color: #334155 !important; }
+    body.light-mode input, body.light-mode select, body.light-mode textarea { background-color: #ffffff !important; color: #0f172a !important; border-color: #cbd5e1 !important; }
+    
+    /* Safely invert white text, EXCEPT inside colored buttons */
     body.light-mode .text-white { color: #0f172a !important; }
-    body.light-mode .border-slate-800, body.light-mode .border-slate-700 { border-color: #e2e8f0 !important; }
+    body.light-mode button.bg-blue-600 .text-white, body.light-mode button.bg-emerald-600 .text-white, body.light-mode button.bg-rose-600 .text-white { color: #ffffff !important; }
+    body.light-mode button.bg-blue-600, body.light-mode button.bg-emerald-600, body.light-mode button.bg-rose-600 { color: #ffffff !important; }
+    
+    /* specific overrides for sidebar active */
+    body.light-mode .nav-button.bg-blue-600 { color: #ffffff !important; }
+    body.light-mode .nav-button.bg-blue-600 i { color: #ffffff !important; }
     </style>
     
 </head>
@@ -874,7 +885,7 @@
 
           
           <!-- Motoristas Vinculados -->
-          <button data-tab="driver-evaluations" onclick="App.switchTab('driver-evaluations')" class="nav-button w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all group">
+          <button data-tab="motoristas" onclick="App.switchTab('motoristas')" class="nav-button w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all group">
             <i data-lucide="users" class="w-4 h-4 opacity-50 group-hover:opacity-100 group-[.active]:opacity-100 group-[.active]:text-blue-400 transition-opacity"></i>
             Motoristas
           </button>
@@ -4058,6 +4069,29 @@
       <!-- VIEW: INDICADORES E KPIS -->
 
 
+      
+      <!-- VIEW: MOTORISTAS -->
+      <div id="view-motoristas" class="tab-view hidden space-y-6">
+        <h2 class="text-xl font-black text-white flex items-center gap-2">
+          <i data-lucide="users" class="w-6 h-6 text-blue-400"></i> Gestão de Motoristas
+        </h2>
+        <!-- Gestão e Avaliação de Motoristas (NEW) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-xl">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h3 class="text-xl font-black text-white">Avaliação de Motoristas</h3>
+            <p class="text-sm text-slate-400">Gerencie e avalie os condutores da sua empresa para a Tropa de Elite.</p>
+          </div>
+          <button onclick="if(window.App) App.loadDriverEvaluations()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl font-bold text-xs transition-all flex items-center gap-2">
+            <i data-lucide="refresh-cw" class="w-4 h-4"></i> Atualizar Lista
+          </button>
+        </div>
+        
+        <div id="driver-evaluation-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="text-slate-400 text-sm italic col-span-full">Clique em "Atualizar Lista" para carregar os motoristas da sua empresa.</div>
+        </div>
+      </div>
+
       <div id="view-indicators" class="tab-view hidden space-y-6">
 
 
@@ -4308,21 +4342,7 @@
 
 
 
-      <!-- Gestão e Avaliação de Motoristas (NEW) -->
-      <div class="mt-8 bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-xl">
-        <div class="flex items-center justify-between mb-6">
-          <div>
-            <h3 class="text-xl font-black text-white">Avaliação de Motoristas</h3>
-            <p class="text-sm text-slate-400">Gerencie e avalie os condutores da sua empresa para a Tropa de Elite.</p>
-          </div>
-          <button onclick="if(window.App) App.loadDriverEvaluations()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl font-bold text-xs transition-all flex items-center gap-2">
-            <i data-lucide="refresh-cw" class="w-4 h-4"></i> Atualizar Lista
-          </button>
-        </div>
-        
-        <div id="driver-evaluation-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div class="text-slate-400 text-sm italic col-span-full">Clique em "Atualizar Lista" para carregar os motoristas da sua empresa.</div>
-        </div>
+      
       </div>
 
 
