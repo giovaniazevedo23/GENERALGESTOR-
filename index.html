@@ -467,19 +467,7 @@
 
 
 
-        <div class="flex items-center gap-1.5 bg-slate-950/80 px-2 py-1 rounded-lg sm:rounded-xl border border-slate-800/80 overflow-hidden max-w-[140px] sm:max-w-xs">
-
-
-          <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse flex-shrink-0"></span>
-
-
-          <span id="header-incident-title" class="text-[9px] sm:text-xs font-bold text-slate-200 truncate">Carregando...</span>
-
-
-          <span id="header-risk-score" class="px-1.5 py-0.5 text-[8px] sm:text-[10px] font-black rounded-full border flex-shrink-0">--/100</span>
-
-
-        </div>
+        <button onclick="document.getElementById('theme-modal').classList.remove('hidden')" class="p-2 text-slate-400 hover:text-white transition-colors" title="Tema de Interface"><i data-lucide="paintbrush" class="w-5 h-5"></i></button>
 
 
       </div>
@@ -886,7 +874,7 @@
 
           
           <!-- Motoristas Vinculados -->
-          <button data-tab="motoristas" onclick="App.switchTab('motoristas')" class="nav-button w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all group">
+          <button data-tab="driver-evaluations" onclick="App.switchTab('driver-evaluations')" class="nav-button w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white hover:bg-slate-800/50 transition-all group">
             <i data-lucide="users" class="w-4 h-4 opacity-50 group-hover:opacity-100 group-[.active]:opacity-100 group-[.active]:text-blue-400 transition-opacity"></i>
             Motoristas
           </button>

@@ -1179,6 +1179,8 @@ const App = {
       this.renderSavedPlansTab();
     } else if (tabId === 'copilot') {
       this.renderCopilotTab();
+    } else if (tabId === 'driver-evaluations') {
+      this.loadDriverEvaluations();
     } else if (tabId === 'risk-dashboard') {
       this.renderRiskDashboard();
     }
@@ -4179,7 +4181,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     if (!inc || inc.status === 'CONCLUIDA') {
       if (workspaceGrid) workspaceGrid.style.display = 'none';
       if (checklistSummary) checklistSummary.style.display = 'none';
-      if (headerTitle) headerTitle.textContent = "Nenhuma ocorrência ativa";
+      
       if (riskScoreEl) {
         riskScoreEl.textContent = "--/100";
         riskScoreEl.className = "px-2 py-0.5 text-[10px] font-black rounded-full border border-slate-700 text-slate-500 bg-slate-800/50";
@@ -4216,7 +4218,7 @@ Retorne APENAS o HTML da view, usando classes do Tailwind CSS. Não inclua \`\`\
     if (workspaceGrid) workspaceGrid.style.display = '';
     if (checklistSummary) checklistSummary.style.display = '';
 
-    if (headerTitle) headerTitle.textContent = `${inc.id} â€¢ ${inc.title}`;
+    
 
     if (riskScoreEl) {
       riskScoreEl.textContent = `${risk.score}/100`;
